@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package google.protobuf;
+
+option csharp_namespace = "Tracer";
+
+//Data
+message CreateFileData {
+    string file_path =  1;
+}
+
+message DeleteFileData {
+    string file_path =  1;
+}
+
+message InsertFileData {
+    string file_path  = 1;
+    uint32 line = 2;
+    uint32 offset = 3;
+    string data = 4;
+}
+
+message EraseFileData {
+    string file_path  = 1;
+    uint32 line = 2;
+    uint32 offset_start = 3;
+    uint32 offset_end = 4;
+}
+//End Data
+
+message TraceTransaction {
+    enum TraceTransactionType {
+        CreateFile = 0;
+        DeleteFile = 1;
+        InsertFile = 2;
+        EraseFile = 3;
+    }
+
+  TraceTransactionType type = 1;
+  uint32 time_offset_ms = 2;
+
+  oneof data {
+    CreateFileData create_file = 3;
+    DeleteFileData delete_file = 4;
+    InsertFileData insert_file = 5;
+    EraseFileData erase_file = 6;
+  }
+}
+
+message TraceTransactionLog {
+    uint32 partition = 1;
+    repeated TraceTransaction transactions = 2;
+}
+
+message TraceProject {
+    string id = 1;
+    uint32 duration = 2;
+    uint32 partition_size = 3;
+}

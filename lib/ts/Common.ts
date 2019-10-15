@@ -1,4 +1,4 @@
-import { TraceProject } from "../../models/ts/Tracer_pb"
+import { TraceProject } from '../../models/ts/Tracer_pb';
 
 export function PartitionFromOffsetBottom(project: TraceProject, offset: number) {
     return (offset - (offset % project.getPartitionSize())) / project.getPartitionSize();

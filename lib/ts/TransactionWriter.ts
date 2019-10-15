@@ -1,4 +1,4 @@
-import { TraceProject, TraceTransactionLog } from "../../models/ts/Tracer_pb";
+import { TraceProject, TraceTransactionLog } from '../../models/ts/Tracer_pb';
 
 export abstract class TransactionWriter {
     constructor(public project: TraceProject) {

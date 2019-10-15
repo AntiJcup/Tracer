@@ -6,14 +6,13 @@ export abstract class TransactionLoader {
     }
 
     public LoadTraceTransactionLog(project: TraceProject, partition: number): TraceTransactionLog {
-        let traceTransactionLog: TraceTransactionLog = null;
-        // TODO read in transaction log
+        const traceTransactionLog: TraceTransactionLog = TraceTransactionLog.deserializeBinary(
+            this.GetTransactionLogStream(project, partition));
         return traceTransactionLog;
     }
 
     public LoadProject(id: string): TraceProject {
-        let traceProject: TraceProject = null;
-        // TODO read in trace project
+        const traceProject: TraceProject = TraceProject.deserializeBinary(this.GetProjectStream(id));
         return traceProject;
     }
 
@@ -31,6 +30,6 @@ export abstract class TransactionLoader {
         return transactionLogs;
     }
 
-    protected abstract GetTransactionLogStream(project: TraceProject, partition: number): string;
-    protected abstract GetProjectStream(id: string): string;
+    protected abstract GetTransactionLogStream(project: TraceProject, partition: number): Uint8Array;
+    protected abstract GetProjectStream(id: string): Uint8Array;
 }

@@ -13,13 +13,14 @@ export abstract class TransactionLoader {
 
     public LoadProject(id: string): TraceProject {
         const traceProject: TraceProject = TraceProject.deserializeBinary(this.GetProjectStream(id));
+        
         return traceProject;
     }
 
     public GetTransactionLogs(project: TraceProject, startTime: number, endTime: number): TraceTransactionLog[] {
         const transactionLogs: TraceTransactionLog[] = new Array<TraceTransactionLog>();
-        const partitionStart = PartitionFromOffsetBottom(project, startTime);
-        const partitionEnd = PartitionFromOffsetTop(project, endTime);
+        const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
+        const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
 
         for (let partition = partitionStart; partition <= partitionEnd; partition++) {
             const transactionLog = this.LoadTraceTransactionLog(project, partition);

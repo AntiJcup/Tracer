@@ -34,13 +34,13 @@ export class TransactionTracker {
         return transactionLog;
     }
 
-    protected AddTransaction(transaction: TraceTransaction) {
+    protected AddTransaction(transaction: TraceTransaction): void {
         const transactionLog = this.GetTransactionLogByTimeOffset(transaction.getTimeOffsetMs());
         transactionLog.addTransactions(transaction);
         this.project.setDuration(this.project.getDuration() + transaction.getTimeOffsetMs());
     }
 
-    public CreateFile(timeOffset: number, filePath: string) {
+    public CreateFile(timeOffset: number, filePath: string): void {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -51,7 +51,7 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public DeleteFile(timeOffset: number, filePath: string) {
+    public DeleteFile(timeOffset: number, filePath: string): void {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.DELETEFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -62,7 +62,7 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public InsertFile(timeOffset: number, filePath: string, line: number, offset: number, insertData: string) {
+    public InsertFile(timeOffset: number, filePath: string, line: number, offset: number, insertData: string): void {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.INSERTFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -76,7 +76,7 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public EraseFile(timeOffset: number, filePath: string, line: number, offsetStart: number, offsetEnd: number) {
+    public EraseFile(timeOffset: number, filePath: string, line: number, offsetStart: number, offsetEnd: number): void {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.ERASEFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -90,7 +90,7 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public SaveChanges() {
+    public SaveChanges(): void {
         this.transactionWriter.SaveProject();
         this.transactionWriter.SaveTransactionLogs(this.transactionLogs);
     }

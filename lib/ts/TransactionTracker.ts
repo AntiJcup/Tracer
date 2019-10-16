@@ -15,7 +15,7 @@ export class TransactionTracker {
     protected changed: boolean;
 
     constructor(public project: TraceProject, private transactionLogs: TraceTransactionLog[],
-                private partitionOffset: number, private transactionWriter: TransactionWriter) {
+        private partitionOffset: number, private transactionWriter: TransactionWriter) {
     }
 
     protected GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
@@ -62,14 +62,16 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public InsertFile(timeOffset: number, filePath: string, line: number, offset: number, insertData: string): void {
+    public InsertFile(timeOffset: number, filePath: string, line: number, offsetStart: number,
+                      offsetEnd: number, insertData: string): void {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.INSERTFILE);
         transaction.setTimeOffsetMs(timeOffset);
         const data = new InsertFileData();
         data.setFilePath(filePath);
         data.setLine(line);
-        data.setOffset(offset);
+        data.setOffsetStart(offsetStart);
+        data.setOffsetEnd(offsetEnd);
         data.setData(insertData);
         transaction.setInsertFile(data);
 

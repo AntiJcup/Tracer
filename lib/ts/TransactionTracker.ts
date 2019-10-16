@@ -15,7 +15,7 @@ export class TransactionTracker {
     protected changed: boolean;
 
     constructor(public project: TraceProject, private transactionLogs: TraceTransactionLog[],
-        private partitionOffset: number, private transactionWriter: TransactionWriter) {
+                private partitionOffset: number, private transactionWriter: TransactionWriter) {
     }
 
     protected GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {

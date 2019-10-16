@@ -462,8 +462,9 @@ proto.google.protobuf.InsertFileData.toObject = function(includeInstance, msg) {
   var f, obj = {
     filePath: jspb.Message.getFieldWithDefault(msg, 1, ""),
     line: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    offset: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    data: jspb.Message.getFieldWithDefault(msg, 4, "")
+    offsetStart: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    offsetEnd: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    data: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -510,9 +511,13 @@ proto.google.protobuf.InsertFileData.deserializeBinaryFromReader = function(msg,
       break;
     case 3:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setOffset(value);
+      msg.setOffsetStart(value);
       break;
     case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setOffsetEnd(value);
+      break;
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setData(value);
       break;
@@ -559,17 +564,24 @@ proto.google.protobuf.InsertFileData.serializeBinaryToWriter = function(message,
       f
     );
   }
-  f = message.getOffset();
+  f = message.getOffsetStart();
   if (f !== 0) {
     writer.writeUint32(
       3,
       f
     );
   }
+  f = message.getOffsetEnd();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
   f = message.getData();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      5,
       f
     );
   }
@@ -613,10 +625,10 @@ proto.google.protobuf.InsertFileData.prototype.setLine = function(value) {
 
 
 /**
- * optional uint32 offset = 3;
+ * optional uint32 offset_start = 3;
  * @return {number}
  */
-proto.google.protobuf.InsertFileData.prototype.getOffset = function() {
+proto.google.protobuf.InsertFileData.prototype.getOffsetStart = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
@@ -625,17 +637,35 @@ proto.google.protobuf.InsertFileData.prototype.getOffset = function() {
  * @param {number} value
  * @return {!proto.google.protobuf.InsertFileData} returns this
  */
-proto.google.protobuf.InsertFileData.prototype.setOffset = function(value) {
+proto.google.protobuf.InsertFileData.prototype.setOffsetStart = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
- * optional string data = 4;
+ * optional uint32 offset_end = 4;
+ * @return {number}
+ */
+proto.google.protobuf.InsertFileData.prototype.getOffsetEnd = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.google.protobuf.InsertFileData} returns this
+ */
+proto.google.protobuf.InsertFileData.prototype.setOffsetEnd = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional string data = 5;
  * @return {string}
  */
 proto.google.protobuf.InsertFileData.prototype.getData = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
@@ -644,7 +674,7 @@ proto.google.protobuf.InsertFileData.prototype.getData = function() {
  * @return {!proto.google.protobuf.InsertFileData} returns this
  */
 proto.google.protobuf.InsertFileData.prototype.setData = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 

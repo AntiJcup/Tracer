@@ -64,52 +64,53 @@ namespace Tracer
             Project.Duration += transaction.TimeOffsetMs;
         }
 
-        public void CreateFile(UInt32 timeOffset, string file_path)
+        public void CreateFile(UInt32 timeOffset, string filePath)
         {
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.CreateFile;
             transaction.TimeOffsetMs = timeOffset;
             var data = new CreateFileData();
-            data.FilePath = file_path;
+            data.FilePath = filePath;
             transaction.CreateFile = data;
 
             AddTransaction(transaction);
         }
 
-        public void DeleteFile(UInt32 timeOffset, string file_path)
+        public void DeleteFile(UInt32 timeOffset, string filePath)
         {
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.DeleteFile;
             transaction.TimeOffsetMs = timeOffset;
             var data = new DeleteFileData();
-            data.FilePath = file_path;
+            data.FilePath = filePath;
             transaction.DeleteFile = data;
 
             AddTransaction(transaction);
         }
 
-        public void InsertFile(UInt32 timeOffset, string file_path, UInt32 line, UInt32 offset, string insertData)
+        public void InsertFile(UInt32 timeOffset, string filePath, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd, string insertData)
         {
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.InsertFile;
             transaction.TimeOffsetMs = timeOffset;
             var data = new InsertFileData();
-            data.FilePath = file_path;
+            data.FilePath = filePath;
             data.Line = line;
-            data.Offset = offset;
+            data.OffsetStart = offsetStart;
+            data.OffsetEnd = offsetEnd;
             data.Data = insertData;
             transaction.InsertFile = data;
 
             AddTransaction(transaction);
         }
 
-        public void EraseFile(UInt32 timeOffset, string file_path, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd)
+        public void EraseFile(UInt32 timeOffset, string filePath, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd)
         {
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.EraseFile;
             transaction.TimeOffsetMs = timeOffset;
             var data = new EraseFileData();
-            data.FilePath = file_path;
+            data.FilePath = filePath;
             data.Line = line;
             data.OffsetStart = offsetStart;
             data.OffsetEnd = offsetEnd;

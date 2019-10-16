@@ -50,8 +50,11 @@ export class InsertFileData extends jspb.Message {
   getLine(): number;
   setLine(value: number): void;
 
-  getOffset(): number;
-  setOffset(value: number): void;
+  getOffsetStart(): number;
+  setOffsetStart(value: number): void;
+
+  getOffsetEnd(): number;
+  setOffsetEnd(value: number): void;
 
   getData(): string;
   setData(value: string): void;
@@ -70,7 +73,8 @@ export namespace InsertFileData {
   export type AsObject = {
     filePath: string,
     line: number,
-    offset: number,
+    offsetStart: number,
+    offsetEnd: number,
     data: string,
   }
 }

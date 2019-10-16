@@ -26,30 +26,31 @@ namespace Tracer {
           string.Concat(
             "CgxUcmFjZXIucHJvdG8SD2dvb2dsZS5wcm90b2J1ZiIjCg5DcmVhdGVGaWxl",
             "RGF0YRIRCglmaWxlX3BhdGgYASABKAkiIwoORGVsZXRlRmlsZURhdGESEQoJ",
-            "ZmlsZV9wYXRoGAEgASgJIk8KDkluc2VydEZpbGVEYXRhEhEKCWZpbGVfcGF0",
-            "aBgBIAEoCRIMCgRsaW5lGAIgASgNEg4KBm9mZnNldBgDIAEoDRIMCgRkYXRh",
-            "GAQgASgJIloKDUVyYXNlRmlsZURhdGESEQoJZmlsZV9wYXRoGAEgASgJEgwK",
-            "BGxpbmUYAiABKA0SFAoMb2Zmc2V0X3N0YXJ0GAMgASgNEhIKCm9mZnNldF9l",
-            "bmQYBCABKA0irQMKEFRyYWNlVHJhbnNhY3Rpb24SRAoEdHlwZRgBIAEoDjI2",
-            "Lmdvb2dsZS5wcm90b2J1Zi5UcmFjZVRyYW5zYWN0aW9uLlRyYWNlVHJhbnNh",
-            "Y3Rpb25UeXBlEhYKDnRpbWVfb2Zmc2V0X21zGAIgASgNEjYKC2NyZWF0ZV9m",
-            "aWxlGAMgASgLMh8uZ29vZ2xlLnByb3RvYnVmLkNyZWF0ZUZpbGVEYXRhSAAS",
-            "NgoLZGVsZXRlX2ZpbGUYBCABKAsyHy5nb29nbGUucHJvdG9idWYuRGVsZXRl",
-            "RmlsZURhdGFIABI2CgtpbnNlcnRfZmlsZRgFIAEoCzIfLmdvb2dsZS5wcm90",
-            "b2J1Zi5JbnNlcnRGaWxlRGF0YUgAEjQKCmVyYXNlX2ZpbGUYBiABKAsyHi5n",
-            "b29nbGUucHJvdG9idWYuRXJhc2VGaWxlRGF0YUgAIlUKFFRyYWNlVHJhbnNh",
-            "Y3Rpb25UeXBlEg4KCkNyZWF0ZUZpbGUQABIOCgpEZWxldGVGaWxlEAESDgoK",
-            "SW5zZXJ0RmlsZRACEg0KCUVyYXNlRmlsZRADQgYKBGRhdGEiYQoTVHJhY2VU",
-            "cmFuc2FjdGlvbkxvZxIRCglwYXJ0aXRpb24YASABKA0SNwoMdHJhbnNhY3Rp",
-            "b25zGAIgAygLMiEuZ29vZ2xlLnByb3RvYnVmLlRyYWNlVHJhbnNhY3Rpb24i",
-            "RAoMVHJhY2VQcm9qZWN0EgoKAmlkGAEgASgJEhAKCGR1cmF0aW9uGAIgASgN",
-            "EhYKDnBhcnRpdGlvbl9zaXplGAMgASgNQgmqAgZUcmFjZXJiBnByb3RvMw=="));
+            "ZmlsZV9wYXRoGAEgASgJImkKDkluc2VydEZpbGVEYXRhEhEKCWZpbGVfcGF0",
+            "aBgBIAEoCRIMCgRsaW5lGAIgASgNEhQKDG9mZnNldF9zdGFydBgDIAEoDRIS",
+            "CgpvZmZzZXRfZW5kGAQgASgNEgwKBGRhdGEYBSABKAkiWgoNRXJhc2VGaWxl",
+            "RGF0YRIRCglmaWxlX3BhdGgYASABKAkSDAoEbGluZRgCIAEoDRIUCgxvZmZz",
+            "ZXRfc3RhcnQYAyABKA0SEgoKb2Zmc2V0X2VuZBgEIAEoDSKtAwoQVHJhY2VU",
+            "cmFuc2FjdGlvbhJECgR0eXBlGAEgASgOMjYuZ29vZ2xlLnByb3RvYnVmLlRy",
+            "YWNlVHJhbnNhY3Rpb24uVHJhY2VUcmFuc2FjdGlvblR5cGUSFgoOdGltZV9v",
+            "ZmZzZXRfbXMYAiABKA0SNgoLY3JlYXRlX2ZpbGUYAyABKAsyHy5nb29nbGUu",
+            "cHJvdG9idWYuQ3JlYXRlRmlsZURhdGFIABI2CgtkZWxldGVfZmlsZRgEIAEo",
+            "CzIfLmdvb2dsZS5wcm90b2J1Zi5EZWxldGVGaWxlRGF0YUgAEjYKC2luc2Vy",
+            "dF9maWxlGAUgASgLMh8uZ29vZ2xlLnByb3RvYnVmLkluc2VydEZpbGVEYXRh",
+            "SAASNAoKZXJhc2VfZmlsZRgGIAEoCzIeLmdvb2dsZS5wcm90b2J1Zi5FcmFz",
+            "ZUZpbGVEYXRhSAAiVQoUVHJhY2VUcmFuc2FjdGlvblR5cGUSDgoKQ3JlYXRl",
+            "RmlsZRAAEg4KCkRlbGV0ZUZpbGUQARIOCgpJbnNlcnRGaWxlEAISDQoJRXJh",
+            "c2VGaWxlEANCBgoEZGF0YSJhChNUcmFjZVRyYW5zYWN0aW9uTG9nEhEKCXBh",
+            "cnRpdGlvbhgBIAEoDRI3Cgx0cmFuc2FjdGlvbnMYAiADKAsyIS5nb29nbGUu",
+            "cHJvdG9idWYuVHJhY2VUcmFuc2FjdGlvbiJECgxUcmFjZVByb2plY3QSCgoC",
+            "aWQYASABKAkSEAoIZHVyYXRpb24YAiABKA0SFgoOcGFydGl0aW9uX3NpemUY",
+            "AyABKA1CCaoCBlRyYWNlcmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CreateFileData), global::Tracer.CreateFileData.Parser, new[]{ "FilePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.DeleteFileData), global::Tracer.DeleteFileData.Parser, new[]{ "FilePath" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.InsertFileData), global::Tracer.InsertFileData.Parser, new[]{ "FilePath", "Line", "Offset", "Data" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.InsertFileData), global::Tracer.InsertFileData.Parser, new[]{ "FilePath", "Line", "OffsetStart", "OffsetEnd", "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.EraseFileData), global::Tracer.EraseFileData.Parser, new[]{ "FilePath", "Line", "OffsetStart", "OffsetEnd" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "CreateFile", "DeleteFile", "InsertFile", "EraseFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLog), global::Tracer.TraceTransactionLog.Parser, new[]{ "Partition", "Transactions" }, null, null, null, null),
@@ -348,7 +349,8 @@ namespace Tracer {
     public InsertFileData(InsertFileData other) : this() {
       filePath_ = other.filePath_;
       line_ = other.line_;
-      offset_ = other.offset_;
+      offsetStart_ = other.offsetStart_;
+      offsetEnd_ = other.offsetEnd_;
       data_ = other.data_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -380,19 +382,30 @@ namespace Tracer {
       }
     }
 
-    /// <summary>Field number for the "offset" field.</summary>
-    public const int OffsetFieldNumber = 3;
-    private uint offset_;
+    /// <summary>Field number for the "offset_start" field.</summary>
+    public const int OffsetStartFieldNumber = 3;
+    private uint offsetStart_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint Offset {
-      get { return offset_; }
+    public uint OffsetStart {
+      get { return offsetStart_; }
       set {
-        offset_ = value;
+        offsetStart_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "offset_end" field.</summary>
+    public const int OffsetEndFieldNumber = 4;
+    private uint offsetEnd_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint OffsetEnd {
+      get { return offsetEnd_; }
+      set {
+        offsetEnd_ = value;
       }
     }
 
     /// <summary>Field number for the "data" field.</summary>
-    public const int DataFieldNumber = 4;
+    public const int DataFieldNumber = 5;
     private string data_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Data {
@@ -417,7 +430,8 @@ namespace Tracer {
       }
       if (FilePath != other.FilePath) return false;
       if (Line != other.Line) return false;
-      if (Offset != other.Offset) return false;
+      if (OffsetStart != other.OffsetStart) return false;
+      if (OffsetEnd != other.OffsetEnd) return false;
       if (Data != other.Data) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -427,7 +441,8 @@ namespace Tracer {
       int hash = 1;
       if (FilePath.Length != 0) hash ^= FilePath.GetHashCode();
       if (Line != 0) hash ^= Line.GetHashCode();
-      if (Offset != 0) hash ^= Offset.GetHashCode();
+      if (OffsetStart != 0) hash ^= OffsetStart.GetHashCode();
+      if (OffsetEnd != 0) hash ^= OffsetEnd.GetHashCode();
       if (Data.Length != 0) hash ^= Data.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -450,12 +465,16 @@ namespace Tracer {
         output.WriteRawTag(16);
         output.WriteUInt32(Line);
       }
-      if (Offset != 0) {
+      if (OffsetStart != 0) {
         output.WriteRawTag(24);
-        output.WriteUInt32(Offset);
+        output.WriteUInt32(OffsetStart);
+      }
+      if (OffsetEnd != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(OffsetEnd);
       }
       if (Data.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteString(Data);
       }
       if (_unknownFields != null) {
@@ -472,8 +491,11 @@ namespace Tracer {
       if (Line != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Line);
       }
-      if (Offset != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Offset);
+      if (OffsetStart != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(OffsetStart);
+      }
+      if (OffsetEnd != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(OffsetEnd);
       }
       if (Data.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Data);
@@ -495,8 +517,11 @@ namespace Tracer {
       if (other.Line != 0) {
         Line = other.Line;
       }
-      if (other.Offset != 0) {
-        Offset = other.Offset;
+      if (other.OffsetStart != 0) {
+        OffsetStart = other.OffsetStart;
+      }
+      if (other.OffsetEnd != 0) {
+        OffsetEnd = other.OffsetEnd;
       }
       if (other.Data.Length != 0) {
         Data = other.Data;
@@ -521,10 +546,14 @@ namespace Tracer {
             break;
           }
           case 24: {
-            Offset = input.ReadUInt32();
+            OffsetStart = input.ReadUInt32();
             break;
           }
-          case 34: {
+          case 32: {
+            OffsetEnd = input.ReadUInt32();
+            break;
+          }
+          case 42: {
             Data = input.ReadString();
             break;
           }

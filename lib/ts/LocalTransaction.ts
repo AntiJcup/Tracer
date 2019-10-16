@@ -34,6 +34,9 @@ export class LocalTransactionWriter extends TransactionWriter {
 
 export class LocalTransactionLoader extends TransactionLoader {
     protected GetTransactionLogStream(project: TraceProject, partition: number): Uint8Array {
+        if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
+            return null;
+        }
         return window.transactionLogCache[project.getId()][partition];
     }
 

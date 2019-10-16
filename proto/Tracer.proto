@@ -26,6 +26,14 @@ message EraseFileData {
     uint32 offset_start = 3;
     uint32 offset_end = 4;
 }
+
+message ModifyFileData {
+    string file_path  = 1;
+    uint32 line = 2;
+    uint32 offset_start = 3;
+    uint32 offset_end = 4;
+    string data = 4;
+}
 //End Data
 
 message TraceTransaction {
@@ -34,6 +42,7 @@ message TraceTransaction {
         DeleteFile = 1;
         InsertFile = 2;
         EraseFile = 3;
+        ModifyFile = 4;
     }
 
   TraceTransactionType type = 1;
@@ -44,6 +53,7 @@ message TraceTransaction {
     DeleteFileData delete_file = 4;
     InsertFileData insert_file = 5;
     EraseFileData erase_file = 6;
+    ModifyFileData modify_file = 7;
   }
 }
 

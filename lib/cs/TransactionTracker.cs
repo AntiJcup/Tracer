@@ -88,7 +88,7 @@ namespace Tracer
             AddTransaction(transaction);
         }
 
-        public void ModifyFile(UInt32 timeOffset, string filePath, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd, string insertData)
+        public void ModifyFile(UInt32 timeOffset, string filePath, UInt32 offsetStart, UInt32 offsetEnd, string insertData)
         {
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.ModifyFile;

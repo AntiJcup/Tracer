@@ -4,8 +4,7 @@ import {
     TraceTransaction,
     CreateFileData,
     DeleteFileData,
-    ModifyFileData,
-    EraseFileData
+    ModifyFileData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 import { TransactionWriter } from './TransactionWriter';
@@ -44,8 +43,8 @@ export class TransactionTracker {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
         transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
         const data = new CreateFileData();
-        data.setFilePath(filePath);
         transaction.setCreateFile(data);
 
         this.AddTransaction(transaction);
@@ -55,39 +54,24 @@ export class TransactionTracker {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.DELETEFILE);
         transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
         const data = new DeleteFileData();
-        data.setFilePath(filePath);
         transaction.setDeleteFile(data);
 
         this.AddTransaction(transaction);
     }
 
-    public ModifyFile(timeOffset: number, filePath: string, line: number, offsetStart: number,
+    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number,
                       offsetEnd: number, insertData: string): void {
         const transaction = new TraceTransaction();
-        transaction.setType(TraceTransaction.TraceTransactionType.ModifyFile);
+        transaction.setType(TraceTransaction.TraceTransactionType.MODIFYFILE);
         transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
         const data = new ModifyFileData();
-        data.setFilePath(filePath);
-        data.setLine(line);
         data.setOffsetStart(offsetStart);
         data.setOffsetEnd(offsetEnd);
         data.setData(insertData);
         transaction.setModifyFile(data);
-
-        this.AddTransaction(transaction);
-    }
-
-    public EraseFile(timeOffset: number, filePath: string, line: number, offsetStart: number, offsetEnd: number): void {
-        const transaction = new TraceTransaction();
-        transaction.setType(TraceTransaction.TraceTransactionType.ERASEFILE);
-        transaction.setTimeOffsetMs(timeOffset);
-        const data = new EraseFileData();
-        data.setFilePath(filePath);
-        data.setLine(line);
-        data.setOffsetStart(offsetStart);
-        data.setOffsetEnd(offsetEnd);
-        transaction.setEraseFile(data);
 
         this.AddTransaction(transaction);
     }

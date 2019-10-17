@@ -4,9 +4,6 @@
 import * as jspb from "google-protobuf";
 
 export class CreateFileData extends jspb.Message {
-  getFilePath(): string;
-  setFilePath(value: string): void;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateFileData.AsObject;
   static toObject(includeInstance: boolean, msg: CreateFileData): CreateFileData.AsObject;
@@ -19,14 +16,10 @@ export class CreateFileData extends jspb.Message {
 
 export namespace CreateFileData {
   export type AsObject = {
-    filePath: string,
   }
 }
 
 export class DeleteFileData extends jspb.Message {
-  getFilePath(): string;
-  setFilePath(value: string): void;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteFileData.AsObject;
   static toObject(includeInstance: boolean, msg: DeleteFileData): DeleteFileData.AsObject;
@@ -39,17 +32,10 @@ export class DeleteFileData extends jspb.Message {
 
 export namespace DeleteFileData {
   export type AsObject = {
-    filePath: string,
   }
 }
 
 export class ModifyFileData extends jspb.Message {
-  getFilePath(): string;
-  setFilePath(value: string): void;
-
-  getLine(): number;
-  setLine(value: number): void;
-
   getOffsetStart(): number;
   setOffsetStart(value: number): void;
 
@@ -71,21 +57,29 @@ export class ModifyFileData extends jspb.Message {
 
 export namespace ModifyFileData {
   export type AsObject = {
-    filePath: string,
-    line: number,
     offsetStart: number,
     offsetEnd: number,
     data: string,
   }
 }
 
-export class EraseFileData extends jspb.Message {
-  getFilePath(): string;
-  setFilePath(value: string): void;
+export class SelectFileData extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SelectFileData.AsObject;
+  static toObject(includeInstance: boolean, msg: SelectFileData): SelectFileData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: SelectFileData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SelectFileData;
+  static deserializeBinaryFromReader(message: SelectFileData, reader: jspb.BinaryReader): SelectFileData;
+}
 
-  getLine(): number;
-  setLine(value: number): void;
+export namespace SelectFileData {
+  export type AsObject = {
+  }
+}
 
+export class CursorChangeFileData extends jspb.Message {
   getOffsetStart(): number;
   setOffsetStart(value: number): void;
 
@@ -93,21 +87,39 @@ export class EraseFileData extends jspb.Message {
   setOffsetEnd(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): EraseFileData.AsObject;
-  static toObject(includeInstance: boolean, msg: EraseFileData): EraseFileData.AsObject;
+  toObject(includeInstance?: boolean): CursorChangeFileData.AsObject;
+  static toObject(includeInstance: boolean, msg: CursorChangeFileData): CursorChangeFileData.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: EraseFileData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): EraseFileData;
-  static deserializeBinaryFromReader(message: EraseFileData, reader: jspb.BinaryReader): EraseFileData;
+  static serializeBinaryToWriter(message: CursorChangeFileData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CursorChangeFileData;
+  static deserializeBinaryFromReader(message: CursorChangeFileData, reader: jspb.BinaryReader): CursorChangeFileData;
 }
 
-export namespace EraseFileData {
+export namespace CursorChangeFileData {
   export type AsObject = {
-    filePath: string,
-    line: number,
     offsetStart: number,
     offsetEnd: number,
+  }
+}
+
+export class RenameFileData extends jspb.Message {
+  getNewFilePath(): string;
+  setNewFilePath(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RenameFileData.AsObject;
+  static toObject(includeInstance: boolean, msg: RenameFileData): RenameFileData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: RenameFileData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RenameFileData;
+  static deserializeBinaryFromReader(message: RenameFileData, reader: jspb.BinaryReader): RenameFileData;
+}
+
+export namespace RenameFileData {
+  export type AsObject = {
+    newFilePath: string,
   }
 }
 
@@ -117,6 +129,9 @@ export class TraceTransaction extends jspb.Message {
 
   getTimeOffsetMs(): number;
   setTimeOffsetMs(value: number): void;
+
+  getFilePath(): string;
+  setFilePath(value: string): void;
 
   hasCreateFile(): boolean;
   clearCreateFile(): void;
@@ -133,10 +148,20 @@ export class TraceTransaction extends jspb.Message {
   getModifyFile(): ModifyFileData | undefined;
   setModifyFile(value?: ModifyFileData): void;
 
-  hasEraseFile(): boolean;
-  clearEraseFile(): void;
-  getEraseFile(): EraseFileData | undefined;
-  setEraseFile(value?: EraseFileData): void;
+  hasSelectFile(): boolean;
+  clearSelectFile(): void;
+  getSelectFile(): SelectFileData | undefined;
+  setSelectFile(value?: SelectFileData): void;
+
+  hasCursorFile(): boolean;
+  clearCursorFile(): void;
+  getCursorFile(): CursorChangeFileData | undefined;
+  setCursorFile(value?: CursorChangeFileData): void;
+
+  hasRenameFile(): boolean;
+  clearRenameFile(): void;
+  getRenameFile(): RenameFileData | undefined;
+  setRenameFile(value?: RenameFileData): void;
 
   getDataCase(): TraceTransaction.DataCase;
   serializeBinary(): Uint8Array;
@@ -153,27 +178,34 @@ export namespace TraceTransaction {
   export type AsObject = {
     type: TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap],
     timeOffsetMs: number,
+    filePath: string,
     createFile?: CreateFileData.AsObject,
     deleteFile?: DeleteFileData.AsObject,
-    ModifyFile?: ModifyFileData.AsObject,
-    eraseFile?: EraseFileData.AsObject,
+    modifyFile?: ModifyFileData.AsObject,
+    selectFile?: SelectFileData.AsObject,
+    cursorFile?: CursorChangeFileData.AsObject,
+    renameFile?: RenameFileData.AsObject,
   }
 
   export interface TraceTransactionTypeMap {
     CREATEFILE: 0;
     DELETEFILE: 1;
-    ModifyFile: 2;
-    ERASEFILE: 3;
+    MODIFYFILE: 2;
+    SELECTFILE: 3;
+    CURSORFILE: 4;
+    RENAMEFILE: 5;
   }
 
   export const TraceTransactionType: TraceTransactionTypeMap;
 
   export enum DataCase {
     DATA_NOT_SET = 0,
-    CREATE_FILE = 3,
-    DELETE_FILE = 4,
-    modify_file = 5,
-    ERASE_FILE = 6,
+    CREATE_FILE = 4,
+    DELETE_FILE = 5,
+    MODIFY_FILE = 6,
+    SELECT_FILE = 7,
+    CURSOR_FILE = 8,
+    RENAME_FILE = 9,
   }
 }
 

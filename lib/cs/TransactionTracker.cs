@@ -69,8 +69,8 @@ namespace Tracer
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.CreateFile;
             transaction.TimeOffsetMs = timeOffset;
+            transaction.FilePath = filePath;
             var data = new CreateFileData();
-            data.FilePath = filePath;
             transaction.CreateFile = data;
 
             AddTransaction(transaction);
@@ -81,8 +81,8 @@ namespace Tracer
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.DeleteFile;
             transaction.TimeOffsetMs = timeOffset;
+            transaction.FilePath = filePath;
             var data = new DeleteFileData();
-            data.FilePath = filePath;
             transaction.DeleteFile = data;
 
             AddTransaction(transaction);
@@ -93,9 +93,8 @@ namespace Tracer
             var transaction = new TraceTransaction();
             transaction.Type = TraceTransaction.Types.TraceTransactionType.ModifyFile;
             transaction.TimeOffsetMs = timeOffset;
+            transaction.FilePath = filePath;
             var data = new ModifyFileData();
-            data.FilePath = filePath;
-            data.Line = line;
             data.OffsetStart = offsetStart;
             data.OffsetEnd = offsetEnd;
             data.Data = insertData;
@@ -103,22 +102,7 @@ namespace Tracer
 
             AddTransaction(transaction);
         }
-
-        public void EraseFile(UInt32 timeOffset, string filePath, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd)
-        {
-            var transaction = new TraceTransaction();
-            transaction.Type = TraceTransaction.Types.TraceTransactionType.EraseFile;
-            transaction.TimeOffsetMs = timeOffset;
-            var data = new EraseFileData();
-            data.FilePath = filePath;
-            data.Line = line;
-            data.OffsetStart = offsetStart;
-            data.OffsetEnd = offsetEnd;
-            transaction.EraseFile = data;
-
-            AddTransaction(transaction);
-        }
-
+        
         public void SaveChanges()
         {
             var writer = Activator.CreateInstance(typeof(TWriter), GetWriterArgs()) as TWriter;

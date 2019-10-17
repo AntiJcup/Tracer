@@ -4,7 +4,10 @@ import {
     TraceTransaction,
     CreateFileData,
     DeleteFileData,
-    ModifyFileData
+    ModifyFileData,
+    SelectFileData,
+    CursorChangeFileData,
+    RenameFileData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 import { TransactionWriter } from './TransactionWriter';
@@ -13,8 +16,11 @@ export class TransactionTracker {
     // tslint:disable-next-line: variable-name
     protected changed: boolean;
 
-    constructor(public project: TraceProject, private transactionLogs: TraceTransactionLog[],
-                private partitionOffset: number, private transactionWriter: TransactionWriter) {
+    constructor(
+        public project: TraceProject,
+        private transactionLogs: TraceTransactionLog[],
+        private partitionOffset: number,
+        private transactionWriter: TransactionWriter) {
     }
 
     protected GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
@@ -61,8 +67,7 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number,
-                      offsetEnd: number, insertData: string): void {
+    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number, insertData: string): void {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.MODIFYFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -72,6 +77,42 @@ export class TransactionTracker {
         data.setOffsetEnd(offsetEnd);
         data.setData(insertData);
         transaction.setModifyFile(data);
+
+        this.AddTransaction(transaction);
+    }
+
+    public SelectFile(timeOffset: number, filePath: string): void {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.SELECTFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
+        const data = new SelectFileData();
+        transaction.setSelectFile(data);
+
+        this.AddTransaction(transaction);
+    }
+
+    public CursorFocusChangeFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number): void {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
+        const data = new CursorChangeFileData();
+        data.setOffsetStart(offsetStart);
+        data.setOffsetEnd(offsetEnd);
+        transaction.setCursorFile(data);
+
+        this.AddTransaction(transaction);
+    }
+
+    public RenameFile(timeOffset: number, filePath: string, newFilePath: string): void {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
+        const data = new RenameFileData();
+        data.setNewFilePath(filePath);
+        transaction.setRenameFile(data);
 
         this.AddTransaction(transaction);
     }

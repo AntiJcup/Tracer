@@ -88,18 +88,18 @@ namespace Tracer
             AddTransaction(transaction);
         }
 
-        public void InsertFile(UInt32 timeOffset, string filePath, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd, string insertData)
+        public void ModifyFile(UInt32 timeOffset, string filePath, UInt32 line, UInt32 offsetStart, UInt32 offsetEnd, string insertData)
         {
             var transaction = new TraceTransaction();
-            transaction.Type = TraceTransaction.Types.TraceTransactionType.InsertFile;
+            transaction.Type = TraceTransaction.Types.TraceTransactionType.ModifyFile;
             transaction.TimeOffsetMs = timeOffset;
-            var data = new InsertFileData();
+            var data = new ModifyFileData();
             data.FilePath = filePath;
             data.Line = line;
             data.OffsetStart = offsetStart;
             data.OffsetEnd = offsetEnd;
             data.Data = insertData;
-            transaction.InsertFile = data;
+            transaction.ModifyFile = data;
 
             AddTransaction(transaction);
         }

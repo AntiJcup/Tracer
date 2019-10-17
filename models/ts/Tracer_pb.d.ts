@@ -43,7 +43,7 @@ export namespace DeleteFileData {
   }
 }
 
-export class InsertFileData extends jspb.Message {
+export class ModifyFileData extends jspb.Message {
   getFilePath(): string;
   setFilePath(value: string): void;
 
@@ -60,16 +60,16 @@ export class InsertFileData extends jspb.Message {
   setData(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): InsertFileData.AsObject;
-  static toObject(includeInstance: boolean, msg: InsertFileData): InsertFileData.AsObject;
+  toObject(includeInstance?: boolean): ModifyFileData.AsObject;
+  static toObject(includeInstance: boolean, msg: ModifyFileData): ModifyFileData.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: InsertFileData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): InsertFileData;
-  static deserializeBinaryFromReader(message: InsertFileData, reader: jspb.BinaryReader): InsertFileData;
+  static serializeBinaryToWriter(message: ModifyFileData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ModifyFileData;
+  static deserializeBinaryFromReader(message: ModifyFileData, reader: jspb.BinaryReader): ModifyFileData;
 }
 
-export namespace InsertFileData {
+export namespace ModifyFileData {
   export type AsObject = {
     filePath: string,
     line: number,
@@ -128,10 +128,10 @@ export class TraceTransaction extends jspb.Message {
   getDeleteFile(): DeleteFileData | undefined;
   setDeleteFile(value?: DeleteFileData): void;
 
-  hasInsertFile(): boolean;
-  clearInsertFile(): void;
-  getInsertFile(): InsertFileData | undefined;
-  setInsertFile(value?: InsertFileData): void;
+  hasModifyFile(): boolean;
+  clearModifyFile(): void;
+  getModifyFile(): ModifyFileData | undefined;
+  setModifyFile(value?: ModifyFileData): void;
 
   hasEraseFile(): boolean;
   clearEraseFile(): void;
@@ -155,14 +155,14 @@ export namespace TraceTransaction {
     timeOffsetMs: number,
     createFile?: CreateFileData.AsObject,
     deleteFile?: DeleteFileData.AsObject,
-    insertFile?: InsertFileData.AsObject,
+    ModifyFile?: ModifyFileData.AsObject,
     eraseFile?: EraseFileData.AsObject,
   }
 
   export interface TraceTransactionTypeMap {
     CREATEFILE: 0;
     DELETEFILE: 1;
-    INSERTFILE: 2;
+    ModifyFile: 2;
     ERASEFILE: 3;
   }
 
@@ -172,7 +172,7 @@ export namespace TraceTransaction {
     DATA_NOT_SET = 0,
     CREATE_FILE = 3,
     DELETE_FILE = 4,
-    INSERT_FILE = 5,
+    modify_file = 5,
     ERASE_FILE = 6,
   }
 }

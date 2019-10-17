@@ -4,7 +4,7 @@ import {
     TraceTransaction,
     CreateFileData,
     DeleteFileData,
-    InsertFileData,
+    ModifyFileData,
     EraseFileData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
@@ -62,18 +62,18 @@ export class TransactionTracker {
         this.AddTransaction(transaction);
     }
 
-    public InsertFile(timeOffset: number, filePath: string, line: number, offsetStart: number,
+    public ModifyFile(timeOffset: number, filePath: string, line: number, offsetStart: number,
                       offsetEnd: number, insertData: string): void {
         const transaction = new TraceTransaction();
-        transaction.setType(TraceTransaction.TraceTransactionType.INSERTFILE);
+        transaction.setType(TraceTransaction.TraceTransactionType.ModifyFile);
         transaction.setTimeOffsetMs(timeOffset);
-        const data = new InsertFileData();
+        const data = new ModifyFileData();
         data.setFilePath(filePath);
         data.setLine(line);
         data.setOffsetStart(offsetStart);
         data.setOffsetEnd(offsetEnd);
         data.setData(insertData);
-        transaction.setInsertFile(data);
+        transaction.setModifyFile(data);
 
         this.AddTransaction(transaction);
     }

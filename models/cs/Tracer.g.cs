@@ -50,9 +50,9 @@ namespace Tracer {
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CreateFileData), global::Tracer.CreateFileData.Parser, new[]{ "FilePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.DeleteFileData), global::Tracer.DeleteFileData.Parser, new[]{ "FilePath" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.InsertFileData), global::Tracer.InsertFileData.Parser, new[]{ "FilePath", "Line", "OffsetStart", "OffsetEnd", "Data" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.ModifyFileData), global::Tracer.ModifyFileData.Parser, new[]{ "FilePath", "Line", "OffsetStart", "OffsetEnd", "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.EraseFileData), global::Tracer.EraseFileData.Parser, new[]{ "FilePath", "Line", "OffsetStart", "OffsetEnd" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "CreateFile", "DeleteFile", "InsertFile", "EraseFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "CreateFile", "DeleteFile", "ModifyFile", "EraseFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLog), global::Tracer.TraceTransactionLog.Parser, new[]{ "Partition", "Transactions" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceProject), global::Tracer.TraceProject.Parser, new[]{ "Id", "Duration", "PartitionSize" }, null, null, null, null)
           }));
@@ -322,11 +322,11 @@ namespace Tracer {
 
   }
 
-  public sealed partial class InsertFileData : pb::IMessage<InsertFileData> {
-    private static readonly pb::MessageParser<InsertFileData> _parser = new pb::MessageParser<InsertFileData>(() => new InsertFileData());
+  public sealed partial class ModifyFileData : pb::IMessage<ModifyFileData> {
+    private static readonly pb::MessageParser<ModifyFileData> _parser = new pb::MessageParser<ModifyFileData>(() => new ModifyFileData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<InsertFileData> Parser { get { return _parser; } }
+    public static pb::MessageParser<ModifyFileData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -339,14 +339,14 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public InsertFileData() {
+    public ModifyFileData() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public InsertFileData(InsertFileData other) : this() {
+    public ModifyFileData(ModifyFileData other) : this() {
       filePath_ = other.filePath_;
       line_ = other.line_;
       offsetStart_ = other.offsetStart_;
@@ -356,8 +356,8 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public InsertFileData Clone() {
-      return new InsertFileData(this);
+    public ModifyFileData Clone() {
+      return new ModifyFileData(this);
     }
 
     /// <summary>Field number for the "file_path" field.</summary>
@@ -417,11 +417,11 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as InsertFileData);
+      return Equals(other as ModifyFileData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(InsertFileData other) {
+    public bool Equals(ModifyFileData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -507,7 +507,7 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(InsertFileData other) {
+    public void MergeFrom(ModifyFileData other) {
       if (other == null) {
         return;
       }
@@ -810,8 +810,8 @@ namespace Tracer {
         case DataOneofCase.DeleteFile:
           DeleteFile = other.DeleteFile.Clone();
           break;
-        case DataOneofCase.InsertFile:
-          InsertFile = other.InsertFile.Clone();
+        case DataOneofCase.ModifyFile:
+          ModifyFile = other.ModifyFile.Clone();
           break;
         case DataOneofCase.EraseFile:
           EraseFile = other.EraseFile.Clone();
@@ -870,14 +870,14 @@ namespace Tracer {
       }
     }
 
-    /// <summary>Field number for the "insert_file" field.</summary>
-    public const int InsertFileFieldNumber = 5;
+    /// <summary>Field number for the "modify_file" field.</summary>
+    public const int ModifyFileFieldNumber = 5;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Tracer.InsertFileData InsertFile {
-      get { return dataCase_ == DataOneofCase.InsertFile ? (global::Tracer.InsertFileData) data_ : null; }
+    public global::Tracer.ModifyFileData ModifyFile {
+      get { return dataCase_ == DataOneofCase.ModifyFile ? (global::Tracer.ModifyFileData) data_ : null; }
       set {
         data_ = value;
-        dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.InsertFile;
+        dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.ModifyFile;
       }
     }
 
@@ -898,7 +898,7 @@ namespace Tracer {
       None = 0,
       CreateFile = 3,
       DeleteFile = 4,
-      InsertFile = 5,
+      ModifyFile = 5,
       EraseFile = 6,
     }
     private DataOneofCase dataCase_ = DataOneofCase.None;
@@ -930,7 +930,7 @@ namespace Tracer {
       if (TimeOffsetMs != other.TimeOffsetMs) return false;
       if (!object.Equals(CreateFile, other.CreateFile)) return false;
       if (!object.Equals(DeleteFile, other.DeleteFile)) return false;
-      if (!object.Equals(InsertFile, other.InsertFile)) return false;
+      if (!object.Equals(ModifyFile, other.ModifyFile)) return false;
       if (!object.Equals(EraseFile, other.EraseFile)) return false;
       if (DataCase != other.DataCase) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -943,7 +943,7 @@ namespace Tracer {
       if (TimeOffsetMs != 0) hash ^= TimeOffsetMs.GetHashCode();
       if (dataCase_ == DataOneofCase.CreateFile) hash ^= CreateFile.GetHashCode();
       if (dataCase_ == DataOneofCase.DeleteFile) hash ^= DeleteFile.GetHashCode();
-      if (dataCase_ == DataOneofCase.InsertFile) hash ^= InsertFile.GetHashCode();
+      if (dataCase_ == DataOneofCase.ModifyFile) hash ^= ModifyFile.GetHashCode();
       if (dataCase_ == DataOneofCase.EraseFile) hash ^= EraseFile.GetHashCode();
       hash ^= (int) dataCase_;
       if (_unknownFields != null) {
@@ -975,9 +975,9 @@ namespace Tracer {
         output.WriteRawTag(34);
         output.WriteMessage(DeleteFile);
       }
-      if (dataCase_ == DataOneofCase.InsertFile) {
+      if (dataCase_ == DataOneofCase.ModifyFile) {
         output.WriteRawTag(42);
-        output.WriteMessage(InsertFile);
+        output.WriteMessage(ModifyFile);
       }
       if (dataCase_ == DataOneofCase.EraseFile) {
         output.WriteRawTag(50);
@@ -1003,8 +1003,8 @@ namespace Tracer {
       if (dataCase_ == DataOneofCase.DeleteFile) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(DeleteFile);
       }
-      if (dataCase_ == DataOneofCase.InsertFile) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(InsertFile);
+      if (dataCase_ == DataOneofCase.ModifyFile) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ModifyFile);
       }
       if (dataCase_ == DataOneofCase.EraseFile) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(EraseFile);
@@ -1039,11 +1039,11 @@ namespace Tracer {
           }
           DeleteFile.MergeFrom(other.DeleteFile);
           break;
-        case DataOneofCase.InsertFile:
-          if (InsertFile == null) {
-            InsertFile = new global::Tracer.InsertFileData();
+        case DataOneofCase.ModifyFile:
+          if (ModifyFile == null) {
+            ModifyFile = new global::Tracer.ModifyFileData();
           }
-          InsertFile.MergeFrom(other.InsertFile);
+          ModifyFile.MergeFrom(other.ModifyFile);
           break;
         case DataOneofCase.EraseFile:
           if (EraseFile == null) {
@@ -1091,12 +1091,12 @@ namespace Tracer {
             break;
           }
           case 42: {
-            global::Tracer.InsertFileData subBuilder = new global::Tracer.InsertFileData();
-            if (dataCase_ == DataOneofCase.InsertFile) {
-              subBuilder.MergeFrom(InsertFile);
+            global::Tracer.ModifyFileData subBuilder = new global::Tracer.ModifyFileData();
+            if (dataCase_ == DataOneofCase.ModifyFile) {
+              subBuilder.MergeFrom(ModifyFile);
             }
             input.ReadMessage(subBuilder);
-            InsertFile = subBuilder;
+            ModifyFile = subBuilder;
             break;
           }
           case 50: {
@@ -1119,7 +1119,7 @@ namespace Tracer {
       public enum TraceTransactionType {
         [pbr::OriginalName("CreateFile")] CreateFile = 0,
         [pbr::OriginalName("DeleteFile")] DeleteFile = 1,
-        [pbr::OriginalName("InsertFile")] InsertFile = 2,
+        [pbr::OriginalName("ModifyFile")] ModifyFile = 2,
         [pbr::OriginalName("EraseFile")] EraseFile = 3,
       }
 

@@ -6,26 +6,28 @@ option csharp_namespace = "Tracer";
 
 //Data
 message CreateFileData {
-    string file_path =  1;
+    
 }
 
 message DeleteFileData {
-    string file_path =  1;
 }
 
-message InsertFileData {
-    string file_path  = 1;
-    uint32 line = 2;
-    uint32 offset_start = 3;
-    uint32 offset_end = 4;
-    string data = 5;
+message ModifyFileData {
+    uint32 offset_start = 1;
+    uint32 offset_end = 2;
+    string data = 3;
 }
 
-message EraseFileData {
-    string file_path  = 1;
-    uint32 line = 2;
-    uint32 offset_start = 3;
-    uint32 offset_end = 4;
+message SelectFileData {
+}
+
+message CursorChangeFileData {
+    uint32 offset_start = 1;
+    uint32 offset_end = 2;
+}
+
+message RenameFileData {
+    string new_file_path = 1;
 }
 //End Data
 
@@ -33,18 +35,23 @@ message TraceTransaction {
     enum TraceTransactionType {
         CreateFile = 0;
         DeleteFile = 1;
-        InsertFile = 2;
-        EraseFile = 3;
+        ModifyFile = 2;
+        SelectFile = 3;
+        CursorFile = 4;
+        RenameFile = 5;
     }
 
   TraceTransactionType type = 1;
   uint32 time_offset_ms = 2;
+  string file_path =  3;
 
   oneof data {
-    CreateFileData create_file = 3;
-    DeleteFileData delete_file = 4;
-    InsertFileData insert_file = 5;
-    EraseFileData erase_file = 6;
+    CreateFileData create_file = 4;
+    DeleteFileData delete_file = 5;
+    ModifyFileData modify_file = 6;
+    SelectFileData select_file = 7;
+    CursorChangeFileData cursor_file = 8;
+    RenameFileData rename_file = 9;
   }
 }
 

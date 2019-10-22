@@ -23,7 +23,7 @@ export class TransactionTracker {
         private transactionWriter: TransactionWriter) {
     }
 
-    protected GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
+    public GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
         let transactionLog: TraceTransactionLog = null;
         const partition = PartitionFromOffsetBottom(this.project, timeOffset);
         while (partition >= (this.transactionLogs.length)) {
@@ -39,13 +39,14 @@ export class TransactionTracker {
         return transactionLog;
     }
 
-    protected AddTransaction(transaction: TraceTransaction): void {
+    protected AddTransaction(transaction: TraceTransaction): TraceTransaction {
         const transactionLog = this.GetTransactionLogByTimeOffset(transaction.getTimeOffsetMs());
         transactionLog.addTransactions(transaction);
         this.project.setDuration(this.project.getDuration() + transaction.getTimeOffsetMs());
+        return transaction;
     }
 
-    public CreateFile(timeOffset: number, filePath: string): void {
+    public CreateFile(timeOffset: number, filePath: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -53,10 +54,10 @@ export class TransactionTracker {
         const data = new CreateFileData();
         transaction.setCreateFile(data);
 
-        this.AddTransaction(transaction);
+        return this.AddTransaction(transaction);
     }
 
-    public DeleteFile(timeOffset: number, filePath: string): void {
+    public DeleteFile(timeOffset: number, filePath: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.DELETEFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -64,10 +65,10 @@ export class TransactionTracker {
         const data = new DeleteFileData();
         transaction.setDeleteFile(data);
 
-        this.AddTransaction(transaction);
+        return this.AddTransaction(transaction);
     }
 
-    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number, insertData: string): void {
+    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number, insertData: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.MODIFYFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -78,10 +79,10 @@ export class TransactionTracker {
         data.setData(insertData);
         transaction.setModifyFile(data);
 
-        this.AddTransaction(transaction);
+        return this.AddTransaction(transaction);
     }
 
-    public SelectFile(timeOffset: number, filePath: string): void {
+    public SelectFile(timeOffset: number, filePath: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.SELECTFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -89,10 +90,10 @@ export class TransactionTracker {
         const data = new SelectFileData();
         transaction.setSelectFile(data);
 
-        this.AddTransaction(transaction);
+        return this.AddTransaction(transaction);
     }
 
-    public CursorFocusChangeFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number): void {
+    public CursorFocusChangeFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -102,10 +103,10 @@ export class TransactionTracker {
         data.setOffsetEnd(offsetEnd);
         transaction.setCursorFile(data);
 
-        this.AddTransaction(transaction);
+        return this.AddTransaction(transaction);
     }
 
-    public RenameFile(timeOffset: number, filePath: string, newFilePath: string): void {
+    public RenameFile(timeOffset: number, filePath: string, newFilePath: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -114,7 +115,7 @@ export class TransactionTracker {
         data.setNewFilePath(filePath);
         transaction.setRenameFile(data);
 
-        this.AddTransaction(transaction);
+        return this.AddTransaction(transaction);
     }
 
     public SaveChanges(): void {

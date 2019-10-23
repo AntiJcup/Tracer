@@ -2,28 +2,40 @@ import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 
 export abstract class TransactionLoader {
+    protected transactionLogCache: { [projectId: string]: { [partition: string]: TraceTransactionLog } } = {};
+
     constructor() {
     }
 
-    public LoadTraceTransactionLog(project: TraceProject, partition: number): TraceTransactionLog {
+    public async LoadTraceTransactionLog(project: TraceProject, partition: string): Promise<TraceTransactionLog> {
+        let projectCache = this.transactionLogCache[project.getId()];
+        if (projectCache !== null && projectCache[partition] !== null) {
+            return this.transactionLogCache[project.getId()][partition];
+        }
+
         const traceTransactionLog: TraceTransactionLog = TraceTransactionLog.deserializeBinary(
-            this.GetTransactionLogStream(project, partition));
+            await this.GetTransactionLogStream(project, partition));
+
+        if (projectCache === null) {
+            projectCache = {};
+        }
+        projectCache[partition] = traceTransactionLog;
+
         return traceTransactionLog;
     }
 
-    public LoadProject(id: string): TraceProject {
-        const traceProject: TraceProject = TraceProject.deserializeBinary(this.GetProjectStream(id));
-        
+    public async LoadProject(id: string): Promise<TraceProject> {
+        const traceProject: TraceProject = TraceProject.deserializeBinary(await this.GetProjectStream(id));
+
         return traceProject;
     }
 
-    public GetTransactionLogs(project: TraceProject, startTime: number, endTime: number): TraceTransactionLog[] {
+    public async GetTransactionLogs(project: TraceProject, startTime: number, endTime: number): Promise<TraceTransactionLog[]> {
         const transactionLogs: TraceTransactionLog[] = new Array<TraceTransactionLog>();
-        const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
-        const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
+        const partitions = await this.GetPartitionsForRange(project, startTime, endTime);
 
-        for (let partition = partitionStart; partition <= partitionEnd; partition++) {
-            const transactionLog = this.LoadTraceTransactionLog(project, partition);
+        for (const partition of partitions) {
+            const transactionLog = await this.LoadTraceTransactionLog(project, partition);
             if (transactionLog == null) { continue; }
             transactionLogs.push(transactionLog);
         }
@@ -31,6 +43,7 @@ export abstract class TransactionLoader {
         return transactionLogs;
     }
 
-    protected abstract GetTransactionLogStream(project: TraceProject, partition: number): Uint8Array;
-    protected abstract GetProjectStream(id: string): Uint8Array;
+    protected abstract async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]>;
+    protected abstract async GetTransactionLogStream(project: TraceProject, key: any): Promise<Uint8Array>;
+    protected abstract async GetProjectStream(id: string): Promise<Uint8Array>;
 }

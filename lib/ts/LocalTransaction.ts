@@ -1,6 +1,7 @@
 import { TransactionWriter } from './TransactionWriter'
 import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb'
 import { TransactionLoader } from './TransactionLoader';
+import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 
 declare global {
     interface Window {
@@ -11,15 +12,17 @@ declare global {
 
 export class LocalTransactionWriter extends TransactionWriter {
 
-    protected WriteProject(data: Uint8Array): void {
+    protected async WriteProject(data: Uint8Array): Promise<boolean> {
         if (window.projectCache == null) {
             window.projectCache = new Map<string, Uint8Array>();
         }
 
         window.projectCache[this.project.getId()] = data;
+
+        return true;
     }
 
-    protected WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): void {
+    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
         if (window.transactionLogCache == null) {
             window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
         }
@@ -29,18 +32,32 @@ export class LocalTransactionWriter extends TransactionWriter {
         }
 
         window.transactionLogCache[this.project.getId()][transactionLog.getPartition()] = data;
+
+        return true;
     }
 }
 
 export class LocalTransactionLoader extends TransactionLoader {
-    protected GetTransactionLogStream(project: TraceProject, partition: number): Uint8Array {
+    protected async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]> {
+        const partitions: string[] = [];
+        const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
+        const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
+
+        for (let partition = partitionStart; partition <= partitionEnd; partition++) {
+            partitions.push(partition.toString());
+        }
+
+        return partitions;
+    }
+
+    protected async GetTransactionLogStream(project: TraceProject, partition: number): Promise<Uint8Array> {
         if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
             return null;
         }
         return window.transactionLogCache[project.getId()][partition];
     }
 
-    protected GetProjectStream(id: string): Uint8Array {
+    protected async GetProjectStream(id: string): Promise<Uint8Array> {
         return window.projectCache[id];
     }
 

@@ -118,9 +118,26 @@ export class TransactionTracker {
         return this.AddTransaction(transaction);
     }
 
-    public SaveChanges(): void {
-        this.transactionWriter.SaveProject();
-        this.transactionWriter.SaveTransactionLogs(this.transactionLogs);
+    protected GetSaveableTransactionLogs(): TraceTransactionLog[] {
+        if (this.transactionLogs.length <= 1) {
+            return null;
+        }
+        const saveableTransactions = this.transactionLogs.slice(0, this.transactionLogs.length - 1);
+        return saveableTransactions;
+    }
+
+    public async SaveProject(): Promise<boolean> {
+        const result = await this.transactionWriter.SaveProject();
+        return result;
+    }
+
+    public async SaveTransactionLogs(): Promise<boolean> {
+        const transactions = this.GetSaveableTransactionLogs();
+        if (transactions == null) {
+            return;
+        }
+        const result = await this.transactionWriter.SaveTransactionLogs(this.transactionLogs);
+        return result;
     }
 
     protected GetWriterArgs(): any[] {

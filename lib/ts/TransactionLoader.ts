@@ -44,6 +44,6 @@ export abstract class TransactionLoader {
     }
 
     protected abstract async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]>;
-    protected abstract async GetTransactionLogStream(project: TraceProject, key: any): Promise<Uint8Array>;
+    protected abstract async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array>;
     protected abstract async GetProjectStream(id: string): Promise<Uint8Array>;
 }

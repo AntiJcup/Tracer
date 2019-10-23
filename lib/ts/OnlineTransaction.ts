@@ -3,6 +3,7 @@ import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb';
 import { TransactionLoader } from './TransactionLoader';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 import { request } from 'http';
+import { promise } from 'protractor';
 
 export interface OnlineTransactionRequestInfo {
     host: string;
@@ -13,6 +14,9 @@ export interface OnlineTransactionRequestInfo {
 export class OnlineTransactionRequest {
     constructor(public requestInfo: OnlineTransactionRequestInfo) {
 
+    }
+    public async GetFullUrl(url: string): Promise<Response> {
+        return await fetch(url, this.generateRequestInfo('GET'));
     }
 
     public async Get(path: string): Promise<Response> {
@@ -58,23 +62,31 @@ export class OnlineTransactionWriter extends TransactionWriter {
 }
 
 export class OnlineTransactionLoader extends TransactionLoader {
-    protected async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]> {
-        const partitions: string[] = [];
-        const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
-        const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
-
-        for (let partition = partitionStart; partition <= partitionEnd; partition++) {
-            partitions.push(partition.toString());
-        }
-
-        return partitions;
+    constructor(protected transactionRequestor: OnlineTransactionRequest) {
+        super();
     }
 
-    protected async GetTransactionLogStream(project: TraceProject, partition: number): Promise<Uint8Array> {
-        if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
+    protected async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]> {
+        const cappedEndTime = Math.min(project.getDuration(), endTime);
+
+        const response = await this.transactionRequestor
+            .Get(`api/Streaming/GetTransactionLogs?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
+
+        if (!response.ok) {
             return null;
         }
-        return window.transactionLogCache[project.getId()][partition];
+
+        return await response.json();
+    }
+
+    protected async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array> {
+        const response = await this.transactionRequestor.GetFullUrl(partition);
+
+        if (!response.ok) {
+            return null;
+        }
+
+        return new Uint8Array(await response.arrayBuffer());
     }
 
     protected async GetProjectStream(id: string): Promise<Uint8Array> {

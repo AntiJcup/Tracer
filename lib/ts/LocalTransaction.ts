@@ -38,19 +38,22 @@ export class LocalTransactionWriter extends TransactionWriter {
 }
 
 export class LocalTransactionLoader extends TransactionLoader {
-    protected async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]> {
-        const partitions: string[] = [];
+    protected async GetPartitionsForRange(
+        project: TraceProject,
+        startTime: number,
+        endTime: number): Promise<{ [partition: string]: string }> {
+        const partitions: { [partition: string]: string } = {};
         const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
         const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
 
         for (let partition = partitionStart; partition <= partitionEnd; partition++) {
-            partitions.push(partition.toString());
+            partitions[partition] = partition.toString();
         }
 
         return partitions;
     }
 
-    protected async GetTransactionLogStream(project: TraceProject, partition: number): Promise<Uint8Array> {
+    protected async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array> {
         if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
             return null;
         }

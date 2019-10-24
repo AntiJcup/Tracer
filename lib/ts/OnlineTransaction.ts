@@ -66,7 +66,10 @@ export class OnlineTransactionLoader extends TransactionLoader {
         super();
     }
 
-    protected async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]> {
+    protected async GetPartitionsForRange(
+        project: TraceProject,
+        startTime: number,
+        endTime: number): Promise<{ [partition: string]: string }> {
         const cappedEndTime = Math.min(project.getDuration(), endTime);
 
         const response = await this.transactionRequestor

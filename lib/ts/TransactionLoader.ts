@@ -34,7 +34,13 @@ export abstract class TransactionLoader {
         const transactionLogs: TraceTransactionLog[] = new Array<TraceTransactionLog>();
         const partitions = await this.GetPartitionsForRange(project, startTime, endTime);
 
-        for (const partition of partitions) {
+
+        for (const partitionKey in partitions) {
+            if (!partitions.hasOwnProperty(partitionKey)) {
+                continue;
+            }
+
+            const partition = partitions[partitionKey];
             const transactionLog = await this.LoadTraceTransactionLog(project, partition);
             if (transactionLog == null) { continue; }
             transactionLogs.push(transactionLog);
@@ -43,7 +49,10 @@ export abstract class TransactionLoader {
         return transactionLogs;
     }
 
-    protected abstract async GetPartitionsForRange(project: TraceProject, startTime: number, endTime: number): Promise<string[]>;
+    protected abstract async GetPartitionsForRange(
+        project: TraceProject,
+        startTime: number,
+        endTime: number): Promise<{ [partition: string]: string }>;
     protected abstract async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array>;
     protected abstract async GetProjectStream(id: string): Promise<Uint8Array>;
 }

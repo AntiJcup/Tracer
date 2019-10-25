@@ -9,14 +9,14 @@ export abstract class TransactionLoader {
 
     public async LoadTraceTransactionLog(project: TraceProject, partition: string): Promise<TraceTransactionLog> {
         let projectCache = this.transactionLogCache[project.getId()];
-        if (projectCache !== null && projectCache[partition] !== null) {
+        if (projectCache && projectCache[partition] !== null) {
             return this.transactionLogCache[project.getId()][partition];
         }
 
         const traceTransactionLog: TraceTransactionLog = TraceTransactionLog.deserializeBinary(
             await this.GetTransactionLogStream(project, partition));
 
-        if (projectCache === null) {
+        if (!projectCache) {
             projectCache = {};
         }
         projectCache[partition] = traceTransactionLog;

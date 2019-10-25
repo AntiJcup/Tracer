@@ -73,7 +73,7 @@ export class OnlineTransactionLoader extends TransactionLoader {
         const cappedEndTime = Math.min(project.getDuration(), endTime);
 
         const response = await this.transactionRequestor
-            .Get(`api/Streaming/GetTransactionLogs?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
+            .Get(`api/Streaming/GetTransactionLogUrls?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
 
         if (!response.ok) {
             return null;
@@ -93,6 +93,13 @@ export class OnlineTransactionLoader extends TransactionLoader {
     }
 
     protected async GetProjectStream(id: string): Promise<Uint8Array> {
-        return window.projectCache[id];
+        const projectUrlResponse = await this.transactionRequestor.Get(`api/Streaming/GetProjectUrl?projectId=${id}`);
+
+        if (!projectUrlResponse.ok) {
+            return null;
+        }
+        const projectResponse =  await this.transactionRequestor.GetFullUrl(await projectUrlResponse.json());
+
+        return new Uint8Array(await projectResponse.arrayBuffer());
     }
 }

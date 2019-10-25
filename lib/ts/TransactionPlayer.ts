@@ -3,8 +3,8 @@ import { TransactionLoader } from './TransactionLoader';
 
 export interface TransactionPlayerSettings {
     speedMultiplier: number;
-    lookAheadSeconds: number;
-    loadChunkSeconds: number; // Always make sure this is greater than look ahead
+    lookAheadSize: number;
+    loadChunkSize: number; // Always make sure this is greater than look ahead
     updateInterval: number;
     loadInterval: number;
 }
@@ -18,13 +18,13 @@ export abstract class TransactionPlayer {
     private loadingChunk = false;
     private internalLoadPosition = 0;
     private internalPosition = 0;
-    private previousPosition = 0;
+    private previousPosition = -1;
     private project: TraceProject = null;
     private internalState: TransactionPlayerState = TransactionPlayerState.Paused;
     private internalUpdateInterval: any = null;
     private internalLoadInterval: any = null;
-    private transactionLogs: TraceTransactionLog[];
-    private transactionLogIndex: number;
+    private transactionLogs: TraceTransactionLog[] = [];
+    private transactionLogIndex = 0;
 
     public get position(): number {
         return this.internalPosition;
@@ -53,8 +53,8 @@ export abstract class TransactionPlayer {
     }
 
     constructor(public settings: TransactionPlayerSettings, protected loader: TransactionLoader, protected projectId: string) {
-        if (this.settings.loadChunkSeconds <= this.settings.lookAheadSeconds) {
-            throw new Error('loadChunkSeconds needs to be greater than lookAheadSeconds');
+        if (this.settings.loadChunkSize <= this.settings.lookAheadSize) {
+            throw new Error('loadChunkSize needs to be greater than lookAheadSize');
         }
     }
 
@@ -71,11 +71,6 @@ export abstract class TransactionPlayer {
 
     public Play(): void {
         this.ThrowIfNotLoaded();
-
-        // if (this.state !== TransactionPlayerState.Paused) {
-        //     throw new Error('Alreadying playing');
-        // }
-
         this.internalState = TransactionPlayerState.Playing;
     }
 
@@ -97,14 +92,14 @@ export abstract class TransactionPlayer {
             return;
         }
 
-        if (this.internalLoadPosition > this.internalPosition + this.settings.lookAheadSeconds) {
+        if (this.internalLoadPosition > this.internalPosition + this.settings.lookAheadSize) {
             return;
         }
 
         this.loadingChunk = true;
 
         const start = this.internalLoadPosition;
-        const end = this.internalPosition + this.settings.loadChunkSeconds;
+        const end = start + (this.settings.loadChunkSize);
         this.loader.GetTransactionLogs(this.project, start, end).then((transactionLogs: TraceTransactionLog[]) => {
             this.transactionLogs = this.transactionLogs.concat(transactionLogs);
             this.internalLoadPosition = end;
@@ -125,18 +120,16 @@ export abstract class TransactionPlayer {
         // TODO handle rewind
 
         const currentTransaction = this.FindCurrentPlayTransaction();
+        if (!currentTransaction) {
+            return;
+        }
         let lastTransactionOffset = 0;
         for (const transaction of currentTransaction.getTransactionsList()) {
             lastTransactionOffset = transaction.getTimeOffsetMs();
-            if (lastTransactionOffset >= this.previousPosition && lastTransactionOffset < this.internalPosition) {
+            if (lastTransactionOffset > this.previousPosition && lastTransactionOffset < this.internalPosition) {
                 this.HandleTransaction(transaction);
+                this.previousPosition = lastTransactionOffset;
             }
-        }
-
-        if (lastTransactionOffset === 0) {
-            this.previousPosition = this.internalPosition;
-        } else {
-            this.previousPosition = lastTransactionOffset;
         }
 
         this.internalPosition += this.settings.updateInterval;
@@ -145,12 +138,12 @@ export abstract class TransactionPlayer {
     protected FindCurrentPlayTransaction(): TraceTransactionLog {
         const currentTransactionLog = this.transactionLogs[this.transactionLogIndex];
         if (!currentTransactionLog) {
-            throw new Error('no transaction loaded');
+            this.Pause();
+            return null;
         }
 
-        const transactionPositionStart = currentTransactionLog.getPartition() * this.project.getDuration();
-        const transactionPositionEnd = transactionPositionStart + this.project.getDuration();
-        if (this.previousPosition >= transactionPositionEnd) {
+        const transactionList = currentTransactionLog.getTransactionsList();
+        if (transactionList.length === 0 || transactionList[transactionList.length - 1].getTimeOffsetMs() <= this.previousPosition) {
             ++this.transactionLogIndex;
             return this.FindCurrentPlayTransaction();
         }

@@ -62,6 +62,7 @@ export abstract class TransactionPlayer {
         this.project = await this.loader.LoadProject(this.projectId);
         this.internalUpdateInterval = setInterval(() => this.UpdateLoop(), this.settings.updateInterval);
         this.internalLoadInterval = setInterval(() => this.LoadLoop(), this.settings.loadInterval);
+        this.LoadLoop();
     }
 
     public Dispose(): void {

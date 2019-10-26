@@ -139,7 +139,7 @@ export abstract class TransactionPlayer {
     protected FindCurrentPlayTransaction(): TraceTransactionLog {
         const currentTransactionLog = this.transactionLogs[this.transactionLogIndex];
         if (!currentTransactionLog) {
-            if (this.transactionLogs[this.transactionLogIndex - 1].getPartition() >=
+            if (this.transactionLogs.length > 0 && this.transactionLogs[this.transactionLogIndex - 1].getPartition() >=
                 (this.project.getDuration() / this.project.getPartitionSize())) {
                 this.Pause();
             }

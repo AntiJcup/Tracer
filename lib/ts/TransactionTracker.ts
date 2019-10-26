@@ -18,17 +18,17 @@ export class TransactionTracker {
 
     constructor(
         public project: TraceProject,
-        private transactionLogs: TraceTransactionLog[],
-        private partitionOffset: number,
-        private transactionWriter: TransactionWriter) {
+        private transactionWriter: TransactionWriter,
+        private transactionLogs: TraceTransactionLog[] = [],
+        private partitionOffset: number = 0) {
     }
 
     public GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
         let transactionLog: TraceTransactionLog = null;
         const partition = PartitionFromOffsetBottom(this.project, timeOffset);
-        while (partition >= (this.transactionLogs.length)) {
+        if (this.transactionLogs.length === 0 || partition >= (this.transactionLogs[this.transactionLogs.length - 1].getPartition())) {
             transactionLog = new TraceTransactionLog();
-            transactionLog.setPartition(this.partitionOffset + (this.transactionLogs.length));
+            transactionLog.setPartition(partition);
             this.transactionLogs.push(transactionLog);
         }
 

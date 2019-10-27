@@ -68,10 +68,11 @@ export class TransactionRecorder {
         this.ThrowIfNotLoaded();
         let transactionLog: TraceTransactionLog = null;
         const partition = PartitionFromOffsetBottom(this.project, timeOffset);
-        while (this.transactionLogs.length === 0 || partition >= (this.transactionLogs[this.transactionLogs.length - 1].getPartition())) {
+        while (this.transactionLogs.length === 0 || partition !== (this.transactionLogs[this.transactionLogs.length - 1].getPartition())) {
             transactionLog = new TraceTransactionLog();
             transactionLog.setPartition(this.transactionLogs.length);
             this.transactionLogs.push(transactionLog);
+            console.log(`Created transaction log ${JSON.stringify(transactionLog.toObject())}`);
         }
 
         if (transactionLog == null) {

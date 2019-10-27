@@ -65,11 +65,12 @@ export class TransactionRecorder {
     }
 
     public GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
+        this.ThrowIfNotLoaded();
         let transactionLog: TraceTransactionLog = null;
         const partition = PartitionFromOffsetBottom(this.project, timeOffset);
-        if (this.transactionLogs.length === 0 || partition >= (this.transactionLogs[this.transactionLogs.length - 1].getPartition())) {
+        while (this.transactionLogs.length === 0 || partition >= (this.transactionLogs[this.transactionLogs.length - 1].getPartition())) {
             transactionLog = new TraceTransactionLog();
-            transactionLog.setPartition(partition);
+            transactionLog.setPartition(this.transactionLogs.length);
             this.transactionLogs.push(transactionLog);
         }
 
@@ -81,6 +82,7 @@ export class TransactionRecorder {
     }
 
     protected AddTransaction(transaction: TraceTransaction): TraceTransaction {
+        this.ThrowIfNotLoaded();
         const transactionLog = this.GetTransactionLogByTimeOffset(transaction.getTimeOffsetMs());
         transactionLog.addTransactions(transaction);
         this.project.setDuration(this.project.getDuration() + transaction.getTimeOffsetMs());
@@ -178,5 +180,11 @@ export class TransactionRecorder {
 
     protected GetWriterArgs(): any[] {
         return [this.project];
+    }
+
+    protected ThrowIfNotLoaded(): void {
+        if (this.project == null) {
+            throw new Error('project not loaded');
+        }
     }
 }

@@ -126,9 +126,13 @@ export abstract class TransactionPlayer {
         // TODO handle rewind
 
         const currentTransaction = this.FindCurrentPlayTransaction();
-        if (!currentTransaction) {
+        const passedLoader = this.internalPosition >= this.internalLoadPosition;
+        if (!currentTransaction && passedLoader) {
             return;
+        } else if (!passedLoader) {
+            this.internalPosition += this.settings.updateInterval;
         }
+
         let lastTransactionOffset = 0;
         for (const transaction of currentTransaction.getTransactionsList()) {
             lastTransactionOffset = transaction.getTimeOffsetMs();

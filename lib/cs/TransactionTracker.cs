@@ -7,7 +7,7 @@ using Google.Protobuf;
 namespace Tracer
 {
 
-    public class TransactionTracker<TWriter> where TWriter : TransactionWriter
+    public class TransactionRecorder<TWriter> where TWriter : TransactionWriter
     {
         public TraceProject Project { get; private set; }
 
@@ -17,7 +17,7 @@ namespace Tracer
 
         protected bool changed_ { get; set; }
 
-        public TransactionTracker(UInt32 partitionSize)
+        public TransactionRecorder(UInt32 partitionSize)
         {
             Project = new TraceProject()
             {
@@ -31,7 +31,7 @@ namespace Tracer
 
         //For loading existing transactions
         //Logs should only be after the offset
-        public TransactionTracker(TraceProject project, List<TraceTransactionLog> transactionLogs, UInt32 partitionOffset)
+        public TransactionRecorder(TraceProject project, List<TraceTransactionLog> transactionLogs, UInt32 partitionOffset)
         {
             Project = project;
             partitionOffset_ = partitionOffset;

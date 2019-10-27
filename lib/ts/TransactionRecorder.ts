@@ -9,18 +9,59 @@ import {
     CursorChangeFileData,
     RenameFileData
 } from '../../models/ts/Tracer_pb';
-import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
+import { PartitionFromOffsetBottom } from './Common';
 import { TransactionWriter } from './TransactionWriter';
+import { ProjectLoader } from './ProjectLoader';
+import { ProjectWriter } from './ProjectWriter';
+import { Guid } from 'guid-typescript';
 
-export class TransactionTracker {
-    // tslint:disable-next-line: variable-name
+export class TransactionRecorder {
     protected changed: boolean;
+    protected project: TraceProject;
+    private initialTimeOffset = 0;
 
     constructor(
-        public project: TraceProject,
+        private id: string,
+        private projectLoader: ProjectLoader,
+        private projectWriter: ProjectWriter,
         private transactionWriter: TransactionWriter,
-        private transactionLogs: TraceTransactionLog[] = [],
-        private partitionOffset: number = 0) {
+        private transactionLogs: TraceTransactionLog[] = []) {
+
+    }
+
+    // Call this if you are starting a new recording session
+    public async New(): Promise<void> {
+        this.project = await this.CreateProject(this.id);
+
+        if (!this.project) {
+            throw new Error('Failed to load project id: ' + this.id);
+        }
+    }
+
+    // Call this if you are loading an existing recording session
+    public async Load(): Promise<void> {
+        this.project = await this.LoadProject(this.id);
+
+        if (!this.project) {
+            throw new Error('Failed to load project id: ' + this.id);
+        }
+    }
+
+    public async CreateProject(id: string): Promise<TraceProject> {
+        const result = await this.projectWriter.CreateProject(id);
+        if (!result) {
+            throw new Error('Failed to create project id: ' + id);
+        }
+
+        return await this.LoadProject(id);
+    }
+
+    public async LoadProject(id: string): Promise<TraceProject> {
+        return await this.projectLoader.LoadProject(this.id);
+    }
+
+    public async DeleteProject(id: string): Promise<boolean> {
+        return await this.projectWriter.DeleteProject(id);
     }
 
     public GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {

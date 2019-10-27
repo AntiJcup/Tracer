@@ -5,4 +5,6 @@ export abstract class ProjectWriter {
     }
 
     public async abstract CreateProject(id: string): Promise<boolean>;
+
+    public async abstract DeleteProject(id: string): Promise<boolean>;
 }

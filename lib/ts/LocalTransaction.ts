@@ -41,6 +41,12 @@ export class LocalProjectWriter extends ProjectWriter {
 
         return true;
     }
+
+    public async DeleteProject(id: string): Promise<boolean> {
+        delete window.projectCache[id];
+
+        return true;
+    }
 }
 
 export class LocalTransactionWriter extends TransactionWriter {
@@ -49,17 +55,18 @@ export class LocalTransactionWriter extends TransactionWriter {
             window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
         }
 
-        if (window.transactionLogCache[this.project.getId()] == null) {
-            window.transactionLogCache[this.project.getId()] = new Map<number, Uint8Array>();
+        if (window.transactionLogCache[this.projectId] == null) {
+            window.transactionLogCache[this.projectId] = new Map<number, Uint8Array>();
         }
 
-        window.transactionLogCache[this.project.getId()][transactionLog.getPartition()] = data;
+        window.transactionLogCache[this.projectId][transactionLog.getPartition()] = data;
 
-        const currentDuration = this.project.getDuration();
-        const newDuration = transactionLog.getPartition() * this.project.getPartitionSize();
+        const project = await (new LocalProjectLoader()).LoadProject(this.projectId);
+        const currentDuration = project.getDuration();
+        const newDuration = transactionLog.getPartition() * project.getPartitionSize();
         if (currentDuration < newDuration) {
-            this.project.setDuration(newDuration);
-            window.projectCache[this.project.getId()] = this.project.serializeBinary();
+            project.setDuration(newDuration);
+            window.projectCache[this.projectId] = project.serializeBinary();
         }
 
         return true;
@@ -87,10 +94,5 @@ export class LocalTransactionLoader extends TransactionLoader {
             return null;
         }
         return window.transactionLogCache[project.getId()][partition];
-    }
-
-    protected async GetProject(id: string): Promise<TraceProject> {
-        const projectLoader: LocalProjectLoader = new LocalProjectLoader();
-        return projectLoader.LoadProject(id);
     }
 }

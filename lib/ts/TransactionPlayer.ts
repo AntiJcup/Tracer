@@ -1,5 +1,6 @@
 import { TraceTransactionLog, TraceProject, TraceTransaction } from '../../models/ts/Tracer_pb';
 import { TransactionLoader } from './TransactionLoader';
+import { ProjectLoader } from './ProjectLoader';
 
 export interface TransactionPlayerSettings {
     speedMultiplier: number;
@@ -52,14 +53,18 @@ export abstract class TransactionPlayer {
         return this.internalPosition >= this.internalLoadPosition;
     }
 
-    constructor(public settings: TransactionPlayerSettings, protected loader: TransactionLoader, protected projectId: string) {
+    constructor(
+        public settings: TransactionPlayerSettings,
+        protected projectLoader: ProjectLoader,
+        protected transactionLoader: TransactionLoader,
+        protected projectId: string) {
         if (this.settings.loadChunkSize <= this.settings.lookAheadSize) {
             throw new Error('loadChunkSize needs to be greater than lookAheadSize');
         }
     }
 
     public async Load(): Promise<void> {
-        this.project = await this.loader.LoadProject(this.projectId);
+        this.project = await this.projectLoader.LoadProject(this.projectId);
         this.internalUpdateInterval = setInterval(() => this.UpdateLoop(), this.settings.updateInterval);
         this.internalLoadInterval = setInterval(() => this.LoadLoop(), this.settings.loadInterval);
         this.LoadLoop();
@@ -101,7 +106,7 @@ export abstract class TransactionPlayer {
 
         const start = this.internalLoadPosition;
         const end = start + (this.settings.loadChunkSize);
-        this.loader.GetTransactionLogs(this.project, start, end).then((transactionLogs: TraceTransactionLog[]) => {
+        this.transactionLoader.GetTransactionLogs(this.project, start, end).then((transactionLogs: TraceTransactionLog[]) => {
             this.transactionLogs = this.transactionLogs.concat(transactionLogs);
             this.internalLoadPosition = end;
         }).finally(() => {

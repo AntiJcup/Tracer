@@ -44,6 +44,15 @@ export class OnlineProjectWriter extends ProjectWriter {
 
         return true;
     }
+
+    public async DeleteProject(id: string): Promise<boolean> {
+        const deleteResponse = await this.transactionRequestor.Post(`api/Recording/DeleteProject?tutorialId=${id}`);
+        if (!deleteResponse.ok) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 export class OnlineTransactionRequest {
@@ -73,12 +82,12 @@ export class OnlineTransactionRequest {
 }
 
 export class OnlineTransactionWriter extends TransactionWriter {
-    constructor(protected transactionRequestor: OnlineTransactionRequest, protected tutorialId: string, traceProject: TraceProject) {
-        super(traceProject);
+    constructor(protected transactionRequestor: OnlineTransactionRequest, protected tutorialId: string) {
+        super(tutorialId);
     }
 
     protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
-        const response = await this.transactionRequestor.Post(`api/Recording/AddTransactionLog?projectId=${this.project.getId()}`,
+        const response = await this.transactionRequestor.Post(`api/Recording/AddTransactionLog?projectId=${this.projectId}`,
             new Blob([data]));
 
         return response.ok;
@@ -114,10 +123,5 @@ export class OnlineTransactionLoader extends TransactionLoader {
         }
 
         return new Uint8Array(await response.arrayBuffer());
-    }
-
-    protected async GetProject(id: string): Promise<TraceProject> {
-        const projectLoader: OnlineProjectLoader = new OnlineProjectLoader(this.transactionRequestor);
-        return projectLoader.LoadProject(id);
     }
 }

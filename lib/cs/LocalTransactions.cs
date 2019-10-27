@@ -90,11 +90,11 @@ namespace Tracer
         }
     }
 
-    public class LocalTransactionTracker : TransactionTracker<LocalTransactionWriter>
+    public class LocalTransactionRecorder : TransactionRecorder<LocalTransactionWriter>
     {
         public string ProjectDir { get; private set; }
 
-        public LocalTransactionTracker(UInt32 partitionSize, string projectDir) : base(partitionSize)
+        public LocalTransactionRecorder(UInt32 partitionSize, string projectDir) : base(partitionSize)
         {
             ProjectDir = projectDir;
         }

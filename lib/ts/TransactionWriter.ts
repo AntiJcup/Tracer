@@ -3,7 +3,7 @@ import { TraceProject, TraceTransactionLog } from '../../models/ts/Tracer_pb';
 export abstract class TransactionWriter {
     private savedTransactionLogPartions: number[] = new Array<number>();
 
-    constructor(public project: TraceProject) {
+    constructor(public projectId: string) {
     }
 
     public async SaveTransactionLog(transactionLog: TraceTransactionLog): Promise<boolean> {

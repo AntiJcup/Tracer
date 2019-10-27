@@ -24,12 +24,6 @@ export abstract class TransactionLoader {
         return traceTransactionLog;
     }
 
-    public async LoadProject(id: string): Promise<TraceProject> {
-        const traceProject: TraceProject = await this.GetProject(id);
-
-        return traceProject;
-    }
-
     public async GetTransactionLogs(project: TraceProject, startTime: number, endTime: number): Promise<TraceTransactionLog[]> {
         const transactionLogs: TraceTransactionLog[] = new Array<TraceTransactionLog>();
         const partitions = await this.GetPartitionsForRange(project, startTime, endTime);
@@ -54,5 +48,4 @@ export abstract class TransactionLoader {
         startTime: number,
         endTime: number): Promise<{ [partition: string]: string }>;
     protected abstract async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array>;
-    protected abstract async GetProject(id: string): Promise<TraceProject>;
 }

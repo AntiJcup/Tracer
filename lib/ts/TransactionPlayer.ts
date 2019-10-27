@@ -87,7 +87,7 @@ export abstract class TransactionPlayer {
         this.internalPosition = this.previousPosition; // Snap to where we actually are
     }
 
-    public ThrowIfNotLoaded(): void {
+    protected ThrowIfNotLoaded(): void {
         if (this.project == null) {
             throw new Error('project not loaded');
         }

@@ -25,7 +25,7 @@ export abstract class TransactionLoader {
     }
 
     public async LoadProject(id: string): Promise<TraceProject> {
-        const traceProject: TraceProject = TraceProject.deserializeBinary(await this.GetProjectStream(id));
+        const traceProject: TraceProject = await this.GetProject(id);
 
         return traceProject;
     }
@@ -54,5 +54,5 @@ export abstract class TransactionLoader {
         startTime: number,
         endTime: number): Promise<{ [partition: string]: string }>;
     protected abstract async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array>;
-    protected abstract async GetProjectStream(id: string): Promise<Uint8Array>;
+    protected abstract async GetProject(id: string): Promise<TraceProject>;
 }

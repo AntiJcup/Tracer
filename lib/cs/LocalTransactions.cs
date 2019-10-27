@@ -50,7 +50,7 @@ namespace Tracer
             ProjectDir = projectDir;
         }
 
-        override protected void WriteProject(Stream data)
+        override protected void CreateProject(Stream data)
         {
             var projectPath = Path.Combine(ProjectDir, string.Format(LocalConstants.LocalProjectFolder, Project.Id));
             if (!Directory.Exists(projectPath))

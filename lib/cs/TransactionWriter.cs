@@ -22,7 +22,7 @@ namespace Tracer
             using (var stream = new MemoryStream())
             {
                 Project.WriteTo(stream);
-                WriteProject(stream);
+                CreateProject(stream);
             }
         }
 
@@ -47,7 +47,7 @@ namespace Tracer
             }
         }
 
-        protected abstract void WriteProject(Stream data);
+        protected abstract void CreateProject(Stream data);
         protected abstract void WriteTransactionLog(TraceTransactionLog transactionLog, Stream data);
     }
 }

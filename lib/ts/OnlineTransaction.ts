@@ -4,11 +4,46 @@ import { TransactionLoader } from './TransactionLoader';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 import { request } from 'http';
 import { promise } from 'protractor';
+import { ProjectWriter } from './ProjectWriter';
+import { ProjectLoader } from './ProjectLoader';
 
 export interface OnlineTransactionRequestInfo {
     host: string;
     credentials: string;
     headers: { [headerName: string]: string };
+}
+
+
+export class OnlineProjectLoader extends ProjectLoader {
+    constructor(protected transactionRequestor: OnlineTransactionRequest) {
+        super();
+    }
+
+    public async GetProjectStream(id: string): Promise<Uint8Array> {
+        const projectUrlResponse = await this.transactionRequestor.Get(`api/Streaming/GetProjectUrl?projectId=${id}`);
+
+        if (!projectUrlResponse.ok) {
+            return null;
+        }
+        const projectResponse = await this.transactionRequestor.GetFullUrl(await projectUrlResponse.json());
+
+        return new Uint8Array(await projectResponse.arrayBuffer());
+    }
+}
+
+export class OnlineProjectWriter extends ProjectWriter {
+    constructor(protected transactionRequestor: OnlineTransactionRequest) {
+        super();
+    }
+
+    public async CreateProject(id: string): Promise<boolean> {
+        const createResponse = await this.transactionRequestor.Post(`api/Recording/CreateProject?tutorialId=${id}`);
+        if (!createResponse.ok) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 export class OnlineTransactionRequest {
@@ -40,17 +75,6 @@ export class OnlineTransactionRequest {
 export class OnlineTransactionWriter extends TransactionWriter {
     constructor(protected transactionRequestor: OnlineTransactionRequest, protected tutorialId: string, traceProject: TraceProject) {
         super(traceProject);
-    }
-
-    protected async WriteProject(data: Uint8Array): Promise<boolean> {
-        const response = await this.transactionRequestor.Post(`api/Recording/CreateProject?tutorialId=${this.tutorialId}`);
-        if (!response.ok) {
-            return false;
-        }
-        const responseJson = await response.json();
-        this.project.setId(responseJson.id);
-        this.project.setPartitionSize(responseJson.partitionSize);
-        return true;
     }
 
     protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
@@ -92,14 +116,8 @@ export class OnlineTransactionLoader extends TransactionLoader {
         return new Uint8Array(await response.arrayBuffer());
     }
 
-    protected async GetProjectStream(id: string): Promise<Uint8Array> {
-        const projectUrlResponse = await this.transactionRequestor.Get(`api/Streaming/GetProjectUrl?projectId=${id}`);
-
-        if (!projectUrlResponse.ok) {
-            return null;
-        }
-        const projectResponse =  await this.transactionRequestor.GetFullUrl(await projectUrlResponse.json());
-
-        return new Uint8Array(await projectResponse.arrayBuffer());
+    protected async GetProject(id: string): Promise<TraceProject> {
+        const projectLoader: OnlineProjectLoader = new OnlineProjectLoader(this.transactionRequestor);
+        return projectLoader.LoadProject(id);
     }
 }

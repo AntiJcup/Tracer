@@ -2,6 +2,8 @@ import { TransactionWriter } from './TransactionWriter'
 import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb'
 import { TransactionLoader } from './TransactionLoader';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
+import { ProjectWriter } from './ProjectWriter';
+import { ProjectLoader } from './ProjectLoader';
 
 declare global {
     interface Window {
@@ -10,18 +12,38 @@ declare global {
     }
 }
 
-export class LocalTransactionWriter extends TransactionWriter {
+export class LocalProjectLoader extends ProjectLoader {
+    constructor() {
+        super();
+    }
 
-    protected async WriteProject(data: Uint8Array): Promise<boolean> {
+    public async GetProjectStream(id: string): Promise<Uint8Array> {
+        return window.projectCache[id];
+    }
+}
+
+export class LocalProjectWriter extends ProjectWriter {
+    constructor() {
+        super();
+    }
+
+    public async CreateProject(id: string): Promise<boolean> {
         if (window.projectCache == null) {
             window.projectCache = new Map<string, Uint8Array>();
         }
 
-        window.projectCache[this.project.getId()] = data;
+        const newProject = new TraceProject();
+        newProject.setDuration(0);
+        newProject.setPartitionSize(5000);
+        newProject.setId(id);
+
+        window.projectCache[id] = newProject.serializeBinary();
 
         return true;
     }
+}
 
+export class LocalTransactionWriter extends TransactionWriter {
     protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
         if (window.transactionLogCache == null) {
             window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
@@ -32,6 +54,13 @@ export class LocalTransactionWriter extends TransactionWriter {
         }
 
         window.transactionLogCache[this.project.getId()][transactionLog.getPartition()] = data;
+
+        const currentDuration = this.project.getDuration();
+        const newDuration = transactionLog.getPartition() * this.project.getPartitionSize();
+        if (currentDuration < newDuration) {
+            this.project.setDuration(newDuration);
+            window.projectCache[this.project.getId()] = this.project.serializeBinary();
+        }
 
         return true;
     }
@@ -60,9 +89,8 @@ export class LocalTransactionLoader extends TransactionLoader {
         return window.transactionLogCache[project.getId()][partition];
     }
 
-    protected async GetProjectStream(id: string): Promise<Uint8Array> {
-        return window.projectCache[id];
+    protected async GetProject(id: string): Promise<TraceProject> {
+        const projectLoader: LocalProjectLoader = new LocalProjectLoader();
+        return projectLoader.LoadProject(id);
     }
-
-
 }

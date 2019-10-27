@@ -6,11 +6,6 @@ export abstract class TransactionWriter {
     constructor(public project: TraceProject) {
     }
 
-    public async SaveProject(): Promise<boolean> {
-        const buffer = this.project.serializeBinary();
-        return await this.WriteProject(buffer);
-    }
-
     public async SaveTransactionLog(transactionLog: TraceTransactionLog): Promise<boolean> {
         const buffer = transactionLog.serializeBinary();
         return await this.WriteTransactionLog(transactionLog, buffer);
@@ -33,6 +28,5 @@ export abstract class TransactionWriter {
         return success;
     }
 
-    protected async abstract WriteProject(data: Uint8Array): Promise<boolean>;
     protected async abstract WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean>;
 }

@@ -126,11 +126,6 @@ export class TransactionTracker {
         return saveableTransactions;
     }
 
-    public async SaveProject(): Promise<boolean> {
-        const result = await this.transactionWriter.SaveProject();
-        return result;
-    }
-
     public async SaveTransactionLogs(): Promise<boolean> {
         const transactions = this.GetSaveableTransactionLogs();
         if (transactions == null) {

@@ -102,6 +102,10 @@ export abstract class TransactionPlayer {
             return;
         }
 
+        if (this.internalLoadPosition >= this.project.getDuration()) {
+            return;
+        }
+
         this.loadingChunk = true;
 
         const start = this.internalLoadPosition;
@@ -128,7 +132,7 @@ export abstract class TransactionPlayer {
         const currentTransaction = this.FindCurrentPlayTransaction();
         const passedLoader = this.internalPosition >= this.internalLoadPosition;
         if (!currentTransaction) {
-            if (!passedLoader) {
+            if (!passedLoader && this.internalPosition <= this.project.getDuration()) {
                 this.internalPosition += this.settings.updateInterval;
             }
             return;

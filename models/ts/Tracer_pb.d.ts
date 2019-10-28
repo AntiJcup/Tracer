@@ -20,6 +20,9 @@ export namespace CreateFileData {
 }
 
 export class DeleteFileData extends jspb.Message {
+  getPreviousData(): string;
+  setPreviousData(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteFileData.AsObject;
   static toObject(includeInstance: boolean, msg: DeleteFileData): DeleteFileData.AsObject;
@@ -32,6 +35,7 @@ export class DeleteFileData extends jspb.Message {
 
 export namespace DeleteFileData {
   export type AsObject = {
+    previousData: string,
   }
 }
 
@@ -44,6 +48,9 @@ export class ModifyFileData extends jspb.Message {
 
   getData(): string;
   setData(value: string): void;
+
+  getPreviousData(): string;
+  setPreviousData(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ModifyFileData.AsObject;
@@ -60,6 +67,7 @@ export namespace ModifyFileData {
     offsetStart: number,
     offsetEnd: number,
     data: string,
+    previousData: string,
   }
 }
 

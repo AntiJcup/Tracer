@@ -345,7 +345,7 @@ proto.google.protobuf.DeleteFileData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.DeleteFileData.toObject = function(includeInstance, msg) {
   var f, obj = {
-
+    previousData: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -382,6 +382,10 @@ proto.google.protobuf.DeleteFileData.deserializeBinaryFromReader = function(msg,
     }
     var field = reader.getFieldNumber();
     switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPreviousData(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -411,6 +415,31 @@ proto.google.protobuf.DeleteFileData.prototype.serializeBinary = function() {
  */
 proto.google.protobuf.DeleteFileData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getPreviousData();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string previous_data = 1;
+ * @return {string}
+ */
+proto.google.protobuf.DeleteFileData.prototype.getPreviousData = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.google.protobuf.DeleteFileData} returns this
+ */
+proto.google.protobuf.DeleteFileData.prototype.setPreviousData = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -448,7 +477,8 @@ proto.google.protobuf.ModifyFileData.toObject = function(includeInstance, msg) {
   var f, obj = {
     offsetStart: jspb.Message.getFieldWithDefault(msg, 1, 0),
     offsetEnd: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    data: jspb.Message.getFieldWithDefault(msg, 3, "")
+    data: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    previousData: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -497,6 +527,10 @@ proto.google.protobuf.ModifyFileData.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setData(value);
       break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPreviousData(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -544,6 +578,13 @@ proto.google.protobuf.ModifyFileData.serializeBinaryToWriter = function(message,
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getPreviousData();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
       f
     );
   }
@@ -601,6 +642,24 @@ proto.google.protobuf.ModifyFileData.prototype.getData = function() {
  */
 proto.google.protobuf.ModifyFileData.prototype.setData = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string previous_data = 4;
+ * @return {string}
+ */
+proto.google.protobuf.ModifyFileData.prototype.getPreviousData = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.google.protobuf.ModifyFileData} returns this
+ */
+proto.google.protobuf.ModifyFileData.prototype.setPreviousData = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 

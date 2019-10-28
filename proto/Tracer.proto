@@ -10,12 +10,14 @@ message CreateFileData {
 }
 
 message DeleteFileData {
+    string previous_data = 1;
 }
 
 message ModifyFileData {
     uint32 offset_start = 1;
     uint32 offset_end = 2;
     string data = 3;
+    string previous_data = 4; //Data to undo a replace
 }
 
 message SelectFileData {

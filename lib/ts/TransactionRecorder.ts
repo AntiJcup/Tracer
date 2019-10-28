@@ -103,18 +103,19 @@ export class TransactionRecorder {
         return this.AddTransaction(transaction);
     }
 
-    public DeleteFile(timeOffset: number, filePath: string): TraceTransaction {
+    public DeleteFile(timeOffset: number, filePath: string, previousData: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.DELETEFILE);
         transaction.setTimeOffsetMs(timeOffset);
         transaction.setFilePath(filePath);
         const data = new DeleteFileData();
+        data.setPreviousData(previousData);
         transaction.setDeleteFile(data);
 
         return this.AddTransaction(transaction);
     }
 
-    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number, insertData: string): TraceTransaction {
+    public ModifyFile(timeOffset: number, filePath: string, offsetStart: number, offsetEnd: number, insertData: string, previousData?: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.MODIFYFILE);
         transaction.setTimeOffsetMs(timeOffset);
@@ -123,6 +124,7 @@ export class TransactionRecorder {
         data.setOffsetStart(offsetStart);
         data.setOffsetEnd(offsetEnd);
         data.setData(insertData);
+        data.setPreviousData(previousData);
         transaction.setModifyFile(data);
 
         return this.AddTransaction(transaction);

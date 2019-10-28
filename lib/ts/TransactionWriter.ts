@@ -8,6 +8,7 @@ export abstract class TransactionWriter {
 
     public async SaveTransactionLog(transactionLog: TraceTransactionLog): Promise<boolean> {
         const buffer = transactionLog.serializeBinary();
+        console.log(`saving ${JSON.stringify(transactionLog.toObject())}`);
         return await this.WriteTransactionLog(transactionLog, buffer);
     }
 

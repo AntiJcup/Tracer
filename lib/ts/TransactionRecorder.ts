@@ -87,6 +87,8 @@ export class TransactionRecorder {
         const transactionLog = this.GetTransactionLogByTimeOffset(transaction.getTimeOffsetMs());
         transactionLog.addTransactions(transaction);
         this.project.setDuration(this.project.getDuration() + transaction.getTimeOffsetMs());
+
+        console.log(`Adding transaction ${JSON.stringify(transaction.toObject())} to ${JSON.stringify(transactionLog.toObject())}`);
         return transaction;
     }
 
@@ -175,7 +177,7 @@ export class TransactionRecorder {
         if (transactions == null) {
             return;
         }
-        const result = await this.transactionWriter.SaveTransactionLogs(this.transactionLogs);
+        const result = await this.transactionWriter.SaveTransactionLogs(transactions);
         return result;
     }
 

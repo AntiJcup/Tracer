@@ -127,10 +127,11 @@ export abstract class TransactionPlayer {
 
         const currentTransaction = this.FindCurrentPlayTransaction();
         const passedLoader = this.internalPosition >= this.internalLoadPosition;
-        if (!currentTransaction && passedLoader) {
+        if (!currentTransaction) {
+            if (!passedLoader) {
+                this.internalPosition += this.settings.updateInterval;
+            }
             return;
-        } else if (!passedLoader) {
-            this.internalPosition += this.settings.updateInterval;
         }
 
         let lastTransactionOffset = 0;

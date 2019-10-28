@@ -127,7 +127,25 @@ export abstract class TransactionPlayer {
             return;
         }
 
-        // TODO handle rewind
+        // Handle rewind
+        let lastTransactionOffset = 0;
+        if (this.internalPosition < this.previousPosition) {
+            while (this.internalPosition < this.previousPosition && this.transactionLogIndex >= 0) {
+                const currentTransactionLog = this.transactionLogs[this.transactionLogIndex];
+                --this.transactionLogIndex;
+                if (currentTransactionLog == null) {
+                    continue;
+                }
+                for (const transaction of currentTransactionLog.getTransactionsList().slice().reverse()) {
+                    lastTransactionOffset = transaction.getTimeOffsetMs();
+                    if (lastTransactionOffset <= this.previousPosition && lastTransactionOffset > this.internalPosition) {
+                        this.HandleTransaction(transaction, true);
+                        this.previousPosition = lastTransactionOffset;
+                    }
+                }
+            }
+            this.previousPosition = this.internalPosition;
+        }
 
         const currentTransaction = this.FindCurrentPlayTransaction();
         const passedLoader = this.internalPosition >= this.internalLoadPosition;
@@ -138,10 +156,10 @@ export abstract class TransactionPlayer {
             return;
         }
 
-        let lastTransactionOffset = 0;
+        lastTransactionOffset = 0;
         for (const transaction of currentTransaction.getTransactionsList()) {
             lastTransactionOffset = transaction.getTimeOffsetMs();
-            if (lastTransactionOffset > this.previousPosition && lastTransactionOffset < this.internalPosition) {
+            if (lastTransactionOffset > this.previousPosition && lastTransactionOffset <= this.internalPosition) {
                 this.HandleTransaction(transaction);
                 this.previousPosition = lastTransactionOffset;
             }
@@ -151,6 +169,10 @@ export abstract class TransactionPlayer {
     }
 
     protected FindCurrentPlayTransaction(): TraceTransactionLog {
+        if (this.transactionLogIndex < 0) {
+            this.transactionLogIndex = 0;
+        }
+
         const currentTransactionLog = this.transactionLogs[this.transactionLogIndex];
         if (!currentTransactionLog) {
             if (this.transactionLogs.length > 0 && this.transactionLogs[this.transactionLogIndex - 1].getPartition() >=
@@ -169,5 +191,5 @@ export abstract class TransactionPlayer {
         return currentTransactionLog;
     }
 
-    protected abstract HandleTransaction(transaction: TraceTransaction): void;
+    protected abstract HandleTransaction(transaction: TraceTransaction, undo?: boolean): void;
 }

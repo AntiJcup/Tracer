@@ -7,6 +7,9 @@ export class CreateItemData extends jspb.Message {
   getIsFolder(): boolean;
   setIsFolder(value: boolean): void;
 
+  getNewFilePath(): string;
+  setNewFilePath(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateItemData.AsObject;
   static toObject(includeInstance: boolean, msg: CreateItemData): CreateItemData.AsObject;
@@ -20,6 +23,7 @@ export class CreateItemData extends jspb.Message {
 export namespace CreateItemData {
   export type AsObject = {
     isFolder: boolean,
+    newFilePath: string,
   }
 }
 

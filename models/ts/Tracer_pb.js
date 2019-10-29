@@ -244,7 +244,8 @@ proto.google.protobuf.CreateItemData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.CreateItemData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    isFolder: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
+    isFolder: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    newFilePath: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -285,6 +286,10 @@ proto.google.protobuf.CreateItemData.deserializeBinaryFromReader = function(msg,
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIsFolder(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNewFilePath(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -321,6 +326,13 @@ proto.google.protobuf.CreateItemData.serializeBinaryToWriter = function(message,
       f
     );
   }
+  f = message.getNewFilePath();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -339,6 +351,24 @@ proto.google.protobuf.CreateItemData.prototype.getIsFolder = function() {
  */
 proto.google.protobuf.CreateItemData.prototype.setIsFolder = function(value) {
   return jspb.Message.setProto3BooleanField(this, 1, value);
+};
+
+
+/**
+ * optional string new_file_path = 2;
+ * @return {string}
+ */
+proto.google.protobuf.CreateItemData.prototype.getNewFilePath = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.google.protobuf.CreateItemData} returns this
+ */
+proto.google.protobuf.CreateItemData.prototype.setNewFilePath = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

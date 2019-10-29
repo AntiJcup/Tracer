@@ -7,6 +7,7 @@ option csharp_namespace = "Tracer";
 //Data
 message CreateItemData {
     bool is_folder = 1;
+    string new_file_path = 2;
 }
 
 message DeleteItemData {

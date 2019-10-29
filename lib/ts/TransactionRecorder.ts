@@ -92,25 +92,14 @@ export class TransactionRecorder {
         return transaction;
     }
 
-    public CreateFile(timeOffset: number, filePath: string): TraceTransaction {
+    public CreateItem(timeOffset: number, oldFilePath: string, newFilePath: string, isFolder: boolean): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
         transaction.setTimeOffsetMs(timeOffset);
-        transaction.setFilePath(filePath);
+        transaction.setFilePath(oldFilePath);
         const data = new CreateItemData();
-        data.setIsFolder(false);
-        transaction.setCreateFile(data);
-
-        return this.AddTransaction(transaction);
-    }
-
-    public CreateFolder(timeOffset: number, filePath: string): TraceTransaction {
-        const transaction = new TraceTransaction();
-        transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
-        transaction.setTimeOffsetMs(timeOffset);
-        transaction.setFilePath(filePath);
-        const data = new CreateItemData();
-        data.setIsFolder(true);
+        data.setIsFolder(isFolder);
+        data.setNewFilePath(newFilePath);
         transaction.setCreateFile(data);
 
         return this.AddTransaction(transaction);

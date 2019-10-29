@@ -695,7 +695,7 @@ proto.google.protobuf.SelectFileData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.SelectFileData.toObject = function(includeInstance, msg) {
   var f, obj = {
-
+    newFilePath: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -732,6 +732,10 @@ proto.google.protobuf.SelectFileData.deserializeBinaryFromReader = function(msg,
     }
     var field = reader.getFieldNumber();
     switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNewFilePath(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -761,6 +765,31 @@ proto.google.protobuf.SelectFileData.prototype.serializeBinary = function() {
  */
 proto.google.protobuf.SelectFileData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getNewFilePath();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string new_file_path = 1;
+ * @return {string}
+ */
+proto.google.protobuf.SelectFileData.prototype.getNewFilePath = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.google.protobuf.SelectFileData} returns this
+ */
+proto.google.protobuf.SelectFileData.prototype.setNewFilePath = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 

@@ -21,6 +21,7 @@ message ModifyFileData {
 }
 
 message SelectFileData {
+    string new_file_path = 1;
 }
 
 message CursorChangeFileData {

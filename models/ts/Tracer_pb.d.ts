@@ -72,6 +72,9 @@ export namespace ModifyFileData {
 }
 
 export class SelectFileData extends jspb.Message {
+  getNewFilePath(): string;
+  setNewFilePath(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SelectFileData.AsObject;
   static toObject(includeInstance: boolean, msg: SelectFileData): SelectFileData.AsObject;
@@ -84,6 +87,7 @@ export class SelectFileData extends jspb.Message {
 
 export namespace SelectFileData {
   export type AsObject = {
+    newFilePath: string,
   }
 }
 

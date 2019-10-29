@@ -130,12 +130,13 @@ export class TransactionRecorder {
         return this.AddTransaction(transaction);
     }
 
-    public SelectFile(timeOffset: number, filePath: string): TraceTransaction {
+    public SelectFile(timeOffset: number, oldFilePath: string, newFilePath: string): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.SELECTFILE);
         transaction.setTimeOffsetMs(timeOffset);
-        transaction.setFilePath(filePath);
+        transaction.setFilePath(oldFilePath);
         const data = new SelectFileData();
+        data.setNewFilePath(newFilePath);
         transaction.setSelectFile(data);
 
         return this.AddTransaction(transaction);

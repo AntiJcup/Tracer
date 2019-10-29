@@ -3,37 +3,41 @@
 
 import * as jspb from "google-protobuf";
 
-export class CreateFileData extends jspb.Message {
+export class CreateItemData extends jspb.Message {
+  getIsFolder(): boolean;
+  setIsFolder(value: boolean): void;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CreateFileData.AsObject;
-  static toObject(includeInstance: boolean, msg: CreateFileData): CreateFileData.AsObject;
+  toObject(includeInstance?: boolean): CreateItemData.AsObject;
+  static toObject(includeInstance: boolean, msg: CreateItemData): CreateItemData.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: CreateFileData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CreateFileData;
-  static deserializeBinaryFromReader(message: CreateFileData, reader: jspb.BinaryReader): CreateFileData;
+  static serializeBinaryToWriter(message: CreateItemData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CreateItemData;
+  static deserializeBinaryFromReader(message: CreateItemData, reader: jspb.BinaryReader): CreateItemData;
 }
 
-export namespace CreateFileData {
+export namespace CreateItemData {
   export type AsObject = {
+    isFolder: boolean,
   }
 }
 
-export class DeleteFileData extends jspb.Message {
+export class DeleteItemData extends jspb.Message {
   getPreviousData(): string;
   setPreviousData(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): DeleteFileData.AsObject;
-  static toObject(includeInstance: boolean, msg: DeleteFileData): DeleteFileData.AsObject;
+  toObject(includeInstance?: boolean): DeleteItemData.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteItemData): DeleteItemData.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: DeleteFileData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): DeleteFileData;
-  static deserializeBinaryFromReader(message: DeleteFileData, reader: jspb.BinaryReader): DeleteFileData;
+  static serializeBinaryToWriter(message: DeleteItemData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteItemData;
+  static deserializeBinaryFromReader(message: DeleteItemData, reader: jspb.BinaryReader): DeleteItemData;
 }
 
-export namespace DeleteFileData {
+export namespace DeleteItemData {
   export type AsObject = {
     previousData: string,
   }
@@ -115,21 +119,21 @@ export namespace CursorChangeFileData {
   }
 }
 
-export class RenameFileData extends jspb.Message {
+export class RenameItemData extends jspb.Message {
   getNewFilePath(): string;
   setNewFilePath(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RenameFileData.AsObject;
-  static toObject(includeInstance: boolean, msg: RenameFileData): RenameFileData.AsObject;
+  toObject(includeInstance?: boolean): RenameItemData.AsObject;
+  static toObject(includeInstance: boolean, msg: RenameItemData): RenameItemData.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RenameFileData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RenameFileData;
-  static deserializeBinaryFromReader(message: RenameFileData, reader: jspb.BinaryReader): RenameFileData;
+  static serializeBinaryToWriter(message: RenameItemData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RenameItemData;
+  static deserializeBinaryFromReader(message: RenameItemData, reader: jspb.BinaryReader): RenameItemData;
 }
 
-export namespace RenameFileData {
+export namespace RenameItemData {
   export type AsObject = {
     newFilePath: string,
   }
@@ -147,13 +151,13 @@ export class TraceTransaction extends jspb.Message {
 
   hasCreateFile(): boolean;
   clearCreateFile(): void;
-  getCreateFile(): CreateFileData | undefined;
-  setCreateFile(value?: CreateFileData): void;
+  getCreateFile(): CreateItemData | undefined;
+  setCreateFile(value?: CreateItemData): void;
 
   hasDeleteFile(): boolean;
   clearDeleteFile(): void;
-  getDeleteFile(): DeleteFileData | undefined;
-  setDeleteFile(value?: DeleteFileData): void;
+  getDeleteFile(): DeleteItemData | undefined;
+  setDeleteFile(value?: DeleteItemData): void;
 
   hasModifyFile(): boolean;
   clearModifyFile(): void;
@@ -172,8 +176,8 @@ export class TraceTransaction extends jspb.Message {
 
   hasRenameFile(): boolean;
   clearRenameFile(): void;
-  getRenameFile(): RenameFileData | undefined;
-  setRenameFile(value?: RenameFileData): void;
+  getRenameFile(): RenameItemData | undefined;
+  setRenameFile(value?: RenameItemData): void;
 
   getDataCase(): TraceTransaction.DataCase;
   serializeBinary(): Uint8Array;
@@ -191,12 +195,12 @@ export namespace TraceTransaction {
     type: TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap],
     timeOffsetMs: number,
     filePath: string,
-    createFile?: CreateFileData.AsObject,
-    deleteFile?: DeleteFileData.AsObject,
+    createFile?: CreateItemData.AsObject,
+    deleteFile?: DeleteItemData.AsObject,
     modifyFile?: ModifyFileData.AsObject,
     selectFile?: SelectFileData.AsObject,
     cursorFile?: CursorChangeFileData.AsObject,
-    renameFile?: RenameFileData.AsObject,
+    renameFile?: RenameItemData.AsObject,
   }
 
   export interface TraceTransactionTypeMap {

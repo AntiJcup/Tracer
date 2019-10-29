@@ -5,11 +5,11 @@ package google.protobuf;
 option csharp_namespace = "Tracer";
 
 //Data
-message CreateFileData {
-    
+message CreateItemData {
+    bool is_folder = 1;
 }
 
-message DeleteFileData {
+message DeleteItemData {
     string previous_data = 1;
 }
 
@@ -29,7 +29,7 @@ message CursorChangeFileData {
     uint32 offset_end = 2;
 }
 
-message RenameFileData {
+message RenameItemData {
     string new_file_path = 1;
 }
 //End Data
@@ -49,12 +49,12 @@ message TraceTransaction {
   string file_path =  3;
 
   oneof data {
-    CreateFileData create_file = 4;
-    DeleteFileData delete_file = 5;
+    CreateItemData create_file = 4;
+    DeleteItemData delete_file = 5;
     ModifyFileData modify_file = 6;
     SelectFileData select_file = 7;
     CursorChangeFileData cursor_file = 8;
-    RenameFileData rename_file = 9;
+    RenameItemData rename_file = 9;
   }
 }
 

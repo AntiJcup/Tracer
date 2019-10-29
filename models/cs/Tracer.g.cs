@@ -51,12 +51,12 @@ namespace Tracer {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CreateFileData), global::Tracer.CreateFileData.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.DeleteFileData), global::Tracer.DeleteFileData.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CreateItemData), global::Tracer.CreateItemData.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.DeleteItemData), global::Tracer.DeleteItemData.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.ModifyFileData), global::Tracer.ModifyFileData.Parser, new[]{ "OffsetStart", "OffsetEnd", "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.SelectFileData), global::Tracer.SelectFileData.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CursorChangeFileData), global::Tracer.CursorChangeFileData.Parser, new[]{ "OffsetStart", "OffsetEnd" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.RenameFileData), global::Tracer.RenameFileData.Parser, new[]{ "NewFilePath" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.RenameItemData), global::Tracer.RenameItemData.Parser, new[]{ "NewFilePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "FilePath", "CreateFile", "DeleteFile", "ModifyFile", "SelectFile", "CursorFile", "RenameFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLog), global::Tracer.TraceTransactionLog.Parser, new[]{ "Partition", "Transactions" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceProject), global::Tracer.TraceProject.Parser, new[]{ "Id", "Duration", "PartitionSize" }, null, null, null, null)
@@ -69,11 +69,11 @@ namespace Tracer {
   /// <summary>
   ///Data
   /// </summary>
-  public sealed partial class CreateFileData : pb::IMessage<CreateFileData> {
-    private static readonly pb::MessageParser<CreateFileData> _parser = new pb::MessageParser<CreateFileData>(() => new CreateFileData());
+  public sealed partial class CreateItemData : pb::IMessage<CreateItemData> {
+    private static readonly pb::MessageParser<CreateItemData> _parser = new pb::MessageParser<CreateItemData>(() => new CreateItemData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CreateFileData> Parser { get { return _parser; } }
+    public static pb::MessageParser<CreateItemData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -86,29 +86,29 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CreateFileData() {
+    public CreateItemData() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CreateFileData(CreateFileData other) : this() {
+    public CreateItemData(CreateItemData other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CreateFileData Clone() {
-      return new CreateFileData(this);
+    public CreateItemData Clone() {
+      return new CreateItemData(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CreateFileData);
+      return Equals(other as CreateItemData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CreateFileData other) {
+    public bool Equals(CreateItemData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -149,7 +149,7 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CreateFileData other) {
+    public void MergeFrom(CreateItemData other) {
       if (other == null) {
         return;
       }
@@ -170,11 +170,11 @@ namespace Tracer {
 
   }
 
-  public sealed partial class DeleteFileData : pb::IMessage<DeleteFileData> {
-    private static readonly pb::MessageParser<DeleteFileData> _parser = new pb::MessageParser<DeleteFileData>(() => new DeleteFileData());
+  public sealed partial class DeleteItemData : pb::IMessage<DeleteItemData> {
+    private static readonly pb::MessageParser<DeleteItemData> _parser = new pb::MessageParser<DeleteItemData>(() => new DeleteItemData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<DeleteFileData> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeleteItemData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -187,29 +187,29 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public DeleteFileData() {
+    public DeleteItemData() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public DeleteFileData(DeleteFileData other) : this() {
+    public DeleteItemData(DeleteItemData other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public DeleteFileData Clone() {
-      return new DeleteFileData(this);
+    public DeleteItemData Clone() {
+      return new DeleteItemData(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as DeleteFileData);
+      return Equals(other as DeleteItemData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(DeleteFileData other) {
+    public bool Equals(DeleteItemData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -250,7 +250,7 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(DeleteFileData other) {
+    public void MergeFrom(DeleteItemData other) {
       if (other == null) {
         return;
       }
@@ -714,11 +714,11 @@ namespace Tracer {
 
   }
 
-  public sealed partial class RenameFileData : pb::IMessage<RenameFileData> {
-    private static readonly pb::MessageParser<RenameFileData> _parser = new pb::MessageParser<RenameFileData>(() => new RenameFileData());
+  public sealed partial class RenameItemData : pb::IMessage<RenameItemData> {
+    private static readonly pb::MessageParser<RenameItemData> _parser = new pb::MessageParser<RenameItemData>(() => new RenameItemData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<RenameFileData> Parser { get { return _parser; } }
+    public static pb::MessageParser<RenameItemData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -731,21 +731,21 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RenameFileData() {
+    public RenameItemData() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RenameFileData(RenameFileData other) : this() {
+    public RenameItemData(RenameItemData other) : this() {
       newFilePath_ = other.newFilePath_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RenameFileData Clone() {
-      return new RenameFileData(this);
+    public RenameItemData Clone() {
+      return new RenameItemData(this);
     }
 
     /// <summary>Field number for the "new_file_path" field.</summary>
@@ -761,11 +761,11 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as RenameFileData);
+      return Equals(other as RenameItemData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(RenameFileData other) {
+    public bool Equals(RenameItemData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -815,7 +815,7 @@ namespace Tracer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(RenameFileData other) {
+    public void MergeFrom(RenameItemData other) {
       if (other == null) {
         return;
       }
@@ -936,8 +936,8 @@ namespace Tracer {
     /// <summary>Field number for the "create_file" field.</summary>
     public const int CreateFileFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Tracer.CreateFileData CreateFile {
-      get { return dataCase_ == DataOneofCase.CreateFile ? (global::Tracer.CreateFileData) data_ : null; }
+    public global::Tracer.CreateItemData CreateFile {
+      get { return dataCase_ == DataOneofCase.CreateFile ? (global::Tracer.CreateItemData) data_ : null; }
       set {
         data_ = value;
         dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.CreateFile;
@@ -947,8 +947,8 @@ namespace Tracer {
     /// <summary>Field number for the "delete_file" field.</summary>
     public const int DeleteFileFieldNumber = 5;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Tracer.DeleteFileData DeleteFile {
-      get { return dataCase_ == DataOneofCase.DeleteFile ? (global::Tracer.DeleteFileData) data_ : null; }
+    public global::Tracer.DeleteItemData DeleteFile {
+      get { return dataCase_ == DataOneofCase.DeleteFile ? (global::Tracer.DeleteItemData) data_ : null; }
       set {
         data_ = value;
         dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.DeleteFile;
@@ -991,8 +991,8 @@ namespace Tracer {
     /// <summary>Field number for the "rename_file" field.</summary>
     public const int RenameFileFieldNumber = 9;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Tracer.RenameFileData RenameFile {
-      get { return dataCase_ == DataOneofCase.RenameFile ? (global::Tracer.RenameFileData) data_ : null; }
+    public global::Tracer.RenameItemData RenameFile {
+      get { return dataCase_ == DataOneofCase.RenameFile ? (global::Tracer.RenameItemData) data_ : null; }
       set {
         data_ = value;
         dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.RenameFile;
@@ -1168,13 +1168,13 @@ namespace Tracer {
       switch (other.DataCase) {
         case DataOneofCase.CreateFile:
           if (CreateFile == null) {
-            CreateFile = new global::Tracer.CreateFileData();
+            CreateFile = new global::Tracer.CreateItemData();
           }
           CreateFile.MergeFrom(other.CreateFile);
           break;
         case DataOneofCase.DeleteFile:
           if (DeleteFile == null) {
-            DeleteFile = new global::Tracer.DeleteFileData();
+            DeleteFile = new global::Tracer.DeleteItemData();
           }
           DeleteFile.MergeFrom(other.DeleteFile);
           break;
@@ -1198,7 +1198,7 @@ namespace Tracer {
           break;
         case DataOneofCase.RenameFile:
           if (RenameFile == null) {
-            RenameFile = new global::Tracer.RenameFileData();
+            RenameFile = new global::Tracer.RenameItemData();
           }
           RenameFile.MergeFrom(other.RenameFile);
           break;
@@ -1228,7 +1228,7 @@ namespace Tracer {
             break;
           }
           case 34: {
-            global::Tracer.CreateFileData subBuilder = new global::Tracer.CreateFileData();
+            global::Tracer.CreateItemData subBuilder = new global::Tracer.CreateItemData();
             if (dataCase_ == DataOneofCase.CreateFile) {
               subBuilder.MergeFrom(CreateFile);
             }
@@ -1237,7 +1237,7 @@ namespace Tracer {
             break;
           }
           case 42: {
-            global::Tracer.DeleteFileData subBuilder = new global::Tracer.DeleteFileData();
+            global::Tracer.DeleteItemData subBuilder = new global::Tracer.DeleteItemData();
             if (dataCase_ == DataOneofCase.DeleteFile) {
               subBuilder.MergeFrom(DeleteFile);
             }
@@ -1273,7 +1273,7 @@ namespace Tracer {
             break;
           }
           case 74: {
-            global::Tracer.RenameFileData subBuilder = new global::Tracer.RenameFileData();
+            global::Tracer.RenameItemData subBuilder = new global::Tracer.RenameItemData();
             if (dataCase_ == DataOneofCase.RenameFile) {
               subBuilder.MergeFrom(RenameFile);
             }

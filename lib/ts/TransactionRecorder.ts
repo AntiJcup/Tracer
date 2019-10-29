@@ -2,12 +2,12 @@ import {
     TraceProject,
     TraceTransactionLog,
     TraceTransaction,
-    CreateFileData,
-    DeleteFileData,
+    CreateItemData,
+    DeleteItemData,
     ModifyFileData,
     SelectFileData,
     CursorChangeFileData,
-    RenameFileData
+    RenameItemData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom } from './Common';
 import { TransactionWriter } from './TransactionWriter';
@@ -97,7 +97,20 @@ export class TransactionRecorder {
         transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
         transaction.setTimeOffsetMs(timeOffset);
         transaction.setFilePath(filePath);
-        const data = new CreateFileData();
+        const data = new CreateItemData();
+        data.setIsFolder(false);
+        transaction.setCreateFile(data);
+
+        return this.AddTransaction(transaction);
+    }
+
+    public CreateFolder(timeOffset: number, filePath: string): TraceTransaction {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.CREATEFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(filePath);
+        const data = new CreateItemData();
+        data.setIsFolder(true);
         transaction.setCreateFile(data);
 
         return this.AddTransaction(transaction);
@@ -108,7 +121,7 @@ export class TransactionRecorder {
         transaction.setType(TraceTransaction.TraceTransactionType.DELETEFILE);
         transaction.setTimeOffsetMs(timeOffset);
         transaction.setFilePath(filePath);
-        const data = new DeleteFileData();
+        const data = new DeleteItemData();
         data.setPreviousData(previousData);
         transaction.setDeleteFile(data);
 
@@ -160,7 +173,7 @@ export class TransactionRecorder {
         transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
         transaction.setTimeOffsetMs(timeOffset);
         transaction.setFilePath(filePath);
-        const data = new RenameFileData();
+        const data = new RenameItemData();
         data.setNewFilePath(filePath);
         transaction.setRenameFile(data);
 

@@ -70,7 +70,8 @@ namespace Tracer
             transaction.Type = TraceTransaction.Types.TraceTransactionType.CreateFile;
             transaction.TimeOffsetMs = timeOffset;
             transaction.FilePath = filePath;
-            var data = new CreateFileData();
+            var data = new CreateItemData();
+            data.IsFolder = false;
             transaction.CreateFile = data;
 
             AddTransaction(transaction);
@@ -82,7 +83,7 @@ namespace Tracer
             transaction.Type = TraceTransaction.Types.TraceTransactionType.DeleteFile;
             transaction.TimeOffsetMs = timeOffset;
             transaction.FilePath = filePath;
-            var data = new DeleteFileData();
+            var data = new DeleteItemData();
             transaction.DeleteFile = data;
 
             AddTransaction(transaction);

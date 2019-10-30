@@ -15,6 +15,7 @@ export abstract class TransactionLoader {
 
         const traceTransactionLog: TraceTransactionLog = TraceTransactionLog.deserializeBinary(
             await this.GetTransactionLogStream(project, partition));
+        console.log(`Loaded Transaction Log: ${JSON.stringify(traceTransactionLog.toObject())}`);
 
         if (!projectCache) {
             projectCache = {};

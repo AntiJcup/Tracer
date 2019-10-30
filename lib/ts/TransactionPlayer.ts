@@ -129,6 +129,7 @@ export abstract class TransactionPlayer {
 
         // Handle rewind
         let lastTransactionOffset = 0;
+        let lastActedTransactionOffset = 0;
         if (this.internalPosition < this.previousPosition) {
             while (this.internalPosition < this.previousPosition && this.transactionLogIndex >= 0) {
                 const currentTransactionLog = this.transactionLogs[this.transactionLogIndex];
@@ -140,9 +141,10 @@ export abstract class TransactionPlayer {
                     lastTransactionOffset = transaction.getTimeOffsetMs();
                     if (lastTransactionOffset <= this.previousPosition && lastTransactionOffset > this.internalPosition) {
                         this.HandleTransaction(transaction, true);
-                        this.previousPosition = lastTransactionOffset;
+                        lastActedTransactionOffset = lastTransactionOffset;
                     }
                 }
+                this.previousPosition = lastActedTransactionOffset;
             }
             this.previousPosition = this.internalPosition;
         }
@@ -161,8 +163,11 @@ export abstract class TransactionPlayer {
             lastTransactionOffset = transaction.getTimeOffsetMs();
             if (lastTransactionOffset > this.previousPosition && lastTransactionOffset <= this.internalPosition) {
                 this.HandleTransaction(transaction);
-                this.previousPosition = lastTransactionOffset;
+                lastActedTransactionOffset = lastTransactionOffset;
             }
+        }
+        if (this.previousPosition < lastActedTransactionOffset) {
+            this.previousPosition = lastActedTransactionOffset;
         }
 
         this.internalPosition += this.settings.updateInterval;

@@ -158,13 +158,15 @@ export class TransactionRecorder {
         return this.AddTransaction(transaction);
     }
 
-    public RenameFile(timeOffset: number, filePath: string, newFilePath: string): TraceTransaction {
+    public RenameFile(timeOffset: number, filePath: string, newFilePath: string, previousData: string, isFolder: boolean): TraceTransaction {
         const transaction = new TraceTransaction();
-        transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
+        transaction.setType(TraceTransaction.TraceTransactionType.RENAMEFILE);
         transaction.setTimeOffsetMs(timeOffset);
         transaction.setFilePath(filePath);
         const data = new RenameItemData();
-        data.setNewFilePath(filePath);
+        data.setNewFilePath(newFilePath);
+        data.setPreviousData(previousData);
+        data.setIsFolder(isFolder);
         transaction.setRenameFile(data);
 
         return this.AddTransaction(transaction);

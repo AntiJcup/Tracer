@@ -131,6 +131,12 @@ export class RenameItemData extends jspb.Message {
   getNewFilePath(): string;
   setNewFilePath(value: string): void;
 
+  getPreviousData(): string;
+  setPreviousData(value: string): void;
+
+  getIsFolder(): boolean;
+  setIsFolder(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RenameItemData.AsObject;
   static toObject(includeInstance: boolean, msg: RenameItemData): RenameItemData.AsObject;
@@ -144,6 +150,8 @@ export class RenameItemData extends jspb.Message {
 export namespace RenameItemData {
   export type AsObject = {
     newFilePath: string,
+    previousData: string,
+    isFolder: boolean,
   }
 }
 

@@ -33,6 +33,8 @@ message CursorChangeFileData {
 
 message RenameItemData {
     string new_file_path = 1;
+    string previous_data = 2;
+    bool is_folder = 3;
 }
 //End Data
 

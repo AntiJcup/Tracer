@@ -1074,7 +1074,9 @@ proto.google.protobuf.RenameItemData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.RenameItemData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    newFilePath: jspb.Message.getFieldWithDefault(msg, 1, "")
+    newFilePath: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    previousData: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    isFolder: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
   };
 
   if (includeInstance) {
@@ -1115,6 +1117,14 @@ proto.google.protobuf.RenameItemData.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setNewFilePath(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPreviousData(value);
+      break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsFolder(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1151,6 +1161,20 @@ proto.google.protobuf.RenameItemData.serializeBinaryToWriter = function(message,
       f
     );
   }
+  f = message.getPreviousData();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getIsFolder();
+  if (f) {
+    writer.writeBool(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -1169,6 +1193,42 @@ proto.google.protobuf.RenameItemData.prototype.getNewFilePath = function() {
  */
 proto.google.protobuf.RenameItemData.prototype.setNewFilePath = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string previous_data = 2;
+ * @return {string}
+ */
+proto.google.protobuf.RenameItemData.prototype.getPreviousData = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.google.protobuf.RenameItemData} returns this
+ */
+proto.google.protobuf.RenameItemData.prototype.setPreviousData = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional bool is_folder = 3;
+ * @return {boolean}
+ */
+proto.google.protobuf.RenameItemData.prototype.getIsFolder = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.google.protobuf.RenameItemData} returns this
+ */
+proto.google.protobuf.RenameItemData.prototype.setIsFolder = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
 };
 
 

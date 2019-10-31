@@ -105,13 +105,14 @@ export class TransactionRecorder {
         return this.AddTransaction(transaction);
     }
 
-    public DeleteFile(timeOffset: number, filePath: string, previousData: string): TraceTransaction {
+    public DeleteFile(timeOffset: number, filePath: string, previousData: string, isFolder: boolean): TraceTransaction {
         const transaction = new TraceTransaction();
         transaction.setType(TraceTransaction.TraceTransactionType.DELETEFILE);
         transaction.setTimeOffsetMs(timeOffset);
         transaction.setFilePath(filePath);
         const data = new DeleteItemData();
         data.setPreviousData(previousData);
+        data.setIsFolder(isFolder);
         transaction.setDeleteFile(data);
 
         return this.AddTransaction(transaction);

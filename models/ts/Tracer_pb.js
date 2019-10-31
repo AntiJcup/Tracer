@@ -404,7 +404,8 @@ proto.google.protobuf.DeleteItemData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.DeleteItemData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    previousData: jspb.Message.getFieldWithDefault(msg, 1, "")
+    previousData: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    isFolder: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -445,6 +446,10 @@ proto.google.protobuf.DeleteItemData.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setPreviousData(value);
       break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsFolder(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -481,6 +486,13 @@ proto.google.protobuf.DeleteItemData.serializeBinaryToWriter = function(message,
       f
     );
   }
+  f = message.getIsFolder();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -499,6 +511,24 @@ proto.google.protobuf.DeleteItemData.prototype.getPreviousData = function() {
  */
 proto.google.protobuf.DeleteItemData.prototype.setPreviousData = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional bool is_folder = 2;
+ * @return {boolean}
+ */
+proto.google.protobuf.DeleteItemData.prototype.getIsFolder = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.google.protobuf.DeleteItemData} returns this
+ */
+proto.google.protobuf.DeleteItemData.prototype.setIsFolder = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 

@@ -31,6 +31,9 @@ export class DeleteItemData extends jspb.Message {
   getPreviousData(): string;
   setPreviousData(value: string): void;
 
+  getIsFolder(): boolean;
+  setIsFolder(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteItemData.AsObject;
   static toObject(includeInstance: boolean, msg: DeleteItemData): DeleteItemData.AsObject;
@@ -44,6 +47,7 @@ export class DeleteItemData extends jspb.Message {
 export namespace DeleteItemData {
   export type AsObject = {
     previousData: string,
+    isFolder: boolean,
   }
 }
 

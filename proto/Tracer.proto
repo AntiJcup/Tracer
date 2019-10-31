@@ -12,6 +12,7 @@ message CreateItemData {
 
 message DeleteItemData {
     string previous_data = 1;
+    bool is_folder = 2;
 }
 
 message ModifyFileData {

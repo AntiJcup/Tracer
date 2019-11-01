@@ -20,7 +20,7 @@ export class OnlineProjectLoader extends ProjectLoader {
     }
 
     public async GetProjectStream(id: string): Promise<Uint8Array> {
-        const projectUrlResponse = await this.transactionRequestor.Get(`api/Streaming/GetProjectUrl?projectId=${id}`);
+        const projectUrlResponse = await this.transactionRequestor.Get(`api/project/streaming/project?projectId=${id}`);
 
         if (!projectUrlResponse.ok) {
             return null;
@@ -37,7 +37,7 @@ export class OnlineProjectWriter extends ProjectWriter {
     }
 
     public async CreateProject(id: string): Promise<boolean> {
-        const createResponse = await this.transactionRequestor.Post(`api/Recording/CreateProject?tutorialId=${id}`);
+        const createResponse = await this.transactionRequestor.Post(`api/project/recording/create?tutorialId=${id}`);
         if (!createResponse.ok) {
             return false;
         }
@@ -46,7 +46,7 @@ export class OnlineProjectWriter extends ProjectWriter {
     }
 
     public async DeleteProject(id: string): Promise<boolean> {
-        const deleteResponse = await this.transactionRequestor.Post(`api/Recording/DeleteProject?tutorialId=${id}`);
+        const deleteResponse = await this.transactionRequestor.Post(`api/project/recording/delete?tutorialId=${id}`);
         if (!deleteResponse.ok) {
             return false;
         }
@@ -87,7 +87,7 @@ export class OnlineTransactionWriter extends TransactionWriter {
     }
 
     protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
-        const response = await this.transactionRequestor.Post(`api/Recording/AddTransactionLog?projectId=${this.projectId}`,
+        const response = await this.transactionRequestor.Post(`api/project/recording/add?projectId=${this.projectId}`,
             new Blob([data]));
 
         return response.ok;
@@ -106,7 +106,7 @@ export class OnlineTransactionLoader extends TransactionLoader {
         const cappedEndTime = Math.min(project.getDuration(), endTime);
 
         const response = await this.transactionRequestor
-            .Get(`api/Streaming/GetTransactionLogUrls?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
+            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
 
         if (!response.ok) {
             return null;

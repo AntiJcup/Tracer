@@ -6,16 +6,11 @@ import { request } from 'http';
 import { promise } from 'protractor';
 import { ProjectWriter } from './ProjectWriter';
 import { ProjectLoader } from './ProjectLoader';
-
-export interface OnlineTransactionRequestInfo {
-    host: string;
-    credentials: string;
-    headers: { [headerName: string]: string };
-}
+import { ApiHttpRequest } from 'shared/web/lib/ts/ApiHttpRequest';
 
 
 export class OnlineProjectLoader extends ProjectLoader {
-    constructor(protected transactionRequestor: OnlineTransactionRequest) {
+    constructor(protected transactionRequestor: ApiHttpRequest) {
         super();
     }
 
@@ -32,7 +27,7 @@ export class OnlineProjectLoader extends ProjectLoader {
 }
 
 export class OnlineProjectWriter extends ProjectWriter {
-    constructor(protected transactionRequestor: OnlineTransactionRequest) {
+    constructor(protected transactionRequestor: ApiHttpRequest) {
         super();
     }
 
@@ -55,34 +50,8 @@ export class OnlineProjectWriter extends ProjectWriter {
     }
 }
 
-export class OnlineTransactionRequest {
-    constructor(public requestInfo: OnlineTransactionRequestInfo) {
-
-    }
-    public async GetFullUrl(url: string): Promise<Response> {
-        return await fetch(url, this.generateRequestInfo('GET'));
-    }
-
-    public async Get(path: string): Promise<Response> {
-        return await fetch(`${this.requestInfo.host}/${path}`, this.generateRequestInfo('GET'));
-    }
-
-    public async Post(path: string, body?: any, requestHeaders?: { [headerName: string]: string }): Promise<Response> {
-        return await fetch(`${this.requestInfo.host}/${path}`, this.generateRequestInfo('POST', body, requestHeaders));
-    }
-
-    protected generateRequestInfo(requestMethod: string, requestBody?: any, requestHeaders?: { [headerName: string]: string }): any {
-        return {
-            method: requestMethod,
-            credentials: this.requestInfo.credentials,
-            headers: { ...this.requestInfo.headers, ...requestHeaders }, // merge the dictionaries
-            body: requestBody
-        };
-    }
-}
-
 export class OnlineTransactionWriter extends TransactionWriter {
-    constructor(protected transactionRequestor: OnlineTransactionRequest, protected tutorialId: string) {
+    constructor(protected transactionRequestor: ApiHttpRequest, protected tutorialId: string) {
         super(tutorialId);
     }
 
@@ -95,7 +64,7 @@ export class OnlineTransactionWriter extends TransactionWriter {
 }
 
 export class OnlineTransactionLoader extends TransactionLoader {
-    constructor(protected transactionRequestor: OnlineTransactionRequest) {
+    constructor(protected transactionRequestor: ApiHttpRequest) {
         super();
     }
 

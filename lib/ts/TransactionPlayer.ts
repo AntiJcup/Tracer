@@ -8,6 +8,7 @@ export interface TransactionPlayerSettings {
     loadChunkSize: number; // Always make sure this is greater than look ahead
     updateInterval: number;
     loadInterval: number;
+    customIncrementer: boolean;
 }
 
 export enum TransactionPlayerState {
@@ -33,6 +34,9 @@ export abstract class TransactionPlayer {
 
     public set position(offset: number) {
         this.internalPosition = offset;
+        if (this.settings.customIncrementer) {
+            this.UpdateLoop();
+        }
     }
 
     public get loadPosition() {
@@ -65,7 +69,9 @@ export abstract class TransactionPlayer {
 
     public async Load(): Promise<void> {
         this.project = await this.projectLoader.LoadProject(this.projectId);
-        this.internalUpdateInterval = setInterval(() => this.UpdateLoop(), this.settings.updateInterval);
+        if (!this.settings.customIncrementer) {
+            this.internalUpdateInterval = setInterval(() => this.UpdateLoop(), this.settings.updateInterval);
+        }
         this.internalLoadInterval = setInterval(() => this.LoadLoop(), this.settings.loadInterval);
         this.LoadLoop();
     }
@@ -85,6 +91,15 @@ export abstract class TransactionPlayer {
 
         this.internalState = TransactionPlayerState.Paused;
         this.internalPosition = this.previousPosition; // Snap to where we actually are
+    }
+
+    public SetPostionPct(pct: number) {
+        if (pct > 1 || pct < 0) {
+            throw new Error('Invalid pct');
+        }
+
+        const newPos = this.duration * pct;
+        this.position = newPos;
     }
 
     protected ThrowIfNotLoaded(): void {
@@ -171,7 +186,9 @@ export abstract class TransactionPlayer {
             this.previousPosition = lastActedTransactionOffset;
         }
 
-        this.internalPosition += this.settings.updateInterval;
+        if (!this.settings.customIncrementer) {
+            this.internalPosition += this.settings.updateInterval;
+        }
     }
 
     protected FindCurrentPlayTransaction(): TraceTransactionLog {
@@ -183,7 +200,7 @@ export abstract class TransactionPlayer {
         if (!currentTransactionLog) {
             if (this.transactionLogs.length > 0 && this.transactionLogs[this.transactionLogIndex - 1].getPartition() >=
                 (this.project.getDuration() / this.project.getPartitionSize())) {
-                this.Pause();
+                // this.Pause();
             }
             return null;
         }

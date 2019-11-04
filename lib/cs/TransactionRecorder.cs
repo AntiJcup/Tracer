@@ -38,7 +38,7 @@ namespace Tracer
             logs_ = transactionLogs;
         }
 
-        protected TraceTransactionLog GetTransactionLogByTimeOffset(UInt32 timeOffset)
+        protected TraceTransactionLog GetTransactionLogByTimeOffset(int timeOffset)
         {
             TraceTransactionLog transactionLog = null;
             var partition = Project.PartitionFromOffsetBottom(timeOffset);
@@ -59,7 +59,7 @@ namespace Tracer
 
         protected void AddTransaction(TraceTransaction transaction)
         {
-            var transactionLog = GetTransactionLogByTimeOffset(transaction.TimeOffsetMs);
+            var transactionLog = GetTransactionLogByTimeOffset((int)transaction.TimeOffsetMs);
             transactionLog.Transactions.Add(transaction);
             Project.Duration += transaction.TimeOffsetMs;
         }

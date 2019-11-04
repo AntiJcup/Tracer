@@ -1,56 +1,63 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Google.Protobuf;
+using System.Threading.Tasks;
+using Tracer;
 
-namespace Tracer
+public abstract class TransactionLoader
 {
+    protected Dictionary<string, Dictionary<int, TraceTransactionLog>> transactionLogCache = new Dictionary<string, Dictionary<int, TraceTransactionLog>>();
 
-    public abstract class TransactionLoader
+    public TransactionLoader()
     {
-        public TransactionLoader()
-        {
-        }
-
-        public TraceTransactionLog LoadTraceTransactionLog(TraceProject project, UInt32 partition)
-        {
-            TraceTransactionLog traceTransactionLog = null;
-            using (var inputStream = GetTransactionLogStream(project, partition))
-            {
-                if (inputStream == null) return null;
-                traceTransactionLog = TraceTransactionLog.Parser.ParseFrom(inputStream);
-            }
-            return traceTransactionLog;
-        }
-
-        public TraceProject LoadProject(Guid id)
-        {
-            TraceProject traceProject = null;
-            using (var inputStream = GetProjectStream(id))
-            {
-                if (inputStream == null) return null;
-                traceProject = TraceProject.Parser.ParseFrom(inputStream);
-            }
-            return traceProject;
-        }
-
-        public List<TraceTransactionLog> GetTransactionLogs(TraceProject project, UInt32 startTime, UInt32 endTime)
-        {
-            List<TraceTransactionLog> transactionLogs = new List<TraceTransactionLog>();
-            var partitionStart = project.PartitionFromOffsetBottom(startTime);
-            var partitionEnd = project.PartitionFromOffsetTop(endTime);
-
-            for (var partition = partitionStart; partition <= partitionEnd; partition++)
-            {
-                var transactionLog = LoadTraceTransactionLog(project, partition);
-                if (transactionLog == null) continue;
-                transactionLogs.Add(transactionLog);
-            }
-
-            return transactionLogs;
-        }
-
-        protected abstract Stream GetTransactionLogStream(TraceProject project, UInt32 partition);
-        protected abstract Stream GetProjectStream(Guid id);
     }
+
+    public async Task<TraceTransactionLog> LoadTraceTransactionLog(TraceProject project, int partition)
+    {
+        Dictionary<int, TraceTransactionLog> projectCache = null;
+        if (this.transactionLogCache.ContainsKey(project.Id))
+        {
+            projectCache = this.transactionLogCache[project.Id];
+            if (projectCache != null && projectCache[partition] != null)
+            {
+                return projectCache[partition];
+            }
+        }
+
+        TraceTransactionLog traceTransactionLog = TraceTransactionLog.Parser.ParseFrom(await GetTransactionLogStream(project, partition));
+
+        if (projectCache == null)
+        {
+            projectCache = new Dictionary<int, TraceTransactionLog>();
+            this.transactionLogCache[project.Id] = projectCache;
+        }
+        projectCache[partition] = traceTransactionLog;
+
+        return traceTransactionLog;
+    }
+
+    public async Task<ICollection<TraceTransactionLog>> GetTransactionLogs(TraceProject project, int startTime, int endTime)
+    {
+        var transactionLogs = new List<TraceTransactionLog>();
+        var partitions = await GetPartitionsForRange(project, startTime, endTime);
+
+
+        foreach (var partition in partitions)
+        {
+            if (!partitions.ContainsKey(partition.Key))
+            {
+                continue;
+            }
+
+            var transactionLog = await this.LoadTraceTransactionLog(project, partition.Value);
+            if (transactionLog == null) { continue; }
+            transactionLogs.Add(transactionLog);
+        }
+
+        return transactionLogs;
+    }
+
+    protected abstract Task<Dictionary<string, int>> GetPartitionsForRange(TraceProject project, int startTime, int endTime);
+    protected abstract Task<Stream> GetTransactionLogStream(TraceProject project, int partition);
 }

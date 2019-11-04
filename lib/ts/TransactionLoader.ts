@@ -9,7 +9,7 @@ export abstract class TransactionLoader {
 
     public async LoadTraceTransactionLog(project: TraceProject, partition: string): Promise<TraceTransactionLog> {
         let projectCache = this.transactionLogCache[project.getId()];
-        if (projectCache && projectCache[partition] !== null) {
+        if (projectCache && projectCache[partition]) {
             return projectCache[partition];
         }
 

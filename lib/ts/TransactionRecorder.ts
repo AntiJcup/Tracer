@@ -20,6 +20,10 @@ export class TransactionRecorder {
     protected project: TraceProject;
     private initialTimeOffset = 0;
 
+    public get logs(): TraceTransactionLog[] {
+        return this.transactionLogs;
+    }
+
     constructor(
         private id: string,
         private projectLoader: ProjectLoader,

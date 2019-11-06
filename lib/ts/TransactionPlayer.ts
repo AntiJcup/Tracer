@@ -147,8 +147,7 @@ export abstract class TransactionPlayer {
         let lastActedTransactionOffset = this.previousPosition;
         if (this.internalPosition < this.previousPosition) {
             while (this.internalPosition < this.previousPosition && this.transactionLogIndex >= 0) {
-                const currentTransactionLog = this.transactionLogs[this.transactionLogIndex];
-                --this.transactionLogIndex;
+                const currentTransactionLog = this.transactionLogs[this.transactionLogIndex--];
                 if (currentTransactionLog == null) {
                     continue;
                 }

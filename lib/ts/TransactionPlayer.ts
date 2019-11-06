@@ -54,7 +54,7 @@ export abstract class TransactionPlayer {
     }
 
     public get isBuffering(): boolean {
-        return this.internalPosition >= this.internalLoadPosition;
+        return this.internalPosition >= this.internalLoadPosition && this.duration > this.internalLoadPosition;
     }
 
     constructor(

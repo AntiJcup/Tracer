@@ -67,6 +67,10 @@ message TraceTransactionLog {
     repeated TraceTransaction transactions = 2;
 }
 
+message TraceTransactionLogs {
+    repeated TraceTransactionLog logs = 1;
+}
+
 message TraceProject {
     string id = 1;
     uint32 duration = 2;

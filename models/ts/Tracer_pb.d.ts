@@ -267,6 +267,28 @@ export namespace TraceTransactionLog {
   }
 }
 
+export class TraceTransactionLogs extends jspb.Message {
+  clearLogsList(): void;
+  getLogsList(): Array<TraceTransactionLog>;
+  setLogsList(value: Array<TraceTransactionLog>): void;
+  addLogs(value?: TraceTransactionLog, index?: number): TraceTransactionLog;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TraceTransactionLogs.AsObject;
+  static toObject(includeInstance: boolean, msg: TraceTransactionLogs): TraceTransactionLogs.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: TraceTransactionLogs, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TraceTransactionLogs;
+  static deserializeBinaryFromReader(message: TraceTransactionLogs, reader: jspb.BinaryReader): TraceTransactionLogs;
+}
+
+export namespace TraceTransactionLogs {
+  export type AsObject = {
+    logsList: Array<TraceTransactionLog.AsObject>,
+  }
+}
+
 export class TraceProject extends jspb.Message {
   getId(): string;
   setId(value: string): void;

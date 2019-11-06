@@ -49,9 +49,11 @@ namespace Tracer {
             "U2VsZWN0RmlsZRADEg4KCkN1cnNvckZpbGUQBBIOCgpSZW5hbWVGaWxlEAVC",
             "BgoEZGF0YSJhChNUcmFjZVRyYW5zYWN0aW9uTG9nEhEKCXBhcnRpdGlvbhgB",
             "IAEoDRI3Cgx0cmFuc2FjdGlvbnMYAiADKAsyIS5nb29nbGUucHJvdG9idWYu",
-            "VHJhY2VUcmFuc2FjdGlvbiJECgxUcmFjZVByb2plY3QSCgoCaWQYASABKAkS",
-            "EAoIZHVyYXRpb24YAiABKA0SFgoOcGFydGl0aW9uX3NpemUYAyABKA1CCaoC",
-            "BlRyYWNlcmIGcHJvdG8z"));
+            "VHJhY2VUcmFuc2FjdGlvbiJKChRUcmFjZVRyYW5zYWN0aW9uTG9ncxIyCgRs",
+            "b2dzGAEgAygLMiQuZ29vZ2xlLnByb3RvYnVmLlRyYWNlVHJhbnNhY3Rpb25M",
+            "b2ciRAoMVHJhY2VQcm9qZWN0EgoKAmlkGAEgASgJEhAKCGR1cmF0aW9uGAIg",
+            "ASgNEhYKDnBhcnRpdGlvbl9zaXplGAMgASgNQgmqAgZUcmFjZXJiBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -63,6 +65,7 @@ namespace Tracer {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.RenameItemData), global::Tracer.RenameItemData.Parser, new[]{ "NewFilePath", "PreviousData", "IsFolder" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "FilePath", "CreateFile", "DeleteFile", "ModifyFile", "SelectFile", "CursorFile", "RenameFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLog), global::Tracer.TraceTransactionLog.Parser, new[]{ "Partition", "Transactions" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLogs), global::Tracer.TraceTransactionLogs.Parser, new[]{ "Logs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceProject), global::Tracer.TraceProject.Parser, new[]{ "Id", "Duration", "PartitionSize" }, null, null, null, null)
           }));
     }
@@ -1683,6 +1686,127 @@ namespace Tracer {
 
   }
 
+  public sealed partial class TraceTransactionLogs : pb::IMessage<TraceTransactionLogs> {
+    private static readonly pb::MessageParser<TraceTransactionLogs> _parser = new pb::MessageParser<TraceTransactionLogs>(() => new TraceTransactionLogs());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<TraceTransactionLogs> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TraceTransactionLogs() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TraceTransactionLogs(TraceTransactionLogs other) : this() {
+      logs_ = other.logs_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TraceTransactionLogs Clone() {
+      return new TraceTransactionLogs(this);
+    }
+
+    /// <summary>Field number for the "logs" field.</summary>
+    public const int LogsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Tracer.TraceTransactionLog> _repeated_logs_codec
+        = pb::FieldCodec.ForMessage(10, global::Tracer.TraceTransactionLog.Parser);
+    private readonly pbc::RepeatedField<global::Tracer.TraceTransactionLog> logs_ = new pbc::RepeatedField<global::Tracer.TraceTransactionLog>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Tracer.TraceTransactionLog> Logs {
+      get { return logs_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as TraceTransactionLogs);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(TraceTransactionLogs other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!logs_.Equals(other.logs_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= logs_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      logs_.WriteTo(output, _repeated_logs_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += logs_.CalculateSize(_repeated_logs_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(TraceTransactionLogs other) {
+      if (other == null) {
+        return;
+      }
+      logs_.Add(other.logs_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            logs_.AddEntriesFrom(input, _repeated_logs_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class TraceProject : pb::IMessage<TraceProject> {
     private static readonly pb::MessageParser<TraceProject> _parser = new pb::MessageParser<TraceProject>(() => new TraceProject());
     private pb::UnknownFieldSet _unknownFields;
@@ -1691,7 +1815,7 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

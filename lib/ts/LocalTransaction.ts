@@ -43,6 +43,9 @@ export class LocalProjectWriter extends ProjectWriter {
     }
 
     public async DeleteProject(id: string): Promise<boolean> {
+        if (!window.projectCache) {
+            return true;
+        }
         delete window.projectCache[id];
 
         return true;

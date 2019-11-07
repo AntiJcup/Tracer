@@ -17,12 +17,12 @@ export class OnlinePreviewGenerator {
         return await response.json();
     }
 
-    public async GeneratePreview(projectId: string, offsetEnd: number, logs: TraceTransactionLog[]): Promise<string> {
+    public async GeneratePreview(offsetEnd: number, logs: TraceTransactionLog[]): Promise<string> {
         const uploadLogs: TraceTransactionLogs = new TraceTransactionLogs();
         uploadLogs.setLogsList(logs);
         const buffer = uploadLogs.serializeBinary();
         const response = await this.transactionRequestor
-            .Post(`api/project/preview/generate?projectId=${projectId}&offsetEnd=${offsetEnd}`, new Blob([buffer]));
+            .Post(`api/project/preview/generate?offsetEnd=${offsetEnd}`, new Blob([buffer]));
 
         if (!response.ok) {
             return null;

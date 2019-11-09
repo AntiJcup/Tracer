@@ -18,9 +18,13 @@ export class OnlineProjectLoader extends ProjectLoader {
         const projectUrlResponse = await this.transactionRequestor.Get(`api/project/streaming/project?projectId=${id}`);
 
         if (!projectUrlResponse.ok) {
-            return null;
+            throw new Error('Error getting project');
         }
         const projectResponse = await this.transactionRequestor.GetFullUrl(await projectUrlResponse.json());
+
+        if (!projectResponse.ok) {
+            throw new Error('Error downloading project');
+        }
 
         return new Uint8Array(await projectResponse.arrayBuffer());
     }

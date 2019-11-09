@@ -176,16 +176,16 @@ export class TransactionRecorder {
         return this.AddTransaction(transaction);
     }
 
-    protected GetSaveableTransactionLogs(): TraceTransactionLog[] {
+    protected GetSaveableTransactionLogs(force: boolean): TraceTransactionLog[] {
         if (this.transactionLogs.length <= 1) {
             return null;
         }
-        const saveableTransactions = this.transactionLogs.slice(0, this.transactionLogs.length - 1);
+        const saveableTransactions = this.transactionLogs.slice(0, force ? this.transactionLogs.length : this.transactionLogs.length - 1);
         return saveableTransactions;
     }
 
-    public async SaveTransactionLogs(): Promise<boolean> {
-        const transactions = this.GetSaveableTransactionLogs();
+    public async SaveTransactionLogs(force: boolean = false): Promise<boolean> {
+        const transactions = this.GetSaveableTransactionLogs(force);
         if (transactions == null) {
             return;
         }

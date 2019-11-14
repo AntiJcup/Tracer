@@ -10,17 +10,19 @@ import { ApiHttpRequest } from 'shared/web/lib/ts/ApiHttpRequest';
 
 
 export class OnlineProjectLoader extends ProjectLoader {
-    constructor(protected transactionRequestor: ApiHttpRequest) {
+    constructor(protected requestor: ApiHttpRequest, protected cacheBuster: string = null) {
         super();
     }
 
     public async GetProjectStream(id: string): Promise<Uint8Array> {
-        const projectUrlResponse = await this.transactionRequestor.Get(`api/project/streaming/project?projectId=${id}`);
+        const projectUrlResponse = await this.requestor.Get(`api/project/streaming/project?projectId=${id}`);
 
         if (!projectUrlResponse.ok) {
             throw new Error('getting project');
         }
-        const projectResponse = await this.transactionRequestor.GetFullUrl(await projectUrlResponse.json());
+
+        const projectDownloadUrl = (await projectUrlResponse.json()) + (this.cacheBuster === null ? '' : `?cb=${this.cacheBuster}`);
+        const projectResponse = await this.requestor.GetFullUrl(projectDownloadUrl);
 
         if (!projectResponse.ok) {
             throw new Error('loading project');
@@ -31,12 +33,12 @@ export class OnlineProjectLoader extends ProjectLoader {
 }
 
 export class OnlineProjectWriter extends ProjectWriter {
-    constructor(protected transactionRequestor: ApiHttpRequest) {
+    constructor(protected requestor: ApiHttpRequest) {
         super();
     }
 
     public async CreateProject(id: string): Promise<boolean> {
-        const createResponse = await this.transactionRequestor.Post(`api/project/recording/create?tutorialId=${id}`);
+        const createResponse = await this.requestor.Post(`api/project/recording/create?tutorialId=${id}`);
         if (!createResponse.ok) {
             return false;
         }
@@ -45,7 +47,7 @@ export class OnlineProjectWriter extends ProjectWriter {
     }
 
     public async DeleteProject(id: string): Promise<boolean> {
-        const deleteResponse = await this.transactionRequestor.Post(`api/project/recording/delete?tutorialId=${id}`);
+        const deleteResponse = await this.requestor.Post(`api/project/recording/delete?tutorialId=${id}`);
         if (!deleteResponse.ok) {
             return false;
         }
@@ -55,12 +57,12 @@ export class OnlineProjectWriter extends ProjectWriter {
 }
 
 export class OnlineTransactionWriter extends TransactionWriter {
-    constructor(protected transactionRequestor: ApiHttpRequest, protected tutorialId: string) {
+    constructor(protected requestor: ApiHttpRequest, protected tutorialId: string) {
         super(tutorialId);
     }
 
     protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
-        const response = await this.transactionRequestor.Post(`api/project/recording/add?projectId=${this.projectId}`,
+        const response = await this.requestor.Post(`api/project/recording/add?projectId=${this.projectId}`,
             new Blob([data]));
 
         return response.ok;
@@ -68,7 +70,7 @@ export class OnlineTransactionWriter extends TransactionWriter {
 }
 
 export class OnlineTransactionLoader extends TransactionLoader {
-    constructor(protected transactionRequestor: ApiHttpRequest) {
+    constructor(protected requestor: ApiHttpRequest) {
         super();
     }
 
@@ -78,7 +80,7 @@ export class OnlineTransactionLoader extends TransactionLoader {
         endTime: number): Promise<{ [partition: string]: string }> {
         const cappedEndTime = Math.min(project.getDuration(), endTime);
 
-        const response = await this.transactionRequestor
+        const response = await this.requestor
             .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
 
         if (!response.ok) {
@@ -89,7 +91,7 @@ export class OnlineTransactionLoader extends TransactionLoader {
     }
 
     protected async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array> {
-        const response = await this.transactionRequestor.GetFullUrl(partition);
+        const response = await this.requestor.GetFullUrl(partition);
 
         if (!response.ok) {
             return null;

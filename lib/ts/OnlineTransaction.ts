@@ -58,11 +58,11 @@ export class OnlineProjectWriter extends ProjectWriter {
 
 export class OnlineTransactionWriter extends TransactionWriter {
     constructor(protected requestor: ApiHttpRequest, protected tutorialId: string) {
-        super(tutorialId);
+        super();
     }
 
-    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
-        const response = await this.requestor.Post(`api/project/recording/add?projectId=${this.projectId}`,
+    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
+        const response = await this.requestor.Post(`api/project/recording/add?projectId=${projectId}`,
             new Blob([data]));
 
         return response.ok;

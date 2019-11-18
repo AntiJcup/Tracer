@@ -53,23 +53,23 @@ export class LocalProjectWriter extends ProjectWriter {
 }
 
 export class LocalTransactionWriter extends TransactionWriter {
-    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array): Promise<boolean> {
+    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
         if (window.transactionLogCache == null) {
             window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
         }
 
-        if (window.transactionLogCache[this.projectId] == null) {
-            window.transactionLogCache[this.projectId] = new Map<number, Uint8Array>();
+        if (window.transactionLogCache[projectId] == null) {
+            window.transactionLogCache[projectId] = new Map<number, Uint8Array>();
         }
 
-        window.transactionLogCache[this.projectId][transactionLog.getPartition()] = data;
+        window.transactionLogCache[projectId][transactionLog.getPartition()] = data;
 
-        const project = await (new LocalProjectLoader()).LoadProject(this.projectId);
+        const project = await (new LocalProjectLoader()).LoadProject(projectId);
         const currentDuration = project.getDuration();
         const newDuration = transactionLog.getPartition() * project.getPartitionSize();
         if (currentDuration < newDuration) {
             project.setDuration(newDuration);
-            window.projectCache[this.projectId] = project.serializeBinary();
+            window.projectCache[projectId] = project.serializeBinary();
         }
 
         return true;

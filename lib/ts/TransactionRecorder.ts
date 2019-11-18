@@ -189,7 +189,7 @@ export class TransactionRecorder {
         if (transactions == null) {
             return;
         }
-        const result = await this.transactionWriter.SaveTransactionLogs(transactions);
+        const result = await this.transactionWriter.SaveTransactionLogs(transactions, this.project.getId());
         return result;
     }
 

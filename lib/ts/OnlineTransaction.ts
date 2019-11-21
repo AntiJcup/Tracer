@@ -78,10 +78,9 @@ export class OnlineTransactionLoader extends TransactionLoader {
         project: TraceProject,
         startTime: number,
         endTime: number): Promise<{ [partition: string]: string }> {
-        const cappedEndTime = Math.min(project.getDuration(), endTime);
 
         const response = await this.requestor
-            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${cappedEndTime}`);
+            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${endTime}`);
 
         if (!response.ok) {
             return null;

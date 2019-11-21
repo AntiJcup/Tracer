@@ -177,7 +177,7 @@ export class TransactionRecorder {
     }
 
     protected GetSaveableTransactionLogs(force: boolean): TraceTransactionLog[] {
-        if (this.transactionLogs.length <= 1) {
+        if (this.transactionLogs.length <= 1 && !force) {
             return null;
         }
         const saveableTransactions = this.transactionLogs.slice(0, force ? this.transactionLogs.length : this.transactionLogs.length - 1);

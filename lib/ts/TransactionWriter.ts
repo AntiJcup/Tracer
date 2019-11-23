@@ -17,7 +17,7 @@ export abstract class TransactionWriter {
     }
 
     public async SaveTransactionLogs(transactionLogs: TraceTransactionLog[], projectId: string): Promise<boolean> {
-        let success = false;
+        let success = true;
         for (const transactionLog of transactionLogs) {
             if (this.savedTransactionLogPartions.indexOf(transactionLog.getPartition(), 0) !== -1) {
                 continue;

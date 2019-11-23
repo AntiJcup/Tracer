@@ -36,6 +36,7 @@ export class TransactionRecorder {
     // Call this if you are starting a new recording session
     public async New(): Promise<void> {
         this.project = await this.CreateProject(this.id);
+        this.transactionWriter.Reset();
 
         if (!this.project) {
             throw new Error('Failed to load project id: ' + this.id);

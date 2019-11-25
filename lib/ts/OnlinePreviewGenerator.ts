@@ -31,4 +31,24 @@ export class OnlinePreviewGenerator {
 
         return await response.json();
     }
+
+    public async DownloadPreview(offsetEnd: number, logs: TraceTransactionLog[], baseProject?: string): Promise<void> {
+        const uploadLogs: TraceTransactionLogs = new TraceTransactionLogs();
+        uploadLogs.setLogsList(logs);
+        const buffer = uploadLogs.serializeBinary();
+        const response = await this.transactionRequestor
+            .Post(`api/project/preview/download?offsetEnd=${offsetEnd}${baseProject ? `&baseProjectId=${baseProject}` : ''}`,
+                new Blob([buffer]));
+
+        if (!response.ok) {
+            throw new Error('Failed generating download url for preview');
+        }
+
+        const downloadUrl = await response.json();
+        if (!downloadUrl) {
+            throw new Error('Bad download url for preview');
+        }
+
+        window.location.href = downloadUrl;
+    }
 }

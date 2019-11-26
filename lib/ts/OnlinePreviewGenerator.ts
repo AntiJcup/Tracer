@@ -17,12 +17,12 @@ export class OnlinePreviewGenerator {
         return await response.json();
     }
 
-    public async GeneratePreview(offsetEnd: number, logs: TraceTransactionLog[], baseProject?: string): Promise<string> {
+    public async GeneratePreview(projectId: string, offsetEnd: number, logs: TraceTransactionLog[], baseProject?: string): Promise<string> {
         const uploadLogs: TraceTransactionLogs = new TraceTransactionLogs();
         uploadLogs.setLogsList(logs);
         const buffer = uploadLogs.serializeBinary();
         const response = await this.transactionRequestor
-            .Post(`api/project/preview/generate?offsetEnd=${offsetEnd}${baseProject ? `&baseProjectId=${baseProject}` : ''}`,
+            .Post(`api/project/preview/generate?projectId=${projectId}&offsetEnd=${offsetEnd}${baseProject ? `&baseProjectId=${baseProject}` : ''}`,
                 new Blob([buffer]));
 
         if (!response.ok) {
@@ -32,12 +32,13 @@ export class OnlinePreviewGenerator {
         return await response.json();
     }
 
-    public async DownloadPreview(offsetEnd: number, logs: TraceTransactionLog[], baseProject?: string): Promise<void> {
+    public async DownloadPreview(projectId: string, offsetEnd: number, logs: TraceTransactionLog[], baseProject?: string): Promise<void> {
         const uploadLogs: TraceTransactionLogs = new TraceTransactionLogs();
         uploadLogs.setLogsList(logs);
         const buffer = uploadLogs.serializeBinary();
         const response = await this.transactionRequestor
-            .Post(`api/project/preview/download?offsetEnd=${offsetEnd}${baseProject ? `&baseProjectId=${baseProject}` : ''}`,
+            // tslint:disable-next-line: max-line-length
+            .Post(`api/project/preview/download?projectId=${projectId}&offsetEnd=${offsetEnd}${baseProject ? `&baseProjectId=${baseProject}` : ''}`,
                 new Blob([buffer]));
 
         if (!response.ok) {

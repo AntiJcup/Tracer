@@ -155,6 +155,50 @@ export namespace RenameItemData {
   }
 }
 
+export class UploadFileData extends jspb.Message {
+  getResourceid(): string;
+  setResourceid(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UploadFileData.AsObject;
+  static toObject(includeInstance: boolean, msg: UploadFileData): UploadFileData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UploadFileData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UploadFileData;
+  static deserializeBinaryFromReader(message: UploadFileData, reader: jspb.BinaryReader): UploadFileData;
+}
+
+export namespace UploadFileData {
+  export type AsObject = {
+    resourceid: string,
+  }
+}
+
+export class ScrollFileData extends jspb.Message {
+  getScrollStart(): number;
+  setScrollStart(value: number): void;
+
+  getScrollEnd(): number;
+  setScrollEnd(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ScrollFileData.AsObject;
+  static toObject(includeInstance: boolean, msg: ScrollFileData): ScrollFileData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ScrollFileData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ScrollFileData;
+  static deserializeBinaryFromReader(message: ScrollFileData, reader: jspb.BinaryReader): ScrollFileData;
+}
+
+export namespace ScrollFileData {
+  export type AsObject = {
+    scrollStart: number,
+    scrollEnd: number,
+  }
+}
+
 export class TraceTransaction extends jspb.Message {
   getType(): TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap];
   setType(value: TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap]): void;
@@ -164,6 +208,9 @@ export class TraceTransaction extends jspb.Message {
 
   getFilePath(): string;
   setFilePath(value: string): void;
+
+  getMetaData(): string;
+  setMetaData(value: string): void;
 
   hasCreateFile(): boolean;
   clearCreateFile(): void;
@@ -195,6 +242,16 @@ export class TraceTransaction extends jspb.Message {
   getRenameFile(): RenameItemData | undefined;
   setRenameFile(value?: RenameItemData): void;
 
+  hasUploadFile(): boolean;
+  clearUploadFile(): void;
+  getUploadFile(): UploadFileData | undefined;
+  setUploadFile(value?: UploadFileData): void;
+
+  hasScrollFile(): boolean;
+  clearScrollFile(): void;
+  getScrollFile(): ScrollFileData | undefined;
+  setScrollFile(value?: ScrollFileData): void;
+
   getDataCase(): TraceTransaction.DataCase;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TraceTransaction.AsObject;
@@ -211,12 +268,15 @@ export namespace TraceTransaction {
     type: TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap],
     timeOffsetMs: number,
     filePath: string,
+    metaData: string,
     createFile?: CreateItemData.AsObject,
     deleteFile?: DeleteItemData.AsObject,
     modifyFile?: ModifyFileData.AsObject,
     selectFile?: SelectFileData.AsObject,
     cursorFile?: CursorChangeFileData.AsObject,
     renameFile?: RenameItemData.AsObject,
+    uploadFile?: UploadFileData.AsObject,
+    scrollFile?: ScrollFileData.AsObject,
   }
 
   export interface TraceTransactionTypeMap {
@@ -226,18 +286,22 @@ export namespace TraceTransaction {
     SELECTFILE: 3;
     CURSORFILE: 4;
     RENAMEFILE: 5;
+    UPLOADFILE: 6;
+    SCROLLFILE: 7;
   }
 
   export const TraceTransactionType: TraceTransactionTypeMap;
 
   export enum DataCase {
     DATA_NOT_SET = 0,
-    CREATE_FILE = 4,
-    DELETE_FILE = 5,
-    MODIFY_FILE = 6,
-    SELECT_FILE = 7,
-    CURSOR_FILE = 8,
-    RENAME_FILE = 9,
+    CREATE_FILE = 5,
+    DELETE_FILE = 6,
+    MODIFY_FILE = 7,
+    SELECT_FILE = 8,
+    CURSOR_FILE = 9,
+    RENAME_FILE = 10,
+    UPLOAD_FILE = 11,
+    SCROLL_FILE = 12,
   }
 }
 

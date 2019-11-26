@@ -33,27 +33,32 @@ namespace Tracer {
             "bmV3X2ZpbGVfcGF0aBgBIAEoCSJAChRDdXJzb3JDaGFuZ2VGaWxlRGF0YRIU",
             "CgxvZmZzZXRfc3RhcnQYASABKA0SEgoKb2Zmc2V0X2VuZBgCIAEoDSJRCg5S",
             "ZW5hbWVJdGVtRGF0YRIVCg1uZXdfZmlsZV9wYXRoGAEgASgJEhUKDXByZXZp",
-            "b3VzX2RhdGEYAiABKAkSEQoJaXNfZm9sZGVyGAMgASgIItkEChBUcmFjZVRy",
-            "YW5zYWN0aW9uEkQKBHR5cGUYASABKA4yNi5nb29nbGUucHJvdG9idWYuVHJh",
-            "Y2VUcmFuc2FjdGlvbi5UcmFjZVRyYW5zYWN0aW9uVHlwZRIWCg50aW1lX29m",
-            "ZnNldF9tcxgCIAEoDRIRCglmaWxlX3BhdGgYAyABKAkSNgoLY3JlYXRlX2Zp",
-            "bGUYBCABKAsyHy5nb29nbGUucHJvdG9idWYuQ3JlYXRlSXRlbURhdGFIABI2",
-            "CgtkZWxldGVfZmlsZRgFIAEoCzIfLmdvb2dsZS5wcm90b2J1Zi5EZWxldGVJ",
-            "dGVtRGF0YUgAEjYKC21vZGlmeV9maWxlGAYgASgLMh8uZ29vZ2xlLnByb3Rv",
-            "YnVmLk1vZGlmeUZpbGVEYXRhSAASNgoLc2VsZWN0X2ZpbGUYByABKAsyHy5n",
-            "b29nbGUucHJvdG9idWYuU2VsZWN0RmlsZURhdGFIABI8CgtjdXJzb3JfZmls",
-            "ZRgIIAEoCzIlLmdvb2dsZS5wcm90b2J1Zi5DdXJzb3JDaGFuZ2VGaWxlRGF0",
-            "YUgAEjYKC3JlbmFtZV9maWxlGAkgASgLMh8uZ29vZ2xlLnByb3RvYnVmLlJl",
-            "bmFtZUl0ZW1EYXRhSAAidgoUVHJhY2VUcmFuc2FjdGlvblR5cGUSDgoKQ3Jl",
-            "YXRlRmlsZRAAEg4KCkRlbGV0ZUZpbGUQARIOCgpNb2RpZnlGaWxlEAISDgoK",
-            "U2VsZWN0RmlsZRADEg4KCkN1cnNvckZpbGUQBBIOCgpSZW5hbWVGaWxlEAVC",
-            "BgoEZGF0YSJhChNUcmFjZVRyYW5zYWN0aW9uTG9nEhEKCXBhcnRpdGlvbhgB",
-            "IAEoDRI3Cgx0cmFuc2FjdGlvbnMYAiADKAsyIS5nb29nbGUucHJvdG9idWYu",
-            "VHJhY2VUcmFuc2FjdGlvbiJKChRUcmFjZVRyYW5zYWN0aW9uTG9ncxIyCgRs",
-            "b2dzGAEgAygLMiQuZ29vZ2xlLnByb3RvYnVmLlRyYWNlVHJhbnNhY3Rpb25M",
-            "b2ciRAoMVHJhY2VQcm9qZWN0EgoKAmlkGAEgASgJEhAKCGR1cmF0aW9uGAIg",
-            "ASgNEhYKDnBhcnRpdGlvbl9zaXplGAMgASgNQgmqAgZUcmFjZXJiBnByb3Rv",
-            "Mw=="));
+            "b3VzX2RhdGEYAiABKAkSEQoJaXNfZm9sZGVyGAMgASgIIiQKDlVwbG9hZEZp",
+            "bGVEYXRhEhIKCnJlc291cmNlSWQYASABKAkiOgoOU2Nyb2xsRmlsZURhdGES",
+            "FAoMc2Nyb2xsX3N0YXJ0GAEgASgNEhIKCnNjcm9sbF9lbmQYAiABKA0i/QUK",
+            "EFRyYWNlVHJhbnNhY3Rpb24SRAoEdHlwZRgBIAEoDjI2Lmdvb2dsZS5wcm90",
+            "b2J1Zi5UcmFjZVRyYW5zYWN0aW9uLlRyYWNlVHJhbnNhY3Rpb25UeXBlEhYK",
+            "DnRpbWVfb2Zmc2V0X21zGAIgASgNEhEKCWZpbGVfcGF0aBgDIAEoCRIRCglt",
+            "ZXRhX2RhdGEYBCABKAkSNgoLY3JlYXRlX2ZpbGUYBSABKAsyHy5nb29nbGUu",
+            "cHJvdG9idWYuQ3JlYXRlSXRlbURhdGFIABI2CgtkZWxldGVfZmlsZRgGIAEo",
+            "CzIfLmdvb2dsZS5wcm90b2J1Zi5EZWxldGVJdGVtRGF0YUgAEjYKC21vZGlm",
+            "eV9maWxlGAcgASgLMh8uZ29vZ2xlLnByb3RvYnVmLk1vZGlmeUZpbGVEYXRh",
+            "SAASNgoLc2VsZWN0X2ZpbGUYCCABKAsyHy5nb29nbGUucHJvdG9idWYuU2Vs",
+            "ZWN0RmlsZURhdGFIABI8CgtjdXJzb3JfZmlsZRgJIAEoCzIlLmdvb2dsZS5w",
+            "cm90b2J1Zi5DdXJzb3JDaGFuZ2VGaWxlRGF0YUgAEjYKC3JlbmFtZV9maWxl",
+            "GAogASgLMh8uZ29vZ2xlLnByb3RvYnVmLlJlbmFtZUl0ZW1EYXRhSAASNgoL",
+            "dXBsb2FkX2ZpbGUYCyABKAsyHy5nb29nbGUucHJvdG9idWYuVXBsb2FkRmls",
+            "ZURhdGFIABI2CgtzY3JvbGxfZmlsZRgMIAEoCzIfLmdvb2dsZS5wcm90b2J1",
+            "Zi5TY3JvbGxGaWxlRGF0YUgAIpYBChRUcmFjZVRyYW5zYWN0aW9uVHlwZRIO",
+            "CgpDcmVhdGVGaWxlEAASDgoKRGVsZXRlRmlsZRABEg4KCk1vZGlmeUZpbGUQ",
+            "AhIOCgpTZWxlY3RGaWxlEAMSDgoKQ3Vyc29yRmlsZRAEEg4KClJlbmFtZUZp",
+            "bGUQBRIOCgpVcGxvYWRGaWxlEAYSDgoKU2Nyb2xsRmlsZRAHQgYKBGRhdGEi",
+            "YQoTVHJhY2VUcmFuc2FjdGlvbkxvZxIRCglwYXJ0aXRpb24YASABKA0SNwoM",
+            "dHJhbnNhY3Rpb25zGAIgAygLMiEuZ29vZ2xlLnByb3RvYnVmLlRyYWNlVHJh",
+            "bnNhY3Rpb24iSgoUVHJhY2VUcmFuc2FjdGlvbkxvZ3MSMgoEbG9ncxgBIAMo",
+            "CzIkLmdvb2dsZS5wcm90b2J1Zi5UcmFjZVRyYW5zYWN0aW9uTG9nIkQKDFRy",
+            "YWNlUHJvamVjdBIKCgJpZBgBIAEoCRIQCghkdXJhdGlvbhgCIAEoDRIWCg5w",
+            "YXJ0aXRpb25fc2l6ZRgDIAEoDUIJqgIGVHJhY2VyYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -63,7 +68,9 @@ namespace Tracer {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.SelectFileData), global::Tracer.SelectFileData.Parser, new[]{ "NewFilePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CursorChangeFileData), global::Tracer.CursorChangeFileData.Parser, new[]{ "OffsetStart", "OffsetEnd" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.RenameItemData), global::Tracer.RenameItemData.Parser, new[]{ "NewFilePath", "PreviousData", "IsFolder" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "FilePath", "CreateFile", "DeleteFile", "ModifyFile", "SelectFile", "CursorFile", "RenameFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.UploadFileData), global::Tracer.UploadFileData.Parser, new[]{ "ResourceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.ScrollFileData), global::Tracer.ScrollFileData.Parser, new[]{ "ScrollStart", "ScrollEnd" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "FilePath", "MetaData", "CreateFile", "DeleteFile", "ModifyFile", "SelectFile", "CursorFile", "RenameFile", "UploadFile", "ScrollFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLog), global::Tracer.TraceTransactionLog.Parser, new[]{ "Partition", "Transactions" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLogs), global::Tracer.TraceTransactionLogs.Parser, new[]{ "Logs" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceProject), global::Tracer.TraceProject.Parser, new[]{ "Id", "Duration", "PartitionSize" }, null, null, null, null)
@@ -1077,6 +1084,292 @@ namespace Tracer {
 
   }
 
+  public sealed partial class UploadFileData : pb::IMessage<UploadFileData> {
+    private static readonly pb::MessageParser<UploadFileData> _parser = new pb::MessageParser<UploadFileData>(() => new UploadFileData());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<UploadFileData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UploadFileData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UploadFileData(UploadFileData other) : this() {
+      resourceId_ = other.resourceId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UploadFileData Clone() {
+      return new UploadFileData(this);
+    }
+
+    /// <summary>Field number for the "resourceId" field.</summary>
+    public const int ResourceIdFieldNumber = 1;
+    private string resourceId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string ResourceId {
+      get { return resourceId_; }
+      set {
+        resourceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as UploadFileData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(UploadFileData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ResourceId != other.ResourceId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ResourceId.Length != 0) hash ^= ResourceId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ResourceId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ResourceId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (ResourceId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ResourceId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(UploadFileData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ResourceId.Length != 0) {
+        ResourceId = other.ResourceId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ResourceId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ScrollFileData : pb::IMessage<ScrollFileData> {
+    private static readonly pb::MessageParser<ScrollFileData> _parser = new pb::MessageParser<ScrollFileData>(() => new ScrollFileData());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ScrollFileData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ScrollFileData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ScrollFileData(ScrollFileData other) : this() {
+      scrollStart_ = other.scrollStart_;
+      scrollEnd_ = other.scrollEnd_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ScrollFileData Clone() {
+      return new ScrollFileData(this);
+    }
+
+    /// <summary>Field number for the "scroll_start" field.</summary>
+    public const int ScrollStartFieldNumber = 1;
+    private uint scrollStart_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint ScrollStart {
+      get { return scrollStart_; }
+      set {
+        scrollStart_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "scroll_end" field.</summary>
+    public const int ScrollEndFieldNumber = 2;
+    private uint scrollEnd_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint ScrollEnd {
+      get { return scrollEnd_; }
+      set {
+        scrollEnd_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ScrollFileData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ScrollFileData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ScrollStart != other.ScrollStart) return false;
+      if (ScrollEnd != other.ScrollEnd) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ScrollStart != 0) hash ^= ScrollStart.GetHashCode();
+      if (ScrollEnd != 0) hash ^= ScrollEnd.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ScrollStart != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ScrollStart);
+      }
+      if (ScrollEnd != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(ScrollEnd);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (ScrollStart != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ScrollStart);
+      }
+      if (ScrollEnd != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ScrollEnd);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ScrollFileData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ScrollStart != 0) {
+        ScrollStart = other.ScrollStart;
+      }
+      if (other.ScrollEnd != 0) {
+        ScrollEnd = other.ScrollEnd;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ScrollStart = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            ScrollEnd = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class TraceTransaction : pb::IMessage<TraceTransaction> {
     private static readonly pb::MessageParser<TraceTransaction> _parser = new pb::MessageParser<TraceTransaction>(() => new TraceTransaction());
     private pb::UnknownFieldSet _unknownFields;
@@ -1085,7 +1378,7 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1105,6 +1398,7 @@ namespace Tracer {
       type_ = other.type_;
       timeOffsetMs_ = other.timeOffsetMs_;
       filePath_ = other.filePath_;
+      metaData_ = other.metaData_;
       switch (other.DataCase) {
         case DataOneofCase.CreateFile:
           CreateFile = other.CreateFile.Clone();
@@ -1123,6 +1417,12 @@ namespace Tracer {
           break;
         case DataOneofCase.RenameFile:
           RenameFile = other.RenameFile.Clone();
+          break;
+        case DataOneofCase.UploadFile:
+          UploadFile = other.UploadFile.Clone();
+          break;
+        case DataOneofCase.ScrollFile:
+          ScrollFile = other.ScrollFile.Clone();
           break;
       }
 
@@ -1167,8 +1467,19 @@ namespace Tracer {
       }
     }
 
+    /// <summary>Field number for the "meta_data" field.</summary>
+    public const int MetaDataFieldNumber = 4;
+    private string metaData_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MetaData {
+      get { return metaData_; }
+      set {
+        metaData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "create_file" field.</summary>
-    public const int CreateFileFieldNumber = 4;
+    public const int CreateFileFieldNumber = 5;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Tracer.CreateItemData CreateFile {
       get { return dataCase_ == DataOneofCase.CreateFile ? (global::Tracer.CreateItemData) data_ : null; }
@@ -1179,7 +1490,7 @@ namespace Tracer {
     }
 
     /// <summary>Field number for the "delete_file" field.</summary>
-    public const int DeleteFileFieldNumber = 5;
+    public const int DeleteFileFieldNumber = 6;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Tracer.DeleteItemData DeleteFile {
       get { return dataCase_ == DataOneofCase.DeleteFile ? (global::Tracer.DeleteItemData) data_ : null; }
@@ -1190,7 +1501,7 @@ namespace Tracer {
     }
 
     /// <summary>Field number for the "modify_file" field.</summary>
-    public const int ModifyFileFieldNumber = 6;
+    public const int ModifyFileFieldNumber = 7;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Tracer.ModifyFileData ModifyFile {
       get { return dataCase_ == DataOneofCase.ModifyFile ? (global::Tracer.ModifyFileData) data_ : null; }
@@ -1201,7 +1512,7 @@ namespace Tracer {
     }
 
     /// <summary>Field number for the "select_file" field.</summary>
-    public const int SelectFileFieldNumber = 7;
+    public const int SelectFileFieldNumber = 8;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Tracer.SelectFileData SelectFile {
       get { return dataCase_ == DataOneofCase.SelectFile ? (global::Tracer.SelectFileData) data_ : null; }
@@ -1212,7 +1523,7 @@ namespace Tracer {
     }
 
     /// <summary>Field number for the "cursor_file" field.</summary>
-    public const int CursorFileFieldNumber = 8;
+    public const int CursorFileFieldNumber = 9;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Tracer.CursorChangeFileData CursorFile {
       get { return dataCase_ == DataOneofCase.CursorFile ? (global::Tracer.CursorChangeFileData) data_ : null; }
@@ -1223,7 +1534,7 @@ namespace Tracer {
     }
 
     /// <summary>Field number for the "rename_file" field.</summary>
-    public const int RenameFileFieldNumber = 9;
+    public const int RenameFileFieldNumber = 10;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Tracer.RenameItemData RenameFile {
       get { return dataCase_ == DataOneofCase.RenameFile ? (global::Tracer.RenameItemData) data_ : null; }
@@ -1233,16 +1544,40 @@ namespace Tracer {
       }
     }
 
+    /// <summary>Field number for the "upload_file" field.</summary>
+    public const int UploadFileFieldNumber = 11;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Tracer.UploadFileData UploadFile {
+      get { return dataCase_ == DataOneofCase.UploadFile ? (global::Tracer.UploadFileData) data_ : null; }
+      set {
+        data_ = value;
+        dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.UploadFile;
+      }
+    }
+
+    /// <summary>Field number for the "scroll_file" field.</summary>
+    public const int ScrollFileFieldNumber = 12;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Tracer.ScrollFileData ScrollFile {
+      get { return dataCase_ == DataOneofCase.ScrollFile ? (global::Tracer.ScrollFileData) data_ : null; }
+      set {
+        data_ = value;
+        dataCase_ = value == null ? DataOneofCase.None : DataOneofCase.ScrollFile;
+      }
+    }
+
     private object data_;
     /// <summary>Enum of possible cases for the "data" oneof.</summary>
     public enum DataOneofCase {
       None = 0,
-      CreateFile = 4,
-      DeleteFile = 5,
-      ModifyFile = 6,
-      SelectFile = 7,
-      CursorFile = 8,
-      RenameFile = 9,
+      CreateFile = 5,
+      DeleteFile = 6,
+      ModifyFile = 7,
+      SelectFile = 8,
+      CursorFile = 9,
+      RenameFile = 10,
+      UploadFile = 11,
+      ScrollFile = 12,
     }
     private DataOneofCase dataCase_ = DataOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1272,12 +1607,15 @@ namespace Tracer {
       if (Type != other.Type) return false;
       if (TimeOffsetMs != other.TimeOffsetMs) return false;
       if (FilePath != other.FilePath) return false;
+      if (MetaData != other.MetaData) return false;
       if (!object.Equals(CreateFile, other.CreateFile)) return false;
       if (!object.Equals(DeleteFile, other.DeleteFile)) return false;
       if (!object.Equals(ModifyFile, other.ModifyFile)) return false;
       if (!object.Equals(SelectFile, other.SelectFile)) return false;
       if (!object.Equals(CursorFile, other.CursorFile)) return false;
       if (!object.Equals(RenameFile, other.RenameFile)) return false;
+      if (!object.Equals(UploadFile, other.UploadFile)) return false;
+      if (!object.Equals(ScrollFile, other.ScrollFile)) return false;
       if (DataCase != other.DataCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1288,12 +1626,15 @@ namespace Tracer {
       if (Type != global::Tracer.TraceTransaction.Types.TraceTransactionType.CreateFile) hash ^= Type.GetHashCode();
       if (TimeOffsetMs != 0) hash ^= TimeOffsetMs.GetHashCode();
       if (FilePath.Length != 0) hash ^= FilePath.GetHashCode();
+      if (MetaData.Length != 0) hash ^= MetaData.GetHashCode();
       if (dataCase_ == DataOneofCase.CreateFile) hash ^= CreateFile.GetHashCode();
       if (dataCase_ == DataOneofCase.DeleteFile) hash ^= DeleteFile.GetHashCode();
       if (dataCase_ == DataOneofCase.ModifyFile) hash ^= ModifyFile.GetHashCode();
       if (dataCase_ == DataOneofCase.SelectFile) hash ^= SelectFile.GetHashCode();
       if (dataCase_ == DataOneofCase.CursorFile) hash ^= CursorFile.GetHashCode();
       if (dataCase_ == DataOneofCase.RenameFile) hash ^= RenameFile.GetHashCode();
+      if (dataCase_ == DataOneofCase.UploadFile) hash ^= UploadFile.GetHashCode();
+      if (dataCase_ == DataOneofCase.ScrollFile) hash ^= ScrollFile.GetHashCode();
       hash ^= (int) dataCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1320,29 +1661,41 @@ namespace Tracer {
         output.WriteRawTag(26);
         output.WriteString(FilePath);
       }
-      if (dataCase_ == DataOneofCase.CreateFile) {
+      if (MetaData.Length != 0) {
         output.WriteRawTag(34);
+        output.WriteString(MetaData);
+      }
+      if (dataCase_ == DataOneofCase.CreateFile) {
+        output.WriteRawTag(42);
         output.WriteMessage(CreateFile);
       }
       if (dataCase_ == DataOneofCase.DeleteFile) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(DeleteFile);
       }
       if (dataCase_ == DataOneofCase.ModifyFile) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(ModifyFile);
       }
       if (dataCase_ == DataOneofCase.SelectFile) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(SelectFile);
       }
       if (dataCase_ == DataOneofCase.CursorFile) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteMessage(CursorFile);
       }
       if (dataCase_ == DataOneofCase.RenameFile) {
-        output.WriteRawTag(74);
+        output.WriteRawTag(82);
         output.WriteMessage(RenameFile);
+      }
+      if (dataCase_ == DataOneofCase.UploadFile) {
+        output.WriteRawTag(90);
+        output.WriteMessage(UploadFile);
+      }
+      if (dataCase_ == DataOneofCase.ScrollFile) {
+        output.WriteRawTag(98);
+        output.WriteMessage(ScrollFile);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1361,6 +1714,9 @@ namespace Tracer {
       if (FilePath.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(FilePath);
       }
+      if (MetaData.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MetaData);
+      }
       if (dataCase_ == DataOneofCase.CreateFile) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(CreateFile);
       }
@@ -1378,6 +1734,12 @@ namespace Tracer {
       }
       if (dataCase_ == DataOneofCase.RenameFile) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(RenameFile);
+      }
+      if (dataCase_ == DataOneofCase.UploadFile) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UploadFile);
+      }
+      if (dataCase_ == DataOneofCase.ScrollFile) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ScrollFile);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1398,6 +1760,9 @@ namespace Tracer {
       }
       if (other.FilePath.Length != 0) {
         FilePath = other.FilePath;
+      }
+      if (other.MetaData.Length != 0) {
+        MetaData = other.MetaData;
       }
       switch (other.DataCase) {
         case DataOneofCase.CreateFile:
@@ -1436,6 +1801,18 @@ namespace Tracer {
           }
           RenameFile.MergeFrom(other.RenameFile);
           break;
+        case DataOneofCase.UploadFile:
+          if (UploadFile == null) {
+            UploadFile = new global::Tracer.UploadFileData();
+          }
+          UploadFile.MergeFrom(other.UploadFile);
+          break;
+        case DataOneofCase.ScrollFile:
+          if (ScrollFile == null) {
+            ScrollFile = new global::Tracer.ScrollFileData();
+          }
+          ScrollFile.MergeFrom(other.ScrollFile);
+          break;
       }
 
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1462,6 +1839,10 @@ namespace Tracer {
             break;
           }
           case 34: {
+            MetaData = input.ReadString();
+            break;
+          }
+          case 42: {
             global::Tracer.CreateItemData subBuilder = new global::Tracer.CreateItemData();
             if (dataCase_ == DataOneofCase.CreateFile) {
               subBuilder.MergeFrom(CreateFile);
@@ -1470,7 +1851,7 @@ namespace Tracer {
             CreateFile = subBuilder;
             break;
           }
-          case 42: {
+          case 50: {
             global::Tracer.DeleteItemData subBuilder = new global::Tracer.DeleteItemData();
             if (dataCase_ == DataOneofCase.DeleteFile) {
               subBuilder.MergeFrom(DeleteFile);
@@ -1479,7 +1860,7 @@ namespace Tracer {
             DeleteFile = subBuilder;
             break;
           }
-          case 50: {
+          case 58: {
             global::Tracer.ModifyFileData subBuilder = new global::Tracer.ModifyFileData();
             if (dataCase_ == DataOneofCase.ModifyFile) {
               subBuilder.MergeFrom(ModifyFile);
@@ -1488,7 +1869,7 @@ namespace Tracer {
             ModifyFile = subBuilder;
             break;
           }
-          case 58: {
+          case 66: {
             global::Tracer.SelectFileData subBuilder = new global::Tracer.SelectFileData();
             if (dataCase_ == DataOneofCase.SelectFile) {
               subBuilder.MergeFrom(SelectFile);
@@ -1497,7 +1878,7 @@ namespace Tracer {
             SelectFile = subBuilder;
             break;
           }
-          case 66: {
+          case 74: {
             global::Tracer.CursorChangeFileData subBuilder = new global::Tracer.CursorChangeFileData();
             if (dataCase_ == DataOneofCase.CursorFile) {
               subBuilder.MergeFrom(CursorFile);
@@ -1506,13 +1887,31 @@ namespace Tracer {
             CursorFile = subBuilder;
             break;
           }
-          case 74: {
+          case 82: {
             global::Tracer.RenameItemData subBuilder = new global::Tracer.RenameItemData();
             if (dataCase_ == DataOneofCase.RenameFile) {
               subBuilder.MergeFrom(RenameFile);
             }
             input.ReadMessage(subBuilder);
             RenameFile = subBuilder;
+            break;
+          }
+          case 90: {
+            global::Tracer.UploadFileData subBuilder = new global::Tracer.UploadFileData();
+            if (dataCase_ == DataOneofCase.UploadFile) {
+              subBuilder.MergeFrom(UploadFile);
+            }
+            input.ReadMessage(subBuilder);
+            UploadFile = subBuilder;
+            break;
+          }
+          case 98: {
+            global::Tracer.ScrollFileData subBuilder = new global::Tracer.ScrollFileData();
+            if (dataCase_ == DataOneofCase.ScrollFile) {
+              subBuilder.MergeFrom(ScrollFile);
+            }
+            input.ReadMessage(subBuilder);
+            ScrollFile = subBuilder;
             break;
           }
         }
@@ -1530,6 +1929,8 @@ namespace Tracer {
         [pbr::OriginalName("SelectFile")] SelectFile = 3,
         [pbr::OriginalName("CursorFile")] CursorFile = 4,
         [pbr::OriginalName("RenameFile")] RenameFile = 5,
+        [pbr::OriginalName("UploadFile")] UploadFile = 6,
+        [pbr::OriginalName("ScrollFile")] ScrollFile = 7,
       }
 
     }
@@ -1545,7 +1946,7 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1694,7 +2095,7 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1815,7 +2216,7 @@ namespace Tracer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Tracer.TracerReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

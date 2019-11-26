@@ -36,6 +36,15 @@ message RenameItemData {
     string previous_data = 2;
     bool is_folder = 3;
 }
+
+message UploadFileData {
+    string resourceId = 1;
+}
+
+message ScrollFileData {
+    uint32 scroll_start = 1;
+    uint32 scroll_end = 2;
+}
 //End Data
 
 message TraceTransaction {
@@ -46,19 +55,24 @@ message TraceTransaction {
         SelectFile = 3;
         CursorFile = 4;
         RenameFile = 5;
+        UploadFile = 6;
+        ScrollFile = 7;
     }
 
   TraceTransactionType type = 1;
   uint32 time_offset_ms = 2;
-  string file_path =  3;
+  string file_path = 3;
+  string meta_data = 4;
 
   oneof data {
-    CreateItemData create_file = 4;
-    DeleteItemData delete_file = 5;
-    ModifyFileData modify_file = 6;
-    SelectFileData select_file = 7;
-    CursorChangeFileData cursor_file = 8;
-    RenameItemData rename_file = 9;
+    CreateItemData create_file = 5;
+    DeleteItemData delete_file = 6;
+    ModifyFileData modify_file = 7;
+    SelectFileData select_file = 8;
+    CursorChangeFileData cursor_file = 9;
+    RenameItemData rename_file = 10;
+    UploadFileData upload_file = 11;
+    ScrollFileData scroll_file = 12;
   }
 }
 

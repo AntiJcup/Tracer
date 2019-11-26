@@ -33,32 +33,33 @@ namespace Tracer {
             "bmV3X2ZpbGVfcGF0aBgBIAEoCSJAChRDdXJzb3JDaGFuZ2VGaWxlRGF0YRIU",
             "CgxvZmZzZXRfc3RhcnQYASABKA0SEgoKb2Zmc2V0X2VuZBgCIAEoDSJRCg5S",
             "ZW5hbWVJdGVtRGF0YRIVCg1uZXdfZmlsZV9wYXRoGAEgASgJEhUKDXByZXZp",
-            "b3VzX2RhdGEYAiABKAkSEQoJaXNfZm9sZGVyGAMgASgIIiQKDlVwbG9hZEZp",
-            "bGVEYXRhEhIKCnJlc291cmNlSWQYASABKAkiOgoOU2Nyb2xsRmlsZURhdGES",
-            "FAoMc2Nyb2xsX3N0YXJ0GAEgASgNEhIKCnNjcm9sbF9lbmQYAiABKA0i/QUK",
-            "EFRyYWNlVHJhbnNhY3Rpb24SRAoEdHlwZRgBIAEoDjI2Lmdvb2dsZS5wcm90",
-            "b2J1Zi5UcmFjZVRyYW5zYWN0aW9uLlRyYWNlVHJhbnNhY3Rpb25UeXBlEhYK",
-            "DnRpbWVfb2Zmc2V0X21zGAIgASgNEhEKCWZpbGVfcGF0aBgDIAEoCRIRCglt",
-            "ZXRhX2RhdGEYBCABKAkSNgoLY3JlYXRlX2ZpbGUYBSABKAsyHy5nb29nbGUu",
-            "cHJvdG9idWYuQ3JlYXRlSXRlbURhdGFIABI2CgtkZWxldGVfZmlsZRgGIAEo",
-            "CzIfLmdvb2dsZS5wcm90b2J1Zi5EZWxldGVJdGVtRGF0YUgAEjYKC21vZGlm",
-            "eV9maWxlGAcgASgLMh8uZ29vZ2xlLnByb3RvYnVmLk1vZGlmeUZpbGVEYXRh",
-            "SAASNgoLc2VsZWN0X2ZpbGUYCCABKAsyHy5nb29nbGUucHJvdG9idWYuU2Vs",
-            "ZWN0RmlsZURhdGFIABI8CgtjdXJzb3JfZmlsZRgJIAEoCzIlLmdvb2dsZS5w",
-            "cm90b2J1Zi5DdXJzb3JDaGFuZ2VGaWxlRGF0YUgAEjYKC3JlbmFtZV9maWxl",
-            "GAogASgLMh8uZ29vZ2xlLnByb3RvYnVmLlJlbmFtZUl0ZW1EYXRhSAASNgoL",
-            "dXBsb2FkX2ZpbGUYCyABKAsyHy5nb29nbGUucHJvdG9idWYuVXBsb2FkRmls",
-            "ZURhdGFIABI2CgtzY3JvbGxfZmlsZRgMIAEoCzIfLmdvb2dsZS5wcm90b2J1",
-            "Zi5TY3JvbGxGaWxlRGF0YUgAIpYBChRUcmFjZVRyYW5zYWN0aW9uVHlwZRIO",
-            "CgpDcmVhdGVGaWxlEAASDgoKRGVsZXRlRmlsZRABEg4KCk1vZGlmeUZpbGUQ",
-            "AhIOCgpTZWxlY3RGaWxlEAMSDgoKQ3Vyc29yRmlsZRAEEg4KClJlbmFtZUZp",
-            "bGUQBRIOCgpVcGxvYWRGaWxlEAYSDgoKU2Nyb2xsRmlsZRAHQgYKBGRhdGEi",
-            "YQoTVHJhY2VUcmFuc2FjdGlvbkxvZxIRCglwYXJ0aXRpb24YASABKA0SNwoM",
-            "dHJhbnNhY3Rpb25zGAIgAygLMiEuZ29vZ2xlLnByb3RvYnVmLlRyYWNlVHJh",
-            "bnNhY3Rpb24iSgoUVHJhY2VUcmFuc2FjdGlvbkxvZ3MSMgoEbG9ncxgBIAMo",
-            "CzIkLmdvb2dsZS5wcm90b2J1Zi5UcmFjZVRyYW5zYWN0aW9uTG9nIkQKDFRy",
-            "YWNlUHJvamVjdBIKCgJpZBgBIAEoCRIQCghkdXJhdGlvbhgCIAEoDRIWCg5w",
-            "YXJ0aXRpb25fc2l6ZRgDIAEoDUIJqgIGVHJhY2VyYgZwcm90bzM="));
+            "b3VzX2RhdGEYAiABKAkSEQoJaXNfZm9sZGVyGAMgASgIIjsKDlVwbG9hZEZp",
+            "bGVEYXRhEhIKCnJlc291cmNlSWQYASABKAkSFQoNbmV3X2ZpbGVfcGF0aBgC",
+            "IAEoCSI6Cg5TY3JvbGxGaWxlRGF0YRIUCgxzY3JvbGxfc3RhcnQYASABKA0S",
+            "EgoKc2Nyb2xsX2VuZBgCIAEoDSL9BQoQVHJhY2VUcmFuc2FjdGlvbhJECgR0",
+            "eXBlGAEgASgOMjYuZ29vZ2xlLnByb3RvYnVmLlRyYWNlVHJhbnNhY3Rpb24u",
+            "VHJhY2VUcmFuc2FjdGlvblR5cGUSFgoOdGltZV9vZmZzZXRfbXMYAiABKA0S",
+            "EQoJZmlsZV9wYXRoGAMgASgJEhEKCW1ldGFfZGF0YRgEIAEoCRI2CgtjcmVh",
+            "dGVfZmlsZRgFIAEoCzIfLmdvb2dsZS5wcm90b2J1Zi5DcmVhdGVJdGVtRGF0",
+            "YUgAEjYKC2RlbGV0ZV9maWxlGAYgASgLMh8uZ29vZ2xlLnByb3RvYnVmLkRl",
+            "bGV0ZUl0ZW1EYXRhSAASNgoLbW9kaWZ5X2ZpbGUYByABKAsyHy5nb29nbGUu",
+            "cHJvdG9idWYuTW9kaWZ5RmlsZURhdGFIABI2CgtzZWxlY3RfZmlsZRgIIAEo",
+            "CzIfLmdvb2dsZS5wcm90b2J1Zi5TZWxlY3RGaWxlRGF0YUgAEjwKC2N1cnNv",
+            "cl9maWxlGAkgASgLMiUuZ29vZ2xlLnByb3RvYnVmLkN1cnNvckNoYW5nZUZp",
+            "bGVEYXRhSAASNgoLcmVuYW1lX2ZpbGUYCiABKAsyHy5nb29nbGUucHJvdG9i",
+            "dWYuUmVuYW1lSXRlbURhdGFIABI2Cgt1cGxvYWRfZmlsZRgLIAEoCzIfLmdv",
+            "b2dsZS5wcm90b2J1Zi5VcGxvYWRGaWxlRGF0YUgAEjYKC3Njcm9sbF9maWxl",
+            "GAwgASgLMh8uZ29vZ2xlLnByb3RvYnVmLlNjcm9sbEZpbGVEYXRhSAAilgEK",
+            "FFRyYWNlVHJhbnNhY3Rpb25UeXBlEg4KCkNyZWF0ZUZpbGUQABIOCgpEZWxl",
+            "dGVGaWxlEAESDgoKTW9kaWZ5RmlsZRACEg4KClNlbGVjdEZpbGUQAxIOCgpD",
+            "dXJzb3JGaWxlEAQSDgoKUmVuYW1lRmlsZRAFEg4KClVwbG9hZEZpbGUQBhIO",
+            "CgpTY3JvbGxGaWxlEAdCBgoEZGF0YSJhChNUcmFjZVRyYW5zYWN0aW9uTG9n",
+            "EhEKCXBhcnRpdGlvbhgBIAEoDRI3Cgx0cmFuc2FjdGlvbnMYAiADKAsyIS5n",
+            "b29nbGUucHJvdG9idWYuVHJhY2VUcmFuc2FjdGlvbiJKChRUcmFjZVRyYW5z",
+            "YWN0aW9uTG9ncxIyCgRsb2dzGAEgAygLMiQuZ29vZ2xlLnByb3RvYnVmLlRy",
+            "YWNlVHJhbnNhY3Rpb25Mb2ciRAoMVHJhY2VQcm9qZWN0EgoKAmlkGAEgASgJ",
+            "EhAKCGR1cmF0aW9uGAIgASgNEhYKDnBhcnRpdGlvbl9zaXplGAMgASgNQgmq",
+            "AgZUcmFjZXJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -68,7 +69,7 @@ namespace Tracer {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.SelectFileData), global::Tracer.SelectFileData.Parser, new[]{ "NewFilePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.CursorChangeFileData), global::Tracer.CursorChangeFileData.Parser, new[]{ "OffsetStart", "OffsetEnd" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.RenameItemData), global::Tracer.RenameItemData.Parser, new[]{ "NewFilePath", "PreviousData", "IsFolder" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.UploadFileData), global::Tracer.UploadFileData.Parser, new[]{ "ResourceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.UploadFileData), global::Tracer.UploadFileData.Parser, new[]{ "ResourceId", "NewFilePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.ScrollFileData), global::Tracer.ScrollFileData.Parser, new[]{ "ScrollStart", "ScrollEnd" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransaction), global::Tracer.TraceTransaction.Parser, new[]{ "Type", "TimeOffsetMs", "FilePath", "MetaData", "CreateFile", "DeleteFile", "ModifyFile", "SelectFile", "CursorFile", "RenameFile", "UploadFile", "ScrollFile" }, new[]{ "Data" }, new[]{ typeof(global::Tracer.TraceTransaction.Types.TraceTransactionType) }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tracer.TraceTransactionLog), global::Tracer.TraceTransactionLog.Parser, new[]{ "Partition", "Transactions" }, null, null, null, null),
@@ -1110,6 +1111,7 @@ namespace Tracer {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UploadFileData(UploadFileData other) : this() {
       resourceId_ = other.resourceId_;
+      newFilePath_ = other.newFilePath_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1129,6 +1131,17 @@ namespace Tracer {
       }
     }
 
+    /// <summary>Field number for the "new_file_path" field.</summary>
+    public const int NewFilePathFieldNumber = 2;
+    private string newFilePath_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string NewFilePath {
+      get { return newFilePath_; }
+      set {
+        newFilePath_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as UploadFileData);
@@ -1143,6 +1156,7 @@ namespace Tracer {
         return true;
       }
       if (ResourceId != other.ResourceId) return false;
+      if (NewFilePath != other.NewFilePath) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1150,6 +1164,7 @@ namespace Tracer {
     public override int GetHashCode() {
       int hash = 1;
       if (ResourceId.Length != 0) hash ^= ResourceId.GetHashCode();
+      if (NewFilePath.Length != 0) hash ^= NewFilePath.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1167,6 +1182,10 @@ namespace Tracer {
         output.WriteRawTag(10);
         output.WriteString(ResourceId);
       }
+      if (NewFilePath.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(NewFilePath);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1177,6 +1196,9 @@ namespace Tracer {
       int size = 0;
       if (ResourceId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ResourceId);
+      }
+      if (NewFilePath.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(NewFilePath);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1192,6 +1214,9 @@ namespace Tracer {
       if (other.ResourceId.Length != 0) {
         ResourceId = other.ResourceId;
       }
+      if (other.NewFilePath.Length != 0) {
+        NewFilePath = other.NewFilePath;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1205,6 +1230,10 @@ namespace Tracer {
             break;
           case 10: {
             ResourceId = input.ReadString();
+            break;
+          }
+          case 18: {
+            NewFilePath = input.ReadString();
             break;
           }
         }

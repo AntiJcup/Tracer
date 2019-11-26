@@ -39,6 +39,7 @@ message RenameItemData {
 
 message UploadFileData {
     string resourceId = 1;
+    string new_file_path = 2;
 }
 
 message ScrollFileData {

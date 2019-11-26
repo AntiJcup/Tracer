@@ -159,6 +159,9 @@ export class UploadFileData extends jspb.Message {
   getResourceid(): string;
   setResourceid(value: string): void;
 
+  getNewFilePath(): string;
+  setNewFilePath(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UploadFileData.AsObject;
   static toObject(includeInstance: boolean, msg: UploadFileData): UploadFileData.AsObject;
@@ -172,6 +175,7 @@ export class UploadFileData extends jspb.Message {
 export namespace UploadFileData {
   export type AsObject = {
     resourceid: string,
+    newFilePath: string,
   }
 }
 

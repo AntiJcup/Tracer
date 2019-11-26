@@ -1330,7 +1330,8 @@ proto.google.protobuf.UploadFileData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.UploadFileData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    resourceid: jspb.Message.getFieldWithDefault(msg, 1, "")
+    resourceid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    newFilePath: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1371,6 +1372,10 @@ proto.google.protobuf.UploadFileData.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setResourceid(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNewFilePath(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1407,6 +1412,13 @@ proto.google.protobuf.UploadFileData.serializeBinaryToWriter = function(message,
       f
     );
   }
+  f = message.getNewFilePath();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -1425,6 +1437,24 @@ proto.google.protobuf.UploadFileData.prototype.getResourceid = function() {
  */
 proto.google.protobuf.UploadFileData.prototype.setResourceid = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string new_file_path = 2;
+ * @return {string}
+ */
+proto.google.protobuf.UploadFileData.prototype.getNewFilePath = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.google.protobuf.UploadFileData} returns this
+ */
+proto.google.protobuf.UploadFileData.prototype.setNewFilePath = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

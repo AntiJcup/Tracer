@@ -156,8 +156,8 @@ export namespace RenameItemData {
 }
 
 export class UploadFileData extends jspb.Message {
-  getResourceid(): string;
-  setResourceid(value: string): void;
+  getResourceId(): string;
+  setResourceId(value: string): void;
 
   getNewFilePath(): string;
   setNewFilePath(value: string): void;
@@ -174,7 +174,7 @@ export class UploadFileData extends jspb.Message {
 
 export namespace UploadFileData {
   export type AsObject = {
-    resourceid: string,
+    resourceId: string,
     newFilePath: string,
   }
 }

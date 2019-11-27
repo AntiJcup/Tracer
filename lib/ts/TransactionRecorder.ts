@@ -7,7 +7,8 @@ import {
     ModifyFileData,
     SelectFileData,
     CursorChangeFileData,
-    RenameItemData
+    RenameItemData,
+    UploadFileData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom } from './Common';
 import { TransactionWriter } from './TransactionWriter';
@@ -25,7 +26,7 @@ export class TransactionRecorder {
     }
 
     constructor(
-        private id: string,
+        protected id: string,
         private projectLoader: ProjectLoader,
         private projectWriter: ProjectWriter,
         private transactionWriter: TransactionWriter,
@@ -173,6 +174,19 @@ export class TransactionRecorder {
         data.setPreviousData(previousData);
         data.setIsFolder(isFolder);
         transaction.setRenameFile(data);
+
+        return this.AddTransaction(transaction);
+    }
+
+    public UploadFile(timeOffset: number, oldFilePath: string, newFilePath: string, resourceId: string) {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.UPLOADFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(oldFilePath);
+        const data = new UploadFileData();
+        data.setNewFilePath(newFilePath);
+        data.setResourceId(resourceId);
+        transaction.setUploadFile(data);
 
         return this.AddTransaction(transaction);
     }

@@ -1330,7 +1330,7 @@ proto.google.protobuf.UploadFileData.prototype.toObject = function(opt_includeIn
  */
 proto.google.protobuf.UploadFileData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    resourceid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    resourceId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     newFilePath: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
@@ -1370,7 +1370,7 @@ proto.google.protobuf.UploadFileData.deserializeBinaryFromReader = function(msg,
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setResourceid(value);
+      msg.setResourceId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -1405,7 +1405,7 @@ proto.google.protobuf.UploadFileData.prototype.serializeBinary = function() {
  */
 proto.google.protobuf.UploadFileData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getResourceid();
+  f = message.getResourceId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -1423,10 +1423,10 @@ proto.google.protobuf.UploadFileData.serializeBinaryToWriter = function(message,
 
 
 /**
- * optional string resourceId = 1;
+ * optional string resource_id = 1;
  * @return {string}
  */
-proto.google.protobuf.UploadFileData.prototype.getResourceid = function() {
+proto.google.protobuf.UploadFileData.prototype.getResourceId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -1435,7 +1435,7 @@ proto.google.protobuf.UploadFileData.prototype.getResourceid = function() {
  * @param {string} value
  * @return {!proto.google.protobuf.UploadFileData} returns this
  */
-proto.google.protobuf.UploadFileData.prototype.setResourceid = function(value) {
+proto.google.protobuf.UploadFileData.prototype.setResourceId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

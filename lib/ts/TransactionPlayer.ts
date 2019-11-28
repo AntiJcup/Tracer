@@ -154,13 +154,15 @@ export abstract class TransactionPlayer {
                 }
                 for (const transaction of currentTransactionLog.getTransactionsList().slice().reverse()) {
                     lastTransactionOffset = transaction.getTimeOffsetMs();
-                    if (lastTransactionOffset <= this.previousPosition && lastTransactionOffset > this.internalPosition) {
+                    if (lastTransactionOffset < this.previousPosition && lastTransactionOffset > this.internalPosition) {
                         this.HandleTransaction(transaction, true);
                         lastActedTransactionOffset = lastTransactionOffset;
                     }
                 }
+                console.log(`Updating previous position to ${lastActedTransactionOffset}`);
                 this.previousPosition = lastActedTransactionOffset;
             }
+            console.log(`Updating previous position to ${this.internalPosition}`);
             this.previousPosition = this.internalPosition;
         }
 

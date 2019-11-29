@@ -147,6 +147,7 @@ export abstract class TransactionPlayer {
         let lastTransactionOffset = 0;
         let lastActedTransactionOffset = this.previousPosition;
         if (this.internalPosition < this.previousPosition) {
+            console.log(`Starting rewind with previous position ${this.previousPosition}`);
             while (this.internalPosition < this.previousPosition && this.transactionLogIndex >= 0) {
                 const currentTransactionLog = this.transactionLogs[this.transactionLogIndex--];
                 if (currentTransactionLog == null) {
@@ -154,15 +155,14 @@ export abstract class TransactionPlayer {
                 }
                 for (const transaction of currentTransactionLog.getTransactionsList().slice().reverse()) {
                     lastTransactionOffset = transaction.getTimeOffsetMs();
-                    if (lastTransactionOffset < this.previousPosition && lastTransactionOffset > this.internalPosition) {
+                    if (lastTransactionOffset <= this.previousPosition && lastTransactionOffset > this.internalPosition) {
                         this.HandleTransaction(transaction, true);
                         lastActedTransactionOffset = lastTransactionOffset;
                     }
                 }
-                console.log(`Updating previous position to ${lastActedTransactionOffset}`);
-                this.previousPosition = lastActedTransactionOffset;
+                this.previousPosition = lastActedTransactionOffset - 1; // Subtract 1 to prevent duplicates
+                // Rewind should play the last previous position before rewind but not during rewind
             }
-            console.log(`Updating previous position to ${this.internalPosition}`);
             this.previousPosition = this.internalPosition;
         }
 
@@ -179,6 +179,7 @@ export abstract class TransactionPlayer {
         lastActedTransactionOffset = 0;
         for (const transaction of currentTransaction.getTransactionsList()) {
             lastTransactionOffset = transaction.getTimeOffsetMs();
+            console.log(`Playing this.previousPosition ${this.previousPosition} and this.internalPosition: ${this.internalPosition}`);
             if (lastTransactionOffset > this.previousPosition && lastTransactionOffset <= this.internalPosition) {
                 this.HandleTransaction(transaction);
                 lastActedTransactionOffset = lastTransactionOffset;

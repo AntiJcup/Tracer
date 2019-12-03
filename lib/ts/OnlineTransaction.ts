@@ -70,7 +70,7 @@ export class OnlineTransactionWriter extends TransactionWriter {
 }
 
 export class OnlineTransactionLoader extends TransactionLoader {
-    constructor(protected requestor: ApiHttpRequest) {
+    constructor(protected requestor: ApiHttpRequest, protected cacheBuster: string = null) {
         super();
     }
 
@@ -80,7 +80,7 @@ export class OnlineTransactionLoader extends TransactionLoader {
         endTime: number): Promise<{ [partition: string]: string }> {
 
         const response = await this.requestor
-            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${endTime}`);
+            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${endTime}${this.cacheBuster === null ? '' : `&cb=${this.cacheBuster}`}`);
 
         if (!response.ok) {
             return null;

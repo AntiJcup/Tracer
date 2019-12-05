@@ -179,7 +179,7 @@ export abstract class TransactionPlayer {
         lastActedTransactionOffset = 0;
         for (const transaction of currentTransaction.getTransactionsList()) {
             lastTransactionOffset = transaction.getTimeOffsetMs();
-            console.log(`Playing this.previousPosition ${this.previousPosition} and this.internalPosition: ${this.internalPosition}`);
+            // console.log(`Playing this.previousPosition ${this.previousPosition} and this.internalPosition: ${this.internalPosition}`);
             if (lastTransactionOffset > this.previousPosition && lastTransactionOffset <= this.internalPosition) {
                 this.HandleTransaction(transaction);
                 lastActedTransactionOffset = lastTransactionOffset;

@@ -26,21 +26,26 @@ export abstract class TransactionLoader {
         return traceTransactionLog;
     }
 
+    public async GetTransactionLog(project: TraceProject, partition: string, transactionLogs: TraceTransactionLog[]) {
+        const transactionLog = await this.LoadTraceTransactionLog(project, partition);
+        if (transactionLog == null) { return; }
+        transactionLogs.push(transactionLog);
+    }
+
     public async GetTransactionLogs(project: TraceProject, startTime: number, endTime: number): Promise<TraceTransactionLog[]> {
         const transactionLogs: TraceTransactionLog[] = new Array<TraceTransactionLog>();
         const partitions = await this.GetPartitionsForRange(project, startTime, endTime);
 
-
+        const tasks = [];
         for (const partitionKey in partitions) {
             if (!partitions.hasOwnProperty(partitionKey)) {
                 continue;
             }
 
             const partition = partitions[partitionKey];
-            const transactionLog = await this.LoadTraceTransactionLog(project, partition);
-            if (transactionLog == null) { continue; }
-            transactionLogs.push(transactionLog);
+            tasks.push(this.GetTransactionLog(project, partition, transactionLogs));
         }
+        await Promise.all(tasks);
 
         return transactionLogs;
     }

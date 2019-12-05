@@ -43,9 +43,10 @@ export abstract class TransactionLoader {
             }
 
             const partition = partitions[partitionKey];
-            tasks.push(this.GetTransactionLog(project, partition, transactionLogs));
+            await this.GetTransactionLog(project, partition, transactionLogs);
+            // tasks.push();
         }
-        await Promise.all(tasks);
+        // await Promise.all(tasks);
 
         return transactionLogs;
     }

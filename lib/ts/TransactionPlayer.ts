@@ -109,6 +109,9 @@ export abstract class TransactionPlayer {
         }
     }
 
+    protected abstract onLoadStart(): void;
+    protected abstract onLoadComplete(): void;
+
     protected LoadLoop(): void {
         if (this.loadingChunk || this.project == null) {
             return;
@@ -125,12 +128,16 @@ export abstract class TransactionPlayer {
         this.loadingChunk = true;
 
         const start = this.internalLoadPosition;
-        const end = start + (this.settings.loadChunkSize);
+        const end = Math.max(start, Math.round(this.position)) + (this.settings.loadChunkSize);
+        this.onLoadStart();
         this.transactionLoader.GetTransactionLogs(this.project, start, end).then((transactionLogs: TraceTransactionLog[]) => {
-            this.transactionLogs = this.transactionLogs.concat(transactionLogs);
+            this.transactionLogs = this.transactionLogs.concat(transactionLogs).sort((a, b) => {
+                return a.getPartition() > b.getPartition() ? 1 : -1;
+            });
             this.internalLoadPosition = end;
         }).finally(() => {
             this.loadingChunk = false;
+            this.onLoadComplete();
         });
     }
 

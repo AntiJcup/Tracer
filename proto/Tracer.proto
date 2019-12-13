@@ -13,6 +13,7 @@ message CreateItemData {
 message DeleteItemData {
     string previous_data = 1;
     bool is_folder = 2;
+    string previous_file_path = 3;
 }
 
 message ModifyFileData {
@@ -46,6 +47,16 @@ message ScrollFileData {
     uint32 scroll_start = 1;
     uint32 scroll_end = 2;
 }
+
+message MouseMoveData {
+    uint32 x = 1;
+    uint32 y = 2;
+}
+
+message CustomActionData {
+    string action = 1;
+    string data = 2;
+}
 //End Data
 
 message TraceTransaction {
@@ -58,6 +69,8 @@ message TraceTransaction {
         RenameFile = 5;
         UploadFile = 6;
         ScrollFile = 7;
+        MosueMove = 8;
+        CustomAction = 9;
     }
 
   TraceTransactionType type = 1;
@@ -74,6 +87,8 @@ message TraceTransaction {
     RenameItemData rename_file = 10;
     UploadFileData upload_file = 11;
     ScrollFileData scroll_file = 12;
+    MouseMoveData mouse_move = 13;
+    CustomActionData custom_action = 14;
   }
 }
 

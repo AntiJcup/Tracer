@@ -202,6 +202,7 @@ export class TransactionRecorder {
         const data = new CursorChangeFileData();
         data.setOffsetStart(offsetStart);
         data.setOffsetEnd(offsetEnd);
+        transaction.setCursorFile(data);
 
         return this.AddTransaction(transaction);
     }
@@ -214,6 +215,7 @@ export class TransactionRecorder {
         const data = new ScrollFileData();
         data.setScrollStart(scrollStart);
         data.setScrollEnd(scrollEnd);
+        transaction.setScrollFile(data);
 
         return this.AddTransaction(transaction);
     }
@@ -225,6 +227,7 @@ export class TransactionRecorder {
         const data = new MouseMoveData();
         data.setX(x);
         data.setY(y);
+        transaction.setMouseMove(data);
 
         return this.AddTransaction(transaction);
     }

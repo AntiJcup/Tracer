@@ -8,7 +8,10 @@ import {
     SelectFileData,
     CursorChangeFileData,
     RenameItemData,
-    UploadFileData
+    UploadFileData,
+    MouseMoveData,
+    CustomActionData,
+    ScrollFileData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom } from './Common';
 import { TransactionWriter } from './TransactionWriter';
@@ -187,6 +190,53 @@ export class TransactionRecorder {
         data.setNewFilePath(newFilePath);
         data.setResourceId(resourceId);
         transaction.setUploadFile(data);
+
+        return this.AddTransaction(transaction);
+    }
+
+    public SelectText(timeOffset: number, file: string, offsetStart: number, offsetEnd: number) {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.CURSORFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(file);
+        const data = new CursorChangeFileData();
+        data.setOffsetStart(offsetStart);
+        data.setOffsetEnd(offsetEnd);
+
+        return this.AddTransaction(transaction);
+    }
+
+    public ScrollFile(timeOffset: number, file: string, scrollStart: number, scrollEnd: number) {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.SCROLLFILE);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(file);
+        const data = new ScrollFileData();
+        data.setScrollStart(scrollStart);
+        data.setScrollEnd(scrollEnd);
+
+        return this.AddTransaction(transaction);
+    }
+
+    public MouseMove(timeOffset: number, x: number, y: number) {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.MOSUEMOVE);
+        transaction.setTimeOffsetMs(timeOffset);
+        const data = new MouseMoveData();
+        data.setX(x);
+        data.setY(y);
+
+        return this.AddTransaction(transaction);
+    }
+
+    public PreviewAction(timeOffset: number, previewFile: string, currentFile: string) {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.CUSTOMACTION);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(currentFile);
+        const data = new CustomActionData();
+        data.setAction('previewFile');
+        data.setData(previewFile);
 
         return this.AddTransaction(transaction);
     }

@@ -34,6 +34,9 @@ export class DeleteItemData extends jspb.Message {
   getIsFolder(): boolean;
   setIsFolder(value: boolean): void;
 
+  getPreviousFilePath(): string;
+  setPreviousFilePath(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteItemData.AsObject;
   static toObject(includeInstance: boolean, msg: DeleteItemData): DeleteItemData.AsObject;
@@ -48,6 +51,7 @@ export namespace DeleteItemData {
   export type AsObject = {
     previousData: string,
     isFolder: boolean,
+    previousFilePath: string,
   }
 }
 
@@ -203,6 +207,54 @@ export namespace ScrollFileData {
   }
 }
 
+export class MouseMoveData extends jspb.Message {
+  getX(): number;
+  setX(value: number): void;
+
+  getY(): number;
+  setY(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MouseMoveData.AsObject;
+  static toObject(includeInstance: boolean, msg: MouseMoveData): MouseMoveData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: MouseMoveData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MouseMoveData;
+  static deserializeBinaryFromReader(message: MouseMoveData, reader: jspb.BinaryReader): MouseMoveData;
+}
+
+export namespace MouseMoveData {
+  export type AsObject = {
+    x: number,
+    y: number,
+  }
+}
+
+export class CustomActionData extends jspb.Message {
+  getAction(): string;
+  setAction(value: string): void;
+
+  getData(): string;
+  setData(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CustomActionData.AsObject;
+  static toObject(includeInstance: boolean, msg: CustomActionData): CustomActionData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: CustomActionData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CustomActionData;
+  static deserializeBinaryFromReader(message: CustomActionData, reader: jspb.BinaryReader): CustomActionData;
+}
+
+export namespace CustomActionData {
+  export type AsObject = {
+    action: string,
+    data: string,
+  }
+}
+
 export class TraceTransaction extends jspb.Message {
   getType(): TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap];
   setType(value: TraceTransaction.TraceTransactionTypeMap[keyof TraceTransaction.TraceTransactionTypeMap]): void;
@@ -256,6 +308,16 @@ export class TraceTransaction extends jspb.Message {
   getScrollFile(): ScrollFileData | undefined;
   setScrollFile(value?: ScrollFileData): void;
 
+  hasMouseMove(): boolean;
+  clearMouseMove(): void;
+  getMouseMove(): MouseMoveData | undefined;
+  setMouseMove(value?: MouseMoveData): void;
+
+  hasCustomAction(): boolean;
+  clearCustomAction(): void;
+  getCustomAction(): CustomActionData | undefined;
+  setCustomAction(value?: CustomActionData): void;
+
   getDataCase(): TraceTransaction.DataCase;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TraceTransaction.AsObject;
@@ -281,6 +343,8 @@ export namespace TraceTransaction {
     renameFile?: RenameItemData.AsObject,
     uploadFile?: UploadFileData.AsObject,
     scrollFile?: ScrollFileData.AsObject,
+    mouseMove?: MouseMoveData.AsObject,
+    customAction?: CustomActionData.AsObject,
   }
 
   export interface TraceTransactionTypeMap {
@@ -292,6 +356,8 @@ export namespace TraceTransaction {
     RENAMEFILE: 5;
     UPLOADFILE: 6;
     SCROLLFILE: 7;
+    MOSUEMOVE: 8;
+    CUSTOMACTION: 9;
   }
 
   export const TraceTransactionType: TraceTransactionTypeMap;
@@ -306,6 +372,8 @@ export namespace TraceTransaction {
     RENAME_FILE = 10,
     UPLOAD_FILE = 11,
     SCROLL_FILE = 12,
+    MOUSE_MOVE = 13,
+    CUSTOM_ACTION = 14,
   }
 }
 

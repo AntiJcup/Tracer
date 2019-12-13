@@ -23,6 +23,7 @@ export class TransactionRecorder {
     protected changed: boolean;
     protected project: TraceProject;
     private initialTimeOffset = 0;
+    private lastPreviewPath: string;
 
     public get logs(): TraceTransactionLog[] {
         return this.transactionLogs;
@@ -240,6 +241,22 @@ export class TransactionRecorder {
         const data = new CustomActionData();
         data.setAction('previewFile');
         data.setData(previewFile);
+        transaction.setCustomAction(data);
+
+        this.lastPreviewPath = previewFile;
+
+        return this.AddTransaction(transaction);
+    }
+
+    public PreviewCloseAction(timeOffset: number, currentFile: string) {
+        const transaction = new TraceTransaction();
+        transaction.setType(TraceTransaction.TraceTransactionType.CUSTOMACTION);
+        transaction.setTimeOffsetMs(timeOffset);
+        transaction.setFilePath(currentFile);
+        const data = new CustomActionData();
+        data.setAction('previewFileclose');
+        data.setData(this.lastPreviewPath);
+        transaction.setCustomAction(data);
 
         return this.AddTransaction(transaction);
     }

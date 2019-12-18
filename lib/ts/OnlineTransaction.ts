@@ -90,7 +90,7 @@ export class OnlineTransactionLoader extends TransactionLoader {
     }
 
     protected async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array> {
-        const response = await this.requestor.GetFullUrl(partition);
+        const response = await this.requestor.GetFullUrl(`${partition}${this.cacheBuster === null ? '' : `?cb=${this.cacheBuster}`}`);
 
         if (!response.ok) {
             return null;

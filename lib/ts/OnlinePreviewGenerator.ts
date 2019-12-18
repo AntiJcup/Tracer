@@ -50,6 +50,9 @@ export class OnlinePreviewGenerator {
             throw new Error('Bad download url for preview');
         }
 
-        window.location.href = downloadUrl;
+        const downloadFrame = document.createElement('iframe');
+        downloadFrame.style.display = 'none';
+        downloadFrame.src = downloadUrl;
+        document.body.appendChild(downloadFrame);
     }
 }

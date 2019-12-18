@@ -20,13 +20,17 @@ import { ProjectWriter } from './ProjectWriter';
 import { Guid } from 'guid-typescript';
 
 export class TransactionRecorder {
-    protected changed: boolean;
+    protected changed = false;
     protected project: TraceProject;
     private initialTimeOffset = 0;
     private lastPreviewPath: string;
 
     public get logs(): TraceTransactionLog[] {
         return this.transactionLogs;
+    }
+
+    public get hasChanged(): boolean {
+        return this.changed;
     }
 
     constructor(
@@ -93,6 +97,7 @@ export class TransactionRecorder {
     }
 
     protected AddTransaction(transaction: TraceTransaction): TraceTransaction {
+        this.changed = true;
         this.ThrowIfNotLoaded();
         const transactionLog = this.GetTransactionLogByTimeOffset(transaction.getTimeOffsetMs());
         transactionLog.addTransactions(transaction);

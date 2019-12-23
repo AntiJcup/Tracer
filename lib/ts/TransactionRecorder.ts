@@ -103,7 +103,7 @@ export class TransactionRecorder {
         transactionLog.addTransactions(transaction);
         this.project.setDuration(this.project.getDuration() + transaction.getTimeOffsetMs());
 
-        console.log(`Adding transaction ${JSON.stringify(transaction.toObject())} to ${JSON.stringify(transactionLog.toObject())}`);
+        console.log(`Adding transaction ${JSON.stringify(transaction.toObject())}`);
         return transaction;
     }
 

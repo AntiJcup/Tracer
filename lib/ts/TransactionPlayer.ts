@@ -69,7 +69,7 @@ export abstract class TransactionPlayer {
 
     public async Load(): Promise<void> {
         this.project = await this.projectLoader.LoadProject(this.projectId);
-        console.log(`Project Loaded: ${JSON.stringify(this.project.toObject())}`);
+        // console.log(`Project Loaded: ${JSON.stringify(this.project.toObject())}`);
         if (!this.settings.customIncrementer) {
             this.internalUpdateInterval = setInterval(() => this.UpdateLoop(), this.settings.updateInterval);
         }
@@ -154,7 +154,7 @@ export abstract class TransactionPlayer {
         let lastTransactionOffset = 0;
         let lastActedTransactionOffset = this.previousPosition;
         if (this.internalPosition < this.previousPosition) {
-            console.log(`Starting rewind with previous position ${this.previousPosition}`);
+            // console.log(`Starting rewind with previous position ${this.previousPosition}`);
             while (this.internalPosition < this.previousPosition && this.transactionLogIndex >= 0) {
                 const currentTransactionLog = this.transactionLogs[this.transactionLogIndex--];
                 if (currentTransactionLog == null) {

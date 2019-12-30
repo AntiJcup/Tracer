@@ -86,7 +86,7 @@ export class TransactionRecorder {
             transactionLog = new TraceTransactionLog();
             transactionLog.setPartition(this.transactionLogs.length);
             this.transactionLogs.push(transactionLog);
-            console.log(`Created transaction log ${JSON.stringify(transactionLog.toObject())}`);
+            // console.log(`Created transaction log ${JSON.stringify(transactionLog.toObject())}`);
         }
 
         if (transactionLog == null) {
@@ -103,7 +103,7 @@ export class TransactionRecorder {
         transactionLog.addTransactions(transaction);
         this.project.setDuration(this.project.getDuration() + transaction.getTimeOffsetMs());
 
-        console.log(`Adding transaction ${JSON.stringify(transaction.toObject())}`);
+        // console.log(`Adding transaction ${JSON.stringify(transaction.toObject())}`);
         return transaction;
     }
 

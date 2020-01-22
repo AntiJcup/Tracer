@@ -1,6 +1,7 @@
 import { TraceTransactionLog, TraceProject, TraceTransaction } from '../../models/ts/Tracer_pb';
 import { TransactionLoader } from './TransactionLoader';
-import { ProjectLoader } from './ProjectLoader';
+import { IProjectReader } from './IProjectReader';
+import { ITransactionReader } from './ITransactionReader';
 
 export interface TransactionPlayerSettings {
     speedMultiplier: number;
@@ -27,6 +28,7 @@ export abstract class TransactionPlayer {
     private internalLoadInterval: any = null;
     private transactionLogs: TraceTransactionLog[] = [];
     private transactionLogIndex = 0;
+    protected transactionLoader: TransactionLoader;
 
     public get position(): number {
         return this.internalPosition;
@@ -59,16 +61,19 @@ export abstract class TransactionPlayer {
 
     constructor(
         public settings: TransactionPlayerSettings,
-        protected projectLoader: ProjectLoader,
-        protected transactionLoader: TransactionLoader,
-        protected projectId: string) {
+        protected projectLoader: IProjectReader,
+        protected transactionReader: ITransactionReader,
+        protected projectId: string,
+        protected cacheBuster: string) {
         if (this.settings.loadChunkSize <= this.settings.lookAheadSize) {
             throw new Error('loadChunkSize needs to be greater than lookAheadSize');
         }
+
+        this.transactionLoader = new TransactionLoader(this.transactionReader);
     }
 
     public async Load(): Promise<void> {
-        this.project = await this.projectLoader.LoadProject(this.projectId);
+        this.project = await this.projectLoader.GetProject(this.projectId, this.cacheBuster);
         // console.log(`Project Loaded: ${JSON.stringify(this.project.toObject())}`);
         if (!this.settings.customIncrementer) {
             this.internalUpdateInterval = setInterval(() => this.UpdateLoop(), this.settings.updateInterval);
@@ -130,15 +135,16 @@ export abstract class TransactionPlayer {
         const start = this.internalLoadPosition;
         const end = Math.max(start, Math.round(this.position)) + (this.settings.loadChunkSize);
         this.onLoadStart();
-        this.transactionLoader.GetTransactionLogs(this.project, start, end).then((transactionLogs: TraceTransactionLog[]) => {
-            this.transactionLogs = this.transactionLogs.concat(transactionLogs).sort((a, b) => {
-                return a.getPartition() > b.getPartition() ? 1 : -1;
+        this.transactionLoader.GetTransactionLogs(this.project, start, end, this.cacheBuster)
+            .then((transactionLogs: TraceTransactionLog[]) => {
+                this.transactionLogs = this.transactionLogs.concat(transactionLogs).sort((a, b) => {
+                    return a.getPartition() > b.getPartition() ? 1 : -1;
+                });
+                this.internalLoadPosition = end;
+            }).finally(() => {
+                this.loadingChunk = false;
+                this.onLoadComplete();
             });
-            this.internalLoadPosition = end;
-        }).finally(() => {
-            this.loadingChunk = false;
-            this.onLoadComplete();
-        });
     }
 
     protected UpdateLoop(): void {

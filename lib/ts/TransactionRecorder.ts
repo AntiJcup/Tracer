@@ -14,9 +14,9 @@ import {
     ScrollFileData
 } from '../../models/ts/Tracer_pb';
 import { PartitionFromOffsetBottom } from './Common';
-import { TransactionWriter } from './TransactionWriter';
-import { ProjectLoader } from './ProjectLoader';
-import { ProjectWriter } from './ProjectWriter';
+import { ITransactionWriter } from './ITransactionWriter';
+import { IProjectReader } from './IProjectReader';
+import { IProjectWriter } from './IProjectWriter';
 import { Guid } from 'guid-typescript';
 
 export class TransactionRecorder {
@@ -24,6 +24,7 @@ export class TransactionRecorder {
     protected project: TraceProject;
     private initialTimeOffset = 0;
     private lastPreviewPath: string;
+    private savedTransactionLogPartions: number[] = new Array<number>();
 
     public get logs(): TraceTransactionLog[] {
         return this.transactionLogs;
@@ -35,9 +36,10 @@ export class TransactionRecorder {
 
     constructor(
         protected id: string,
-        private projectLoader: ProjectLoader,
-        private projectWriter: ProjectWriter,
-        private transactionWriter: TransactionWriter,
+        private projectLoader: IProjectReader,
+        private projectWriter: IProjectWriter,
+        private transactionWriter: ITransactionWriter,
+        protected cacheBuster: string,
         private transactionLogs: TraceTransactionLog[] = []) {
 
     }
@@ -45,7 +47,7 @@ export class TransactionRecorder {
     // Call this if you are starting a new recording session
     public async New(): Promise<void> {
         this.project = await this.CreateProject(this.id);
-        this.transactionWriter.Reset();
+        this.Reset();
 
         if (!this.project) {
             throw new Error('Failed to load project id: ' + this.id);
@@ -71,11 +73,11 @@ export class TransactionRecorder {
     }
 
     public async LoadProject(id: string): Promise<TraceProject> {
-        return await this.projectLoader.LoadProject(this.id);
+        return await this.projectLoader.GetProject(id, this.cacheBuster);
     }
 
-    public async DeleteProject(id: string): Promise<boolean> {
-        return await this.projectWriter.DeleteProject(id);
+    public async ResetProject(id: string): Promise<boolean> {
+        return await this.projectWriter.ResetProject(id);
     }
 
     public GetTransactionLogByTimeOffset(timeOffset: number): TraceTransactionLog {
@@ -279,8 +281,31 @@ export class TransactionRecorder {
         if (transactions == null) {
             return;
         }
-        const result = await this.transactionWriter.SaveTransactionLogs(transactions, this.project.getId());
+        const result = await this.WriteTransactionLogs(transactions, this.project.getId());
         return result;
+    }
+
+    public async WriteTransactionLogs(transactionLogs: TraceTransactionLog[], projectId: string): Promise<boolean> {
+        let success = true;
+        for (const transactionLog of transactionLogs) {
+            if (this.savedTransactionLogPartions.indexOf(transactionLog.getPartition(), 0) !== -1) {
+                continue;
+            }
+            const saveResult = await this.SaveTransactionLog(transactionLog, projectId);
+            if (saveResult) {
+                this.savedTransactionLogPartions.push(transactionLog.getPartition());
+            }
+
+            success = success && saveResult;
+        }
+
+        return success;
+    }
+
+    public async SaveTransactionLog(transactionLog: TraceTransactionLog, projectId: string): Promise<boolean> {
+        const buffer = transactionLog.serializeBinary();
+        // console.log(`saving ${JSON.stringify(transactionLog.toObject())}`);
+        return await this.transactionWriter.WriteTransactionLog(transactionLog, buffer, projectId);
     }
 
     protected GetWriterArgs(): any[] {
@@ -291,5 +316,9 @@ export class TransactionRecorder {
         if (this.project == null) {
             throw new Error('project not loaded');
         }
+    }
+
+    public Reset(): void {
+        this.savedTransactionLogPartions = new Array<number>();
     }
 }

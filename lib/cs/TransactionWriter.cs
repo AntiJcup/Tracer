@@ -6,13 +6,13 @@ using Google.Protobuf;
 namespace Tracer
 {
 
-    public abstract class TransactionWriter
+    public abstract class ITransactionWriter
     {
         public TraceProject Project { get; private set; }
 
         //For loading existing transactions
         //Logs should only be after the offset
-        public TransactionWriter(TraceProject project)
+        public ITransactionWriter(TraceProject project)
         {
             Project = project;
         }

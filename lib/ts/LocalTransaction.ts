@@ -1,9 +1,9 @@
-import { TransactionWriter } from './TransactionWriter'
+import { ITransactionWriter } from './ITransactionWriter'
 import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb'
 import { TransactionLoader } from './TransactionLoader';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
-import { ProjectWriter } from './ProjectWriter';
-import { ProjectLoader } from './ProjectLoader';
+import { IProjectWriter } from './IProjectWriter';
+import { IProjectReader } from './IProjectReader';
 
 declare global {
     interface Window {
@@ -12,19 +12,17 @@ declare global {
     }
 }
 
-export class LocalProjectLoader extends ProjectLoader {
+export class LocalProjectLoader implements IProjectReader {
     constructor() {
-        super();
     }
 
-    public async GetProjectStream(id: string): Promise<Uint8Array> {
-        return window.projectCache[id];
+    public async GetProject(id: string): Promise<TraceProject> {
+        return TraceProject.deserializeBinary(new Uint8Array(window.projectCache[id]));
     }
 }
 
-export class LocalProjectWriter extends ProjectWriter {
+export class LocalProjectWriter implements IProjectWriter {
     constructor() {
-        super();
     }
 
     public async CreateProject(id: string): Promise<boolean> {
@@ -42,7 +40,7 @@ export class LocalProjectWriter extends ProjectWriter {
         return true;
     }
 
-    public async DeleteProject(id: string): Promise<boolean> {
+    public async ResetProject(id: string): Promise<boolean> {
         if (!window.projectCache) {
             return true;
         }
@@ -52,8 +50,8 @@ export class LocalProjectWriter extends ProjectWriter {
     }
 }
 
-export class LocalTransactionWriter extends TransactionWriter {
-    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
+export class LocalTransactionWriter implements ITransactionWriter {
+    public async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
         if (window.transactionLogCache == null) {
             window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
         }
@@ -64,7 +62,7 @@ export class LocalTransactionWriter extends TransactionWriter {
 
         window.transactionLogCache[projectId][transactionLog.getPartition()] = data;
 
-        const project = await (new LocalProjectLoader()).LoadProject(projectId);
+        const project = await (new LocalProjectLoader()).GetProject(projectId);
         const currentDuration = project.getDuration();
         const newDuration = transactionLog.getPartition() * project.getPartitionSize();
         if (currentDuration < newDuration) {

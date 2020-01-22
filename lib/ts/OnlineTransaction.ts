@@ -1,40 +1,36 @@
-import { TransactionWriter } from './TransactionWriter';
-import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb';
+import { ITransactionWriter } from './ITransactionWriter';
+import { TraceTransactionLog, TraceProject, TraceTransactionLogs } from '../../models/ts/Tracer_pb';
 import { TransactionLoader } from './TransactionLoader';
-import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
-import { request } from 'http';
-import { promise } from 'protractor';
-import { ProjectWriter } from './ProjectWriter';
-import { ProjectLoader } from './ProjectLoader';
+import { IProjectWriter } from './IProjectWriter';
+import { IProjectReader } from './IProjectReader';
 import { ApiHttpRequest } from 'shared/web/lib/ts/ApiHttpRequest';
+import { ITransactionReader } from './ITransactionReader';
 
 
-export class OnlineProjectLoader extends ProjectLoader {
+export class OnlineProjectLoader implements IProjectReader {
     constructor(protected requestor: ApiHttpRequest, protected cacheBuster: string = null) {
-        super();
     }
 
-    public async GetProjectStream(id: string): Promise<Uint8Array> {
+    public async GetProject(id: string, cacheBuster: string): Promise<TraceProject> {
         const projectUrlResponse = await this.requestor.Get(`api/project/streaming/project?projectId=${id}`);
 
         if (!projectUrlResponse.ok) {
             throw new Error('getting project');
         }
 
-        const projectDownloadUrl = (await projectUrlResponse.json()) + (this.cacheBuster === null ? '' : `?cb=${this.cacheBuster}`);
+        const projectDownloadUrl = (await projectUrlResponse.json()) + (cacheBuster === null ? '' : `?cb=${cacheBuster}`);
         const projectResponse = await this.requestor.GetFullUrl(projectDownloadUrl);
 
         if (!projectResponse.ok) {
             throw new Error('loading project');
         }
 
-        return new Uint8Array(await projectResponse.arrayBuffer());
+        return TraceProject.deserializeBinary(new Uint8Array(await projectResponse.arrayBuffer()));
     }
 }
 
-export class OnlineProjectWriter extends ProjectWriter {
+export class OnlineIProjectWriter implements IProjectWriter {
     constructor(protected requestor: ApiHttpRequest) {
-        super();
     }
 
     public async CreateProject(id: string): Promise<boolean> {
@@ -46,7 +42,7 @@ export class OnlineProjectWriter extends ProjectWriter {
         return true;
     }
 
-    public async DeleteProject(id: string): Promise<boolean> {
+    public async ResetProject(id: string): Promise<boolean> {
         const deleteResponse = await this.requestor.Post(`api/project/recording/delete?tutorialId=${id}`);
         if (!deleteResponse.ok) {
             return false;
@@ -56,12 +52,11 @@ export class OnlineProjectWriter extends ProjectWriter {
     }
 }
 
-export class OnlineTransactionWriter extends TransactionWriter {
+export class OnlineITransactionWriter implements ITransactionWriter {
     constructor(protected requestor: ApiHttpRequest, protected tutorialId: string) {
-        super();
     }
 
-    protected async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
+    public async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
         const response = await this.requestor.Post(`api/project/recording/add?projectId=${projectId}`,
             new Blob([data]));
 
@@ -69,18 +64,19 @@ export class OnlineTransactionWriter extends TransactionWriter {
     }
 }
 
-export class OnlineTransactionLoader extends TransactionLoader {
+export class OnlineTransactionReader implements ITransactionReader {
     constructor(protected requestor: ApiHttpRequest, protected cacheBuster: string = null) {
-        super();
     }
 
-    protected async GetPartitionsForRange(
+    public async GetPartitionsForRange(
         project: TraceProject,
         startTime: number,
-        endTime: number): Promise<{ [partition: string]: string }> {
+        endTime: number,
+        cacheBuster: string): Promise<{ [partition: string]: string }> {
 
         const response = await this.requestor
-            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${endTime}${this.cacheBuster === null ? '' : `&cb=${this.cacheBuster}`}`);
+            .Get(`api/project/streaming/transactions?projectId=${project.getId()}&offsetStart=${startTime}&offsetEnd=${endTime}${this.cacheBuster === null ?
+                '' : `&cb=${this.cacheBuster}`}`);
 
         if (!response.ok) {
             return null;
@@ -89,13 +85,13 @@ export class OnlineTransactionLoader extends TransactionLoader {
         return await response.json();
     }
 
-    protected async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array> {
+    public async GetTransactionLog(project: TraceProject, partition: string, cacheBuster: string): Promise<TraceTransactionLog> {
         const response = await this.requestor.GetFullUrl(`${partition}${this.cacheBuster === null ? '' : `?cb=${this.cacheBuster}`}`);
 
         if (!response.ok) {
             return null;
         }
 
-        return new Uint8Array(await response.arrayBuffer());
+        return TraceTransactionLog.deserializeBinary(new Uint8Array(await response.arrayBuffer()));
     }
 }

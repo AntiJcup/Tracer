@@ -50,7 +50,7 @@ namespace Tracer
         }
     }
 
-    public class LocalTransactionWriter : TransactionWriter
+    public class LocalTransactionWriter : ITransactionWriter
     {
         public string ProjectDir { get; private set; }
 

@@ -35,7 +35,7 @@ public abstract class TransactionPlayer
     private int transactionLogIndex = 0;
 
     TransactionPlayerSettings settings;
-    ProjectLoader projectLoader;
+    IProjectReader projectLoader;
     TransactionLoader transactionLoader;
 
     Guid projectId;
@@ -50,7 +50,7 @@ public abstract class TransactionPlayer
 
     public TransactionPlayer(
         TransactionPlayerSettings settings,
-        ProjectLoader projectLoader,
+        IProjectReader projectLoader,
         TransactionLoader transactionLoader,
         Guid projectId)
     {

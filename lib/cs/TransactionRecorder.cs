@@ -7,7 +7,7 @@ using Google.Protobuf;
 namespace Tracer
 {
 
-    public class TransactionRecorder<TWriter> where TWriter : TransactionWriter
+    public class TransactionRecorder<TWriter> where TWriter : ITransactionWriter
     {
         public TraceProject Project { get; private set; }
 

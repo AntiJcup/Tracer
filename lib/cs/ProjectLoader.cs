@@ -3,9 +3,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Tracer;
 
-public abstract class ProjectLoader
+public abstract class IProjectReader
 {
-    ProjectLoader()
+    IProjectReader()
     {
     }
 

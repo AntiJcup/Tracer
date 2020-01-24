@@ -39,7 +39,7 @@ export class TransactionLoader {
         project: TraceProject,
         startTime: number,
         endTime: number,
-        cacheBuster: string): Promise<TraceTransactionLog[]> {
+        cacheBuster?: string): Promise<TraceTransactionLog[]> {
         const transactionLogs: TraceTransactionLog[] = new Array<TraceTransactionLog>();
         const partitions = await this.transactionReader.GetPartitionsForRange(project, startTime, endTime, cacheBuster);
 

@@ -1,9 +1,10 @@
 import { ITransactionWriter } from './ITransactionWriter'
-import { TraceTransactionLog, TraceProject } from '../../models/ts/Tracer_pb'
+import { TraceTransactionLog, TraceProject, TraceTransactionLogs } from '../../models/ts/Tracer_pb'
 import { TransactionLoader } from './TransactionLoader';
 import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 import { IProjectWriter } from './IProjectWriter';
 import { IProjectReader } from './IProjectReader';
+import { ITransactionReader } from './ITransactionReader';
 
 declare global {
     interface Window {
@@ -74,8 +75,8 @@ export class LocalTransactionWriter implements ITransactionWriter {
     }
 }
 
-export class LocalTransactionLoader extends TransactionLoader {
-    protected async GetPartitionsForRange(
+export class LocalTransactionReader implements ITransactionReader {
+    public async GetPartitionsForRange(
         project: TraceProject,
         startTime: number,
         endTime: number): Promise<{ [partition: string]: string }> {
@@ -90,10 +91,11 @@ export class LocalTransactionLoader extends TransactionLoader {
         return partitions;
     }
 
-    protected async GetTransactionLogStream(project: TraceProject, partition: string): Promise<Uint8Array> {
+    public async GetTransactionLog(project: TraceProject, partition: string): Promise<TraceTransactionLog> {
         if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
             return null;
         }
-        return window.transactionLogCache[project.getId()][partition];
+
+        return TraceTransactionLog.deserializeBinary(new Uint8Array(window.transactionLogCache[project.getId()][partition]));
     }
 }

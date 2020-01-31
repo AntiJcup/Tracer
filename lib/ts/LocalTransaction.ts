@@ -33,7 +33,7 @@ export class LocalProjectWriter implements IProjectWriter {
 
         const newProject = new TraceProject();
         newProject.setDuration(0);
-        newProject.setPartitionSize(5000);
+        newProject.setPartitionSize(30000);
         newProject.setId(id);
 
         window.projectCache[id] = newProject.serializeBinary();

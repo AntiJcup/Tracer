@@ -40,8 +40,17 @@ export class TransactionRecorder {
         private projectWriter: IProjectWriter,
         private transactionWriter: ITransactionWriter,
         protected cacheBuster: string,
-        private transactionLogs: TraceTransactionLog[] = []) {
+        protected transactionLogs: TraceTransactionLog[] = []) {
 
+        const presavedTransactions = this.transactionLogs.sort((a, b) => {
+            return a.getPartition() > b.getPartition() ? 1 : -1;
+        }).map((transactionLog: TraceTransactionLog) => {
+            return transactionLog.getPartition();
+        });
+        console.log(`loaded transaction logs: ${presavedTransactions}`);
+        presavedTransactions.pop();
+        this.savedTransactionLogPartions = this.savedTransactionLogPartions.concat(presavedTransactions);
+        console.log(`presaved transaction logs: ${this.savedTransactionLogPartions}`);
     }
 
     // Call this if you are starting a new recording session
@@ -87,6 +96,9 @@ export class TransactionRecorder {
         while (this.transactionLogs.length === 0 || partition !== (this.transactionLogs[this.transactionLogs.length - 1].getPartition())) {
             transactionLog = new TraceTransactionLog();
             transactionLog.setPartition(this.transactionLogs.length);
+            if (transactionLog.getPartition() > partition) {
+                break;
+            }
             this.transactionLogs.push(transactionLog);
             // console.log(`Created transaction log ${JSON.stringify(transactionLog.toObject())}`);
         }
@@ -287,16 +299,36 @@ export class TransactionRecorder {
 
     public async WriteTransactionLogs(transactionLogs: TraceTransactionLog[], projectId: string): Promise<boolean> {
         let success = true;
+        const savedParts: number[] = [];
         for (const transactionLog of transactionLogs) {
             if (this.savedTransactionLogPartions.indexOf(transactionLog.getPartition(), 0) !== -1) {
+                console.log(`Not saving ${transactionLog.getPartition()}`);
                 continue;
             }
             const saveResult = await this.SaveTransactionLog(transactionLog, projectId);
             if (saveResult) {
-                this.savedTransactionLogPartions.push(transactionLog.getPartition());
+                savedParts.push(transactionLog.getPartition());
             }
 
             success = success && saveResult;
+        }
+
+        const lastTransactionList = transactionLogs[transactionLogs.length - 1].getTransactionsList();
+        let lastFinishedPartition = 0;
+        if (lastTransactionList.length <= 0) {
+            lastFinishedPartition = (transactionLogs[transactionLogs.length - 1].getPartition() / this.project.getPartitionSize()) - 1;
+        } else {
+            lastFinishedPartition = Math.floor(
+                lastTransactionList[lastTransactionList.length - 1].getTimeOffsetMs() / this.project.getPartitionSize()) - 1;
+        }
+
+        for (const savedPart of savedParts) {
+            if (savedPart > lastFinishedPartition || lastFinishedPartition === -1) {
+                continue;
+            }
+
+            console.log(`Finished saving ${savedPart} lastFinishedPartition: ${lastFinishedPartition}`);
+            this.savedTransactionLogPartions.push(savedPart);
         }
 
         return success;

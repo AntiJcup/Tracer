@@ -1,4 +1,4 @@
-import { TraceTransactionLog, TraceProject, TraceTransaction } from '../../models/ts/Tracer_pb';
+import { TraceTransactionLog, TraceProject, TraceTransaction, TraceTransactionLogs } from '../../models/ts/Tracer_pb';
 import { TransactionLoader } from './TransactionLoader';
 import { IProjectReader } from './IProjectReader';
 import { ITransactionReader } from './ITransactionReader';
@@ -59,6 +59,10 @@ export abstract class TransactionPlayer {
         return this.internalPosition >= this.internalLoadPosition && this.duration > this.internalLoadPosition;
     }
 
+    public get isCaughtUp(): boolean {
+        return this.internalPosition === this.previousPosition;
+    }
+
     constructor(
         public settings: TransactionPlayerSettings,
         protected projectLoader: IProjectReader,
@@ -108,6 +112,10 @@ export abstract class TransactionPlayer {
         this.position = newPos;
     }
 
+    public GetLoadedTransactionLogs(): TraceTransactionLog[] {
+        return this.transactionLogs;
+    }
+
     protected ThrowIfNotLoaded(): void {
         if (this.project == null) {
             throw new Error('project not loaded');
@@ -137,7 +145,12 @@ export abstract class TransactionPlayer {
         this.onLoadStart();
         this.transactionLoader.GetTransactionLogs(this.project, start, end, this.cacheBuster)
             .then((transactionLogs: TraceTransactionLog[]) => {
-                this.transactionLogs = this.transactionLogs.concat(transactionLogs).sort((a, b) => {
+                this.transactionLogs = this.transactionLogs.concat(transactionLogs);
+                this.transactionLogs = this.transactionLogs.filter((item, index, array) => {
+                    return !array.find((findItem, findIndex) => {
+                        return findItem.getPartition() === item.getPartition() && findIndex > index;
+                    });
+                }).sort((a, b) => {
                     return a.getPartition() > b.getPartition() ? 1 : -1;
                 });
                 this.internalLoadPosition = end;

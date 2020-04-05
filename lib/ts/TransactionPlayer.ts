@@ -29,6 +29,7 @@ export abstract class TransactionPlayer {
     private transactionLogs: TraceTransactionLog[] = [];
     private transactionLogIndex = 0;
     protected transactionLoader: TransactionLoader;
+    private caughtUpState = false;
 
     public get position(): number {
         return this.internalPosition;
@@ -124,6 +125,7 @@ export abstract class TransactionPlayer {
 
     protected abstract onLoadStart(): void;
     protected abstract onLoadComplete(): void;
+    protected abstract onCaughtUp(): void;
 
     protected LoadLoop(): void {
         if (this.loadingChunk || this.project == null) {
@@ -168,6 +170,14 @@ export abstract class TransactionPlayer {
         if (this.isBuffering) {
             return;
         }
+
+        if (!this.caughtUpState && this.isCaughtUp) {
+            this.caughtUpState = true;
+            this.onCaughtUp();
+            return;
+        }
+
+        this.caughtUpState = false;
 
         // Handle rewind
         let lastTransactionOffset = 0;

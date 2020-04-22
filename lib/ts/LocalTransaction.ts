@@ -18,6 +18,9 @@ export class LocalProjectLoader implements IProjectReader {
     }
 
     public async GetProject(id: string): Promise<TraceProject> {
+        if (!window.projectCache) {
+            window.projectCache = new Map<string, Uint8Array>();
+        }
         return TraceProject.deserializeBinary(new Uint8Array(window.projectCache[id]));
     }
 }
@@ -27,7 +30,7 @@ export class LocalProjectWriter implements IProjectWriter {
     }
 
     public async CreateProject(id: string): Promise<boolean> {
-        if (window.projectCache == null) {
+        if (!window.projectCache) {
             window.projectCache = new Map<string, Uint8Array>();
         }
 
@@ -53,11 +56,11 @@ export class LocalProjectWriter implements IProjectWriter {
 
 export class LocalTransactionWriter implements ITransactionWriter {
     public async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
-        if (window.transactionLogCache == null) {
+        if (!window.transactionLogCache) {
             window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
         }
 
-        if (window.transactionLogCache[projectId] == null) {
+        if (!window.transactionLogCache[projectId]) {
             window.transactionLogCache[projectId] = new Map<number, Uint8Array>();
         }
 

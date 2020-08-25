@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Google.Protobuf;
 
 namespace Tracer
 {
@@ -32,7 +31,7 @@ namespace Tracer
             {
                 return null;
             }
-            return File.OpenRead(filePath);
+            return await Task.FromResult(File.OpenRead(filePath));
         }
 
         protected override async Task<Dictionary<string, int>> GetPartitionsForRange(TraceProject project, int startTime, int endTime)
@@ -46,7 +45,7 @@ namespace Tracer
                 partitions[partition.ToString()] = (int)partition;
             }
 
-            return partitions;
+            return await Task.FromResult(partitions);
         }
     }
 

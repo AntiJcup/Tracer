@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Google.Protobuf;
-
 namespace Tracer
 {
     public static class TraceProjectExtensions

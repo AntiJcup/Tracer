@@ -104,7 +104,7 @@ export abstract class TransactionPlayer {
         this.internalPosition = this.previousPosition; // Snap to where we actually are
     }
 
-    public SetPostionPct(pct: number) {
+    public SetPositionPct(pct: number) {
         if (pct > 1 || pct < 0) {
             throw new Error('Invalid pct');
         }

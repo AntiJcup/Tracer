@@ -2346,7 +2346,7 @@ proto.google.protobuf.TraceTransaction.TraceTransactionType = {
   RENAMEFILE: 5,
   UPLOADFILE: 6,
   SCROLLFILE: 7,
-  MOSUEMOVE: 8,
+  MOUSEMOVE: 8,
   CUSTOMACTION: 9
 };
 

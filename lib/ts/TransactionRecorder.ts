@@ -242,7 +242,7 @@ export class TransactionRecorder {
 
     public MouseMove(timeOffset: number, x: number, y: number) {
         const transaction = new TraceTransaction();
-        transaction.setType(TraceTransaction.TraceTransactionType.MOSUEMOVE);
+        transaction.setType(TraceTransaction.TraceTransactionType.MOUSEMOVE);
         transaction.setTimeOffsetMs(timeOffset);
         const data = new MouseMoveData();
         data.setX(x);

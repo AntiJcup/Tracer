@@ -69,7 +69,7 @@ message TraceTransaction {
         RenameFile = 5;
         UploadFile = 6;
         ScrollFile = 7;
-        MosueMove = 8;
+        Mousemove = 8;
         CustomAction = 9;
     }
 

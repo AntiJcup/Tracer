@@ -2388,7 +2388,7 @@ namespace Tracer {
         [pbr::OriginalName("RenameFile")] RenameFile = 5,
         [pbr::OriginalName("UploadFile")] UploadFile = 6,
         [pbr::OriginalName("ScrollFile")] ScrollFile = 7,
-        [pbr::OriginalName("MosueMove")] MosueMove = 8,
+        [pbr::OriginalName("Mousemove")] Mousemove = 8,
         [pbr::OriginalName("CustomAction")] CustomAction = 9,
       }
 

@@ -7,98 +7,98 @@ import { IProjectReader } from './IProjectReader';
 import { ITransactionReader } from './ITransactionReader';
 
 declare global {
-    interface Window {
-        projectCache: Map<string, Uint8Array>;
-        transactionLogCache: Map<string, Map<number, Uint8Array>>;
-    }
+  interface Window {
+    projectCache: Map<string, Uint8Array>;
+    transactionLogCache: Map<string, Map<number, Uint8Array>>;
+  }
 }
 
 export class LocalProjectLoader implements IProjectReader {
-    constructor() {
-    }
+  constructor() {
+  }
 
-    public async GetProject(id: string): Promise<TraceProject> {
-        if (!window.projectCache) {
-            window.projectCache = new Map<string, Uint8Array>();
-        }
-        return TraceProject.deserializeBinary(new Uint8Array(window.projectCache[id]));
+  public async GetProject(id: string): Promise<TraceProject> {
+    if (!window.projectCache) {
+      window.projectCache = new Map<string, Uint8Array>();
     }
+    return TraceProject.deserializeBinary(new Uint8Array(window.projectCache[id]));
+  }
 }
 
 export class LocalProjectWriter implements IProjectWriter {
-    constructor() {
+  constructor() {
+  }
+
+  public async CreateProject(id: string): Promise<string> {
+    if (!window.projectCache) {
+      window.projectCache = new Map<string, Uint8Array>();
     }
 
-    public async CreateProject(id: string): Promise<boolean> {
-        if (!window.projectCache) {
-            window.projectCache = new Map<string, Uint8Array>();
-        }
+    const newProject = new TraceProject();
+    newProject.setDuration(0);
+    newProject.setPartitionSize(30000);
+    newProject.setId(id);
 
-        const newProject = new TraceProject();
-        newProject.setDuration(0);
-        newProject.setPartitionSize(30000);
-        newProject.setId(id);
+    window.projectCache[id] = newProject.serializeBinary();
 
-        window.projectCache[id] = newProject.serializeBinary();
+    return id;
+  }
 
-        return true;
+  public async ResetProject(id: string): Promise<boolean> {
+    if (!window.projectCache) {
+      return true;
     }
+    delete window.projectCache[id];
 
-    public async ResetProject(id: string): Promise<boolean> {
-        if (!window.projectCache) {
-            return true;
-        }
-        delete window.projectCache[id];
-
-        return true;
-    }
+    return true;
+  }
 }
 
 export class LocalTransactionWriter implements ITransactionWriter {
-    public async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
-        if (!window.transactionLogCache) {
-            window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
-        }
-
-        if (!window.transactionLogCache[projectId]) {
-            window.transactionLogCache[projectId] = new Map<number, Uint8Array>();
-        }
-
-        window.transactionLogCache[projectId][transactionLog.getPartition()] = data;
-
-        const project = await (new LocalProjectLoader()).GetProject(projectId);
-        const currentDuration = project.getDuration();
-        const newDuration = transactionLog.getPartition() * project.getPartitionSize();
-        if (currentDuration < newDuration) {
-            project.setDuration(newDuration);
-            window.projectCache[projectId] = project.serializeBinary();
-        }
-
-        return true;
+  public async WriteTransactionLog(transactionLog: TraceTransactionLog, data: Uint8Array, projectId: string): Promise<boolean> {
+    if (!window.transactionLogCache) {
+      window.transactionLogCache = new Map<string, Map<number, Uint8Array>>();
     }
+
+    if (!window.transactionLogCache[projectId]) {
+      window.transactionLogCache[projectId] = new Map<number, Uint8Array>();
+    }
+
+    window.transactionLogCache[projectId][transactionLog.getPartition()] = data;
+
+    const project = await (new LocalProjectLoader()).GetProject(projectId);
+    const currentDuration = project.getDuration();
+    const newDuration = transactionLog.getPartition() * project.getPartitionSize();
+    if (currentDuration < newDuration) {
+      project.setDuration(newDuration);
+      window.projectCache[projectId] = project.serializeBinary();
+    }
+
+    return true;
+  }
 }
 
 export class LocalTransactionReader implements ITransactionReader {
-    public async GetPartitionsForRange(
-        project: TraceProject,
-        startTime: number,
-        endTime: number): Promise<{ [partition: string]: string }> {
-        const partitions: { [partition: string]: string } = {};
-        const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
-        const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
+  public async GetPartitionsForRange(
+    project: TraceProject,
+    startTime: number,
+    endTime: number): Promise<{ [partition: string]: string }> {
+    const partitions: { [partition: string]: string } = {};
+    const partitionStart = Math.min(PartitionFromOffsetBottom(project, startTime), project.getDuration() / project.getPartitionSize());
+    const partitionEnd = Math.min(PartitionFromOffsetTop(project, endTime), project.getDuration() / project.getPartitionSize());
 
-        for (let partition = partitionStart; partition <= partitionEnd; partition++) {
-            partitions[partition] = partition.toString();
-        }
-
-        return partitions;
+    for (let partition = partitionStart; partition <= partitionEnd; partition++) {
+      partitions[partition] = partition.toString();
     }
 
-    public async GetTransactionLog(project: TraceProject, partition: string): Promise<TraceTransactionLog> {
-        if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
-            return null;
-        }
+    return partitions;
+  }
 
-        return TraceTransactionLog.deserializeBinary(new Uint8Array(window.transactionLogCache[project.getId()][partition]));
+  public async GetTransactionLog(project: TraceProject, partition: string): Promise<TraceTransactionLog> {
+    if (!window.transactionLogCache || !window.transactionLogCache[project.getId()]) {
+      return null;
     }
+
+    return TraceTransactionLog.deserializeBinary(new Uint8Array(window.transactionLogCache[project.getId()][partition]));
+  }
 }

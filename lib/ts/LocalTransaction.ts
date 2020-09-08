@@ -5,6 +5,7 @@ import { PartitionFromOffsetBottom, PartitionFromOffsetTop } from './Common';
 import { IProjectWriter } from './IProjectWriter';
 import { IProjectReader } from './IProjectReader';
 import { ITransactionReader } from './ITransactionReader';
+import { Guid } from 'guid-typescript';
 
 declare global {
   interface Window {
@@ -29,7 +30,8 @@ export class LocalProjectWriter implements IProjectWriter {
   constructor() {
   }
 
-  public async CreateProject(id: string): Promise<string> {
+  public async CreateProject(): Promise<string> {
+    const id = Guid.create().toString();
     if (!window.projectCache) {
       window.projectCache = new Map<string, Uint8Array>();
     }

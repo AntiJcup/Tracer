@@ -1,4 +1,4 @@
 export interface IProjectWriter {
-    CreateProject(id: string): Promise<string>;
+    CreateProject(): Promise<string>;
     ResetProject(id: string): Promise<boolean>;
 }
